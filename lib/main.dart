@@ -34,12 +34,15 @@ class HomeState extends State<ApplicationHome>{
   /// 应用加载数据
   ///
   void _loadData() async{
-   Timer timer;
-   timer=Timer.periodic(Duration(seconds: 3),(e){
+    Timer timer;
+    timer = Timer.periodic(Duration(seconds: 3), (event)
+    {
+      Navigator.of(context).push(
+          MaterialPageRoute(builder: (BuildContext context) => Login()));
+      timer.cancel();
+    }
 
-     Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context)=>Login()));
-     timer.cancel();
-   });
+    );
   }
 
   HomeState(){
