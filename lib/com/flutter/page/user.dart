@@ -12,7 +12,6 @@ class UserCenter extends StatefulWidget {
 }
 
 class UserCenterState extends State<UserCenter> with SingleTickerProviderStateMixin {
-  String _title = "消息";
   static final List<Tab> _tabs = [
     Tab(
       text: "消息",
@@ -26,13 +25,16 @@ class UserCenterState extends State<UserCenter> with SingleTickerProviderStateMi
   ];
    TabController _tabController;
   int _currentIndex = 0;
+  List<String> _titles = [
+    "消息","联系人","动态"
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: new Text(_title),
+        title: new Text(_titles[_currentIndex]),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.add),
@@ -218,13 +220,5 @@ class UserCenterState extends State<UserCenter> with SingleTickerProviderStateMi
   void dispose() {
     super.dispose();
     _tabController.dispose();
-  }
-}
-
-class MyTickerProvider extends TickerProvider {
-  @override
-  Ticker createTicker(TickerCallback onTick) {
-    Ticker  ticker = Ticker(onTick);
-    return ticker;
   }
 }
