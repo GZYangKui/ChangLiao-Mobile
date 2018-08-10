@@ -1,10 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/src/scheduler/ticker.dart';
-import 'package:flutter_app/com/flutter/beautiful/CustomerOval.dart';
-import 'package:flutter_app/com/flutter/component/personInfo.dart';
-import 'package:flutter_app/com/flutter/component/search.dart';
+import 'package:flutter_app/com/navigation/beautiful/CustomerOval.dart';
+import 'package:flutter_app/com/navigation/component/personInfo.dart';
+import 'package:flutter_app/com/navigation/component/search.dart';
 
 class UserCenter extends StatefulWidget {
   @override

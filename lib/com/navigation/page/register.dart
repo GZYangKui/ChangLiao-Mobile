@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/com/flutter/utils/constant.dart' as constants;
 import 'dart:convert';
+import 'package:flutter_app/com/navigation/utils/constant.dart' as constants;
 
 class Register extends StatefulWidget {
   @override

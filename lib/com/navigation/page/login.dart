@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_app/com/flutter/page/user.dart';
-import 'package:flutter_app/com/flutter/page/register.dart';
+import 'package:flutter_app/com/navigation/page/register.dart';
+import 'package:flutter_app/com/navigation/page/user.dart';
+
 
 class Login extends StatefulWidget {
   @override

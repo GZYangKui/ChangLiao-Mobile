@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'com/flutter/page/login.dart';
+import 'package:flutter_app/com/navigation/page/login.dart';
 
 void main() =>runApp(Application());
 
