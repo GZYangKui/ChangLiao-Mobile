@@ -1,8 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app/com/navigation/page/register.dart';
 import 'package:flutter_app/com/navigation/page/user.dart';
+import 'package:flutter_app/com/navigation/netwok/socket_handler.dart' as handler;
+import 'package:flutter_app/com/navigation/utils/constant.dart' as constants;
 
 
 class Login extends StatefulWidget {
@@ -11,10 +15,14 @@ class Login extends StatefulWidget {
 }
 
 class LoginState extends State<Login> {
+  String _userName ="";
+  String _password ="";
+  GlobalKey<ScaffoldState> key = GlobalKey();
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       child: Scaffold(
+        key: key,
         body: Container(
           margin: EdgeInsets.only(top: 100.0, left: 20.0, right: 20.0),
           child: ListView(
@@ -51,6 +59,7 @@ class LoginState extends State<Login> {
                   Expanded(
                     child: TextField(
                       decoration: InputDecoration(labelText: "用户名"),
+                      onChanged: (value)=>_userName = value,
                     ),
                   ),
                 ],
@@ -60,6 +69,7 @@ class LoginState extends State<Login> {
                   Expanded(
                     child: TextField(
                       decoration: InputDecoration(labelText: "密码"),
+                      onChanged: (value)=>_password=value,
                     ),
                   )
                 ],
@@ -134,12 +144,39 @@ class LoginState extends State<Login> {
   @override
   void initState() {
     super.initState();
-    //SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top]);
+    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top]);
   }
 
-  void _vailUser() {
-    //检验用户数据是否正确
+  void _vailUser() async {
+    if(_userName.trim()==""){
+      _showAlertMessage("用户名不能为空!");
+      return;
+    }
+    if(_password.trim()==""){
+      _showAlertMessage("密码不能为空!");
+      return;
+    }
+    Map requestMes ={
+      constants.type:constants.user,
+      constants.subtype:constants.subtype,
+      constants.user:_userName,
+      constants.password:_password,
+      constants.version:constants.currentVersion,
+    };
+    try {
+      handler.socket=await handler.initSocket();
+      handler.socketHandler();
+      handler.sendRequest(json.encode(requestMes)+constants.end);
+    }catch(e){
+      _showAlertMessage("网络异常");
+      return;
+    }
     Navigator.push(context,
         MaterialPageRoute(builder: (BuildContext context) => UserCenter()));
+  }
+
+  void _showAlertMessage(String message){
+   key.currentState.showSnackBar(SnackBar(content: Text(message)));
+
   }
 }

@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app/com/navigation/beautiful/CustomerOval.dart';
 import 'package:flutter_app/com/navigation/component/MessageListItem.dart';
-import 'package:flutter_app/com/navigation/model/message_list_item_model.dart';
+import 'package:flutter_app/com/navigation/models/message_list_item_model.dart';
 import 'package:flutter_app/com/navigation/page/sub_page/about_program.dart';
 import 'package:flutter_app/com/navigation/page/sub_page/personInfo.dart';
 import 'package:flutter_app/com/navigation/page/sub_page/search.dart';
 import 'package:flutter_app/com/navigation/page/login.dart';
+import 'package:flutter_app/com/navigation/netwok/socket_handler.dart' as handler;
 
 class UserCenter extends StatefulWidget {
   @override
@@ -17,13 +18,13 @@ class UserCenter extends StatefulWidget {
 class UserCenterState extends State<UserCenter>
     with SingleTickerProviderStateMixin {
   static final List<MessageListItem> messageListItem = [
-    MessageListItem(MessageListItemModel(messags: ["hello"],name:"yangkui")),
-    MessageListItem(MessageListItemModel(messags: ["hello"],name:"yangkui"))
+    MessageListItem(MessageListItemModel(messags: ["hello"], name: "yangkui")),
+    MessageListItem(MessageListItemModel(messags: ["hello"], name: "yangkui"))
   ];
   static final List<Tab> _tabs = [
     Tab(
       child: ListView(
-        children:messageListItem,
+        children: messageListItem,
       ),
     ),
     Tab(
@@ -35,7 +36,7 @@ class UserCenterState extends State<UserCenter>
   ];
   TabController _tabController;
   int _currentIndex = 0;
-  List<String> _titles = ["消息", "联系人", "动态"];
+  final List<String> _titles = ["消息", "联系人", "动态"];
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +82,7 @@ class UserCenterState extends State<UserCenter>
           currentIndex: _currentIndex,
         ),
       ),
-      onWillPop: (){
+      onWillPop: () {
         SystemNavigator.pop();
       },
     );
@@ -90,9 +91,8 @@ class UserCenterState extends State<UserCenter>
   @override
   void initState() {
     super.initState();
-    _tabController =
-        TabController(initialIndex: 0, length: _tabs.length, vsync: this);
-    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top]);
+    handler.userCenterState=this;
+    _tabController = TabController(initialIndex: 0, length: _tabs.length, vsync: this);
     _tabController.addListener(() {
       this.setState(() {
         this._currentIndex = _tabController.index;
@@ -247,6 +247,10 @@ class UserCenterState extends State<UserCenter>
   void dispose() {
     super.dispose();
     _tabController.dispose();
+    if(handler.socket!=null){
+      handler.socket.destroy();
+      handler.socket.close();
+    }
   }
 
   void _logout() {
@@ -287,5 +291,9 @@ class UserCenterState extends State<UserCenter>
             ],
           ),
     );
+  }
+
+  void acceptSocketData(dynamic data) {
+    print(data);
   }
 }
