@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app/com/navigation/beautiful/CustomerOval.dart';
+import 'package:flutter_app/com/navigation/component/MessageListItem.dart';
+import 'package:flutter_app/com/navigation/model/message_list_item_model.dart';
 import 'package:flutter_app/com/navigation/page/sub_page/about_program.dart';
 import 'package:flutter_app/com/navigation/page/sub_page/personInfo.dart';
 import 'package:flutter_app/com/navigation/page/sub_page/search.dart';
@@ -14,9 +16,15 @@ class UserCenter extends StatefulWidget {
 
 class UserCenterState extends State<UserCenter>
     with SingleTickerProviderStateMixin {
+  static final List<MessageListItem> messageListItem = [
+    MessageListItem(MessageListItemModel(messags: ["hello"],name:"yangkui")),
+    MessageListItem(MessageListItemModel(messags: ["hello"],name:"yangkui"))
+  ];
   static final List<Tab> _tabs = [
     Tab(
-      text: "消息",
+      child: ListView(
+        children:messageListItem,
+      ),
     ),
     Tab(
       text: "联系人",

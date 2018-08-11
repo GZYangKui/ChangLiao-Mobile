@@ -27,7 +27,7 @@ class AboutState extends State<About> {
                   child: ClipOval(
                     clipper: CustomerOval(50.0, 50.0, 60.0),
                     child: Image.asset(
-                      "assets/images/login_icon.png",
+                      "assets/images/icon.png",
                       width: 100.0,
                       height: 100.0,
                     ),

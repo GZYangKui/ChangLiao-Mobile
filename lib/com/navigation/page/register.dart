@@ -33,7 +33,7 @@ class RegisterState extends State<Register> {
                     children: <Widget>[
                       Expanded(
                         child: Image.asset(
-                          "assets/images/login_icon.png",
+                          "assets/images/icon.png",
                           width: 100.0,
                           height: 100.0,
                         ),

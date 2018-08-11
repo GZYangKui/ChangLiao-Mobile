@@ -27,7 +27,7 @@ class LoginState extends State<Login> {
                       child: Row(
                         children: <Widget>[
                           Image.asset(
-                            "assets/images/login_icon.png",
+                            "assets/images/icon.png",
                             width: 70.0,
                             height: 70.0,
                           ),
