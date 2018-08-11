@@ -56,6 +56,16 @@ class MessageListItemState extends State<MessageListItem> {
                       ),
                     ),
                     Container(
+                      width: 30.0,
+                      height: 20.0,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.rectangle,
+                        color: Color.fromRGBO(142, 229, 238, 0.8),
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(7.0),
+                        ),
+                      ),
                       child: Text(model.messages.length.toString()),
                     ),
                   ],
