@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app/com/navigation/beautiful/CustomerOval.dart';
+import 'package:flutter_app/com/navigation/component/about_program.dart';
 import 'package:flutter_app/com/navigation/component/personInfo.dart';
 import 'package:flutter_app/com/navigation/component/search.dart';
 
@@ -77,6 +78,11 @@ class UserCenterState extends State<UserCenter> with SingleTickerProviderStateMi
     super.initState();
     _tabController= TabController(initialIndex: 0, length: _tabs.length, vsync:this);
     SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top]);
+    _tabController.addListener((){
+      this.setState((){
+        this._currentIndex=_tabController.index;
+      });
+    });
   }
 
   Widget _applicationDrawer() {
@@ -90,7 +96,7 @@ class UserCenterState extends State<UserCenter> with SingleTickerProviderStateMi
                       height: 200.0,
                       alignment: Alignment.centerLeft,
                       decoration: BoxDecoration(
-                        color: Color.fromRGBO(200, 245, 150, 0.8),
+                        color: Colors.lightBlue,
                         border: Border(
                           bottom: BorderSide(
                             color: Color.fromRGBO(205, 205, 193, 0.8),
@@ -120,7 +126,7 @@ class UserCenterState extends State<UserCenter> with SingleTickerProviderStateMi
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
                               ClipOval(
-                                clipper: CustomerOval(),
+                                clipper: CustomerOval(50.0,50.0,40.0),
                                 child: Image.asset(
                                   "assets/images/head.png",
                                   width: 100.0,
@@ -177,6 +183,9 @@ class UserCenterState extends State<UserCenter> with SingleTickerProviderStateMi
                     ),
                   ],
                 ),
+                onTapDown: (e){
+                  Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context)=>About()));
+                },
               ),
               GestureDetector(
                 child: Row(
