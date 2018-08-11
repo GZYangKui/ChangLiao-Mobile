@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app/com/navigation/beautiful/CustomerOval.dart';
-import 'package:flutter_app/com/navigation/component/about_program.dart';
-import 'package:flutter_app/com/navigation/component/personInfo.dart';
-import 'package:flutter_app/com/navigation/component/search.dart';
+import 'package:flutter_app/com/navigation/page/sub_page/about_program.dart';
+import 'package:flutter_app/com/navigation/page/sub_page/personInfo.dart';
+import 'package:flutter_app/com/navigation/page/sub_page/search.dart';
 import 'package:flutter_app/com/navigation/page/login.dart';
 
 class UserCenter extends StatefulWidget {
