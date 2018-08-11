@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app/com/navigation/beautiful/CustomerOval.dart';
-import 'package:flutter_app/com/navigation/component/MessageListItem.dart';
+import 'package:flutter_app/com/navigation/component/message_list_item.dart';
 import 'package:flutter_app/com/navigation/models/message_list_item_model.dart';
 import 'package:flutter_app/com/navigation/page/subpage/about_program.dart';
 import 'package:flutter_app/com/navigation/page/subpage/personInfo.dart';
@@ -271,7 +271,7 @@ class UserCenterState extends State<UserCenter>
                 children: <Widget>[
                   RaisedButton(
                     child: Text("取消"),
-                    onPressed: () => Navigator.pop(context),
+                    onPressed: () =>Navigator.pop(context),
                   ),
                   SizedBox(
                     width: 10.0,
@@ -280,6 +280,8 @@ class UserCenterState extends State<UserCenter>
                   RaisedButton(
                     child: Text("确定"),
                     onPressed: () {
+                      handler.socket?.destroy();
+                      handler.socket?.close();
                       Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -294,6 +296,6 @@ class UserCenterState extends State<UserCenter>
   }
 
   void acceptSocketData(dynamic data) {
-    print(data);
+   // todo 处理服务器发送过来的数据
   }
 }

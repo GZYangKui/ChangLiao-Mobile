@@ -70,6 +70,7 @@ class LoginState extends State<Login> {
                     child: TextField(
                       decoration: InputDecoration(labelText: "密码"),
                       onChanged: (value)=>_password=value,
+                      obscureText: true,
                     ),
                   )
                 ],
@@ -144,7 +145,7 @@ class LoginState extends State<Login> {
   @override
   void initState() {
     super.initState();
-    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top]);
+    handler.login=this;
   }
 
   void _vailUser() async {
@@ -177,6 +178,5 @@ class LoginState extends State<Login> {
 
   void _showAlertMessage(String message){
    key.currentState.showSnackBar(SnackBar(content: Text(message)));
-
   }
 }

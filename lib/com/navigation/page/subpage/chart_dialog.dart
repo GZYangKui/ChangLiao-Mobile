@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/com/navigation/component/chart_message_item.dart';
 
 class ChartDialog extends StatefulWidget {
   List<String> _list;
@@ -30,8 +31,10 @@ class ChartDialogState extends State<ChartDialog> {
       body: Column(
         children: <Widget>[
           Expanded(
-            child: ListView(
-              children: <Widget>[],
+            child: ListView.builder(
+              itemBuilder: (BuildContext context, int index) =>
+                  ChartMessageItem(_list[index]),
+              itemCount: _list.length,
             ),
           ),
           Column(
@@ -45,15 +48,6 @@ class ChartDialogState extends State<ChartDialog> {
                   ),
                 ],
               ),
-            /*  Row(
-                children: <Widget>[
-                  IconButton(
-                    padding: EdgeInsets.all(1.00),
-                    icon: Icon(Icons.face,size: 30.0,),
-                    onPressed: () {},
-                  ),
-                ],
-              ),*/
             ],
           ),
         ],

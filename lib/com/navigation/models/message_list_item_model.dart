@@ -6,6 +6,4 @@ class MessageListItemModel {
     this.messages = messags;
     this.name     = name;
 }
-
-
 }
