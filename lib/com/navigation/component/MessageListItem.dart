@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/com/navigation/models/message_list_item_model.dart';
-import 'package:flutter_app/com/navigation/page/sub_page/chart_dialog.dart';
+import 'package:flutter_app/com/navigation/page/subpage/chart_dialog.dart';
 
 ///
 /// 消息列表itme

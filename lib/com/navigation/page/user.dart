@@ -4,9 +4,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_app/com/navigation/beautiful/CustomerOval.dart';
 import 'package:flutter_app/com/navigation/component/MessageListItem.dart';
 import 'package:flutter_app/com/navigation/models/message_list_item_model.dart';
-import 'package:flutter_app/com/navigation/page/sub_page/about_program.dart';
-import 'package:flutter_app/com/navigation/page/sub_page/personInfo.dart';
-import 'package:flutter_app/com/navigation/page/sub_page/search.dart';
+import 'package:flutter_app/com/navigation/page/subpage/about_program.dart';
+import 'package:flutter_app/com/navigation/page/subpage/personInfo.dart';
+import 'package:flutter_app/com/navigation/page/subpage/search.dart';
 import 'package:flutter_app/com/navigation/page/login.dart';
 import 'package:flutter_app/com/navigation/netwok/socket_handler.dart' as handler;
 
