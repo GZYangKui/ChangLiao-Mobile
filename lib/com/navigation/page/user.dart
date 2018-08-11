@@ -5,13 +5,15 @@ import 'package:flutter_app/com/navigation/beautiful/CustomerOval.dart';
 import 'package:flutter_app/com/navigation/component/about_program.dart';
 import 'package:flutter_app/com/navigation/component/personInfo.dart';
 import 'package:flutter_app/com/navigation/component/search.dart';
+import 'package:flutter_app/com/navigation/page/login.dart';
 
 class UserCenter extends StatefulWidget {
   @override
   UserCenterState createState() => UserCenterState();
 }
 
-class UserCenterState extends State<UserCenter> with SingleTickerProviderStateMixin {
+class UserCenterState extends State<UserCenter>
+    with SingleTickerProviderStateMixin {
   static final List<Tab> _tabs = [
     Tab(
       text: "消息",
@@ -23,64 +25,69 @@ class UserCenterState extends State<UserCenter> with SingleTickerProviderStateMi
       text: "动态",
     )
   ];
-   TabController _tabController;
+  TabController _tabController;
   int _currentIndex = 0;
-  List<String> _titles = [
-    "消息","联系人","动态"
-  ];
+  List<String> _titles = ["消息", "联系人", "动态"];
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: new Text(_titles[_currentIndex]),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.add),
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (BuildContext context) => Search()));
-            },
-          ),
-        ],
+    return WillPopScope(
+      child: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: new Text(_titles[_currentIndex]),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.add),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => Search()));
+              },
+            ),
+          ],
+        ),
+        drawer: Drawer(
+          child: _applicationDrawer(),
+        ),
+        body: TabBarView(
+          children: _tabs,
+          controller: _tabController,
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          items: [
+            BottomNavigationBarItem(
+                icon: Icon(Icons.message), title: Text("消息")),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.perm_contact_calendar), title: Text("联系人")),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.streetview), title: Text("动态")),
+          ],
+          onTap: (index) {
+            this.setState(() {
+              _currentIndex = index;
+            });
+            _tabController.animateTo(index);
+          },
+          currentIndex: _currentIndex,
+        ),
       ),
-      drawer: Drawer(
-        child: _applicationDrawer(),
-      ),
-      body: TabBarView(
-        children: _tabs,
-        controller: _tabController,
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: [
-          BottomNavigationBarItem(icon: Icon(Icons.message), title: Text("消息")),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.perm_contact_calendar), title: Text("联系人")),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.streetview), title: Text("动态")),
-        ],
-        onTap: (index) {
-          this.setState(() {
-            _currentIndex = index;
-          });
-          _tabController.animateTo(index);
-        },
-        currentIndex: _currentIndex,
-      ),
+      onWillPop: (){
+        SystemNavigator.pop();
+      },
     );
   }
 
   @override
   void initState() {
     super.initState();
-    _tabController= TabController(initialIndex: 0, length: _tabs.length, vsync:this);
+    _tabController =
+        TabController(initialIndex: 0, length: _tabs.length, vsync: this);
     SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top]);
-    _tabController.addListener((){
-      this.setState((){
-        this._currentIndex=_tabController.index;
+    _tabController.addListener(() {
+      this.setState(() {
+        this._currentIndex = _tabController.index;
       });
     });
   }
@@ -126,7 +133,7 @@ class UserCenterState extends State<UserCenter> with SingleTickerProviderStateMi
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
                               ClipOval(
-                                clipper: CustomerOval(50.0,50.0,40.0),
+                                clipper: CustomerOval(50.0, 50.0, 40.0),
                                 child: Image.asset(
                                   "assets/images/head.png",
                                   width: 100.0,
@@ -183,8 +190,9 @@ class UserCenterState extends State<UserCenter> with SingleTickerProviderStateMi
                     ),
                   ],
                 ),
-                onTapDown: (e){
-                  Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context)=>About()));
+                onTapDown: (e) {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (BuildContext context) => About()));
                 },
               ),
               GestureDetector(
@@ -218,6 +226,9 @@ class UserCenterState extends State<UserCenter> with SingleTickerProviderStateMi
                     ),
                   ],
                 ),
+                onTapDown: (e) {
+                  _logout();
+                },
               ),
             ],
           ),
@@ -228,5 +239,45 @@ class UserCenterState extends State<UserCenter> with SingleTickerProviderStateMi
   void dispose() {
     super.dispose();
     _tabController.dispose();
+  }
+
+  void _logout() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => SimpleDialog(
+            title: Text("消息"),
+            children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[Text("你确定要退出当前账号?")],
+              ),
+              SizedBox(
+                height: 10.0,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  RaisedButton(
+                    child: Text("取消"),
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                  SizedBox(
+                    width: 10.0,
+                    height: 0.0,
+                  ),
+                  RaisedButton(
+                    child: Text("确定"),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) => Login()));
+                    },
+                  ),
+                ],
+              )
+            ],
+          ),
+    );
   }
 }
