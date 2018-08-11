@@ -19,7 +19,7 @@ flutter dart java
 ### Drawer
 ![加载失败](https://github.com/GZYangKui/flutter-IM/blob/master/snap-shot/Screenshot_2018-08-11-00-40-23.png=300*300 "drawer")
 ### 个人信息中心
-![加载失败](https://github.com/GZYangKui/flutter-IM/blob/master/snap-shot/Screenshot_2018-08-11-00-40-07.png=300*300 "个人信息中心")
+![加载失败](https://github.com/GZYangKui/flutter-IM/blob/master/snap-shot/Screenshot_2018-08-11-09-50-14.png=300*300 "个人信息中心")
 
 
 ### 由于本人也是初次接触flutter,代码存在不足之处,还烦请不吝指出!
