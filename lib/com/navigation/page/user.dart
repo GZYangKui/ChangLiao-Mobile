@@ -148,7 +148,7 @@ class UserCenterState extends State<UserCenter>
                               Padding(
                                 padding: EdgeInsets.only(top: 10.0, left: 10.0),
                                 child: Text(
-                                  "无畏勇者",
+                                  handler.userName,
                                   style: TextStyle(fontSize: 20.0),
                                 ),
                               ),
@@ -286,10 +286,5 @@ class UserCenterState extends State<UserCenter>
             ],
           ),
     );
-  }
-
-  void acceptSocketData(dynamic data) {
-   // todo 处理服务器发送过来的数据
-    print(data);
   }
 }

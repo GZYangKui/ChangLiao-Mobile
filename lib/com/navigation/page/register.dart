@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:flutter_app/com/navigation/utils/constant.dart' as constants;
+import 'package:flutter_app/com/navigation/utils/utils.dart';
 
 class Register extends StatefulWidget {
   @override
@@ -120,24 +121,23 @@ class RegisterState extends State<Register> {
             child: Row(
               children: <Widget>[
                 Expanded(
-                  child:Builder(builder: (BuildContext context)=>
-                  GestureDetector(
-                    child: Builder(
-                      builder: (BuildContext context) => Container(
-                            height: 40.0,
-                            margin: EdgeInsets.only(top: 10.0),
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              color: Color.fromRGBO(0, 245, 255, 0.8),
-                            ),
-                            child: Text("注册"),
+                  child: Builder(
+                    builder: (BuildContext context) => GestureDetector(
+                          child: Builder(
+                            builder: (BuildContext context) => Container(
+                                  height: 40.0,
+                                  margin: EdgeInsets.only(top: 10.0),
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                    color: Color.fromRGBO(0, 245, 255, 0.8),
+                                  ),
+                                  child: Text("注册"),
+                                ),
                           ),
-                    ),
-                    onTapDown: (event){
-                      _vailData(context);
-
-                    },
-                  ),
+                          onTapDown: (event) {
+                            _vailData(context);
+                          },
+                        ),
                   ),
                 ),
               ],
@@ -148,16 +148,21 @@ class RegisterState extends State<Register> {
     );
   }
 
-  void _sendRequest(String message) {
+  void _sendRequest(String message, BuildContext context) {
     HttpClient client = new HttpClient();
-    client.put(constants.host,constants.httpPort, "user/register").then((request){
+    client
+        .put(constants.server, constants.httpPort, "user/register")
+        .then((request) {
       request.write(message);
       return request.close();
-    }).then((response){
-      response.forEach((data){
-        response.transform(utf8.decoder).listen((result){
-          print(result);
-        });
+    }).then((response) {
+      response.transform(utf8.decoder).listen((result) {
+        var res = json.decode(result);
+        if (res["register"]) {
+          _showMessage(context, "注册成功!");
+        } else {
+          _showMessage(context, res["info"]);
+        }
       });
     });
   }
@@ -171,15 +176,19 @@ class RegisterState extends State<Register> {
           constants.type: constants.user,
           constants.subtype: constants.register,
           constants.id: "$_userName",
-          constants.password: "$_password"
+          constants.password: md5("$_password"),
+          constants.version: constants.currentVersion
         };
-        _sendRequest(json.encode(map)+constants.end);
-
+        _sendRequest(json.encode(map) + constants.end, context);
       } else {
-        Scaffold.of(context).showSnackBar(SnackBar(content: Text("两次密码不匹配")));
+        _showMessage(context, "两次密码不一致!");
       }
     } else {
-      Scaffold.of(context).showSnackBar(SnackBar(content: Text("尚有必要信息为空！")));
+      _showMessage(context, "尚有必要信息为空!");
     }
+  }
+
+  void _showMessage(BuildContext context, String message) {
+    Scaffold.of(context).showSnackBar(SnackBar(content: Text(message)));
   }
 }

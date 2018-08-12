@@ -151,33 +151,37 @@ class LoginState extends State<Login> {
 
   void _vailUser() async {
     if(_userName.trim()==""){
-      _showAlertMessage("用户名不能为空!");
+      showAlertMessage("用户名不能为空!");
       return;
     }
     if(_password.trim()==""){
-      _showAlertMessage("密码不能为空!");
+      showAlertMessage("密码不能为空!");
       return;
     }
     Map requestMes ={
       constants.type:constants.user,
       constants.subtype:constants.login,
-      constants.user:_userName,
+      constants.id:_userName,
       constants.password:md5(_password),
       constants.version:constants.currentVersion,
     };
     try {
       handler.socket=await handler.initSocket();
       handler.socketHandler();
+      handler.userName=_userName;
+      handler.password=md5(_password);
       handler.sendRequest(json.encode(requestMes)+constants.end);
     }catch(e){
-      _showAlertMessage("网络异常");
-      //return;
+      showAlertMessage("网络异常");
+      return;
     }
+  }
+  void toUserCenter(){
     Navigator.push(context,
         MaterialPageRoute(builder: (BuildContext context) => UserCenter()));
   }
 
-  void _showAlertMessage(String message){
+  void showAlertMessage(String message){
    key.currentState.showSnackBar(SnackBar(content: Text(message)));
   }
 }
