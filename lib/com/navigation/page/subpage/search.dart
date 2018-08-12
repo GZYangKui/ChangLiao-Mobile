@@ -17,6 +17,10 @@ class SearchState extends State<Search> {
       body: Column(
         children: <Widget>[
           Container(
+            margin: EdgeInsets.all(3.0),
+            decoration: BoxDecoration(
+              color: Color.fromRGBO(211, 211, 211, 0.8),
+            ),
             child: Row(
               children: <Widget>[
                 Expanded(
@@ -27,11 +31,16 @@ class SearchState extends State<Search> {
                     ),
                   ),
                 ),
-                RaisedButton(
-                  child: Text("搜索"),
-                  onPressed: () {
-
-                  },
+                GestureDetector(
+                  child: Container(
+                    margin: EdgeInsets.only(right: 5.00),
+                    decoration: BoxDecoration(color: Color.fromRGBO(255, 255, 255, 1.0),),
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Text("搜索"),
+                    ),
+                  ),
+                  onTapDown: (e)=>_search(),
                 ),
               ],
             ),
@@ -39,5 +48,8 @@ class SearchState extends State<Search> {
         ],
       ),
     );
+  }
+  void _search(){
+
   }
 }

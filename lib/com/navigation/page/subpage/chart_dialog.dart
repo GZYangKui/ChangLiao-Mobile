@@ -12,20 +12,17 @@ class ChartDialog extends StatefulWidget {
   }
 
   @override
-  ChartDialogState createState() => ChartDialogState(_name, _list);
+  ChartDialogState createState() => ChartDialogState();
 }
 
 class ChartDialogState extends State<ChartDialog> {
-  String _name;
-  List<String> _list;
-
-  ChartDialogState(this._name, this._list);
+  ChartDialogState();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(_name),
+        title: Text(widget._name),
         centerTitle: true,
       ),
       body: Column(
@@ -33,8 +30,8 @@ class ChartDialogState extends State<ChartDialog> {
           Expanded(
             child: ListView.builder(
               itemBuilder: (BuildContext context, int index) =>
-                  ChartMessageItem(_list[index]),
-              itemCount: _list.length,
+                  ChartMessageItem(widget._list[index]),
+              itemCount: widget._list.length,
             ),
           ),
           Column(

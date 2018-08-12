@@ -9,17 +9,16 @@ import 'package:flutter_app/com/navigation/beautiful/CustomerOval.dart';
 
 class ChartMessageItem extends StatefulWidget {
   final String _message;
-
+  
   ChartMessageItem(this._message);
-
+  
   @override
-  ChartMessageItemState createState() => ChartMessageItemState(_message);
+  ChartMessageItemState createState() => ChartMessageItemState();
 }
 
 class ChartMessageItemState extends State<ChartMessageItem> {
-  final String _message;
 
-  ChartMessageItemState(this._message);
+  ChartMessageItemState();
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -44,7 +43,7 @@ class ChartMessageItemState extends State<ChartMessageItem> {
               borderRadius: BorderRadius.all(Radius.circular(5.00),)
           ),
           width: 150.0,
-          child: Text(_message,style: TextStyle(fontSize: 20.0),),
+          child: Text(widget._message,style: TextStyle(fontSize: 20.0),),
         ),
       ],
     );

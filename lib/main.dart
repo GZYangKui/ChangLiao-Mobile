@@ -1,28 +1,35 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_app/com/navigation/page/login.dart';
+import 'package:flutter_app/com/splash_screne.dart';
 
-void main() =>runApp(Application());
+void main() => runApp(Application());
 
-class Application extends StatelessWidget{
+class Application extends StatelessWidget {
   @override
-  Widget build(BuildContext context)=>MaterialApp(home:ApplicationHome() ,title: "flutter_IM",);
-
-}
-class ApplicationHome extends StatefulWidget{
-  @override
-  HomeState createState()=>HomeState();
-
+  Widget build(BuildContext context) => MaterialApp(
+        home: ApplicationHome(),
+        title: "flutter_IM",
+      );
 }
 
-class HomeState extends State<ApplicationHome>{
+class ApplicationHome extends StatefulWidget {
+  @override
+  HomeState createState() => HomeState();
+}
 
-
+class HomeState extends State<ApplicationHome> {
   @override
   Widget build(BuildContext context) {
-    return FlutterLogo(duration: Duration(seconds: 2),);
+    return SplashScreen(
+      seconds: 5,
+      image: Image.asset("assets/images/icon.png"),
+      photoSize: 70.0,
+      title: Text(
+        "畅聊",
+        style: TextStyle(fontSize: 22.0),
+      ),
+    );
   }
 
   @override
@@ -30,23 +37,4 @@ class HomeState extends State<ApplicationHome>{
     super.initState();
     SystemChrome.setEnabledSystemUIOverlays([]);
   }
-  ///
-  /// 应用加载数据
-  ///
-  void _loadData() async{
-    Timer timer;
-    timer = Timer.periodic(Duration(seconds: 3), (event)
-    {
-      Navigator.of(context).push(
-          MaterialPageRoute(builder: (BuildContext context) => Login()));
-      timer.cancel();
-    }
-
-    );
-  }
-
-  HomeState(){
-    _loadData();
-  }
-
 }

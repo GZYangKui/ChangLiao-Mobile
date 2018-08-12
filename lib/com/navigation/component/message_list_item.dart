@@ -12,13 +12,12 @@ class MessageListItem extends StatefulWidget {
   MessageListItem(this.model);
 
   @override
-  MessageListItemState createState() => MessageListItemState(model);
+  MessageListItemState createState() => MessageListItemState();
 }
 
 class MessageListItemState extends State<MessageListItem> {
-  final MessageListItemModel model;
 
-  MessageListItemState(this.model);
+  MessageListItemState();
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +38,7 @@ class MessageListItemState extends State<MessageListItem> {
                     children: <Widget>[
                       Expanded(
                         child: Text(
-                          model.name,
+                          widget.model.name,
                           style: TextStyle(fontSize: 22.0),
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -54,7 +53,7 @@ class MessageListItemState extends State<MessageListItem> {
                     children: <Widget>[
                       Expanded(
                         child: Text(
-                          model.messages[model.messages.length - 1],
+                          widget.model.messages[widget.model.messages.length - 1],
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
@@ -69,7 +68,7 @@ class MessageListItemState extends State<MessageListItem> {
                             Radius.circular(7.0),
                           ),
                         ),
-                        child: Text(model.messages.length.toString()),
+                        child: Text(widget.model.messages.length.toString()),
                       ),
                     ],
                   ),
@@ -83,8 +82,8 @@ class MessageListItemState extends State<MessageListItem> {
         Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (BuildContext context) => ChartDialog(
-                      name: model.name,
-                      messages: model.messages,
+                      name: widget.model.name,
+                      messages: widget.model.messages,
                     ),
               ),
             );
