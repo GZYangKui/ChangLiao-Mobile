@@ -24,6 +24,7 @@ void socketHandler() async{
       var type   = result[constants.type];
       switch(type){
         case constants.user: handlerUser(result); break;
+        case constants.friend:handlerFriend(result); break;
       }
     });
   }
@@ -32,7 +33,6 @@ void socketHandler() async{
 void sendRequest(String message){
   try {
     socket.write(message);
-    print(message);
   }catch(e){
     print("请求异常:$e");
   }
@@ -45,7 +45,6 @@ void sendRequest(String message){
 ///
 
 void handlerUser(dynamic data)async{
-  print(data);
   var subtype = data[constants.subtype];
   if(subtype=="login"){
     var status = data["login"];
@@ -62,4 +61,13 @@ void handlerUser(dynamic data)async{
       login.showAlertMessage("登录失败,请检查用户名/密码!");
     }
   }
+}
+
+///
+///
+///处理type为friend的所有socket事件
+///
+void handlerFriend(dynamic data){
+  print(data["to"]);
+
 }
