@@ -100,7 +100,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
   ///
   ///
-  ///做一些数据加载和程序检查工作
+  ///todo 做一些数据加载和程序检查工作
   ///
   ///
   void _loadData(){
