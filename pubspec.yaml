@@ -41,6 +41,8 @@ flutter:
   - assets/images/icon.png
   - assets/images/sender.png
   - assets/images/receiver.png
+  - assets/images/group.png
+  - assets/images/person.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

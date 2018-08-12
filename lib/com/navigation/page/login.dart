@@ -160,7 +160,7 @@ class LoginState extends State<Login> {
     }
     Map requestMes ={
       constants.type:constants.user,
-      constants.subtype:constants.subtype,
+      constants.subtype:constants.login,
       constants.user:_userName,
       constants.password:md5(_password),
       constants.version:constants.currentVersion,
@@ -171,7 +171,7 @@ class LoginState extends State<Login> {
       handler.sendRequest(json.encode(requestMes)+constants.end);
     }catch(e){
       _showAlertMessage("网络异常");
-      return;
+      //return;
     }
     Navigator.push(context,
         MaterialPageRoute(builder: (BuildContext context) => UserCenter()));

@@ -43,7 +43,7 @@ class ChartMessageItemState extends State<ChartMessageItem> {
               color: Color.fromRGBO(250, 250, 210, 1.0),
               borderRadius: BorderRadius.all(Radius.circular(5.00),)
           ),
-          width: 100.0,
+          width: 150.0,
           child: Text(_message,style: TextStyle(fontSize: 20.0),),
         ),
       ],

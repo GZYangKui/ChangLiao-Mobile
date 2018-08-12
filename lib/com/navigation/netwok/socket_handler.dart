@@ -28,12 +28,17 @@ void socketHandler() async{
 void sendRequest(String message){
   try {
     socket.write(message);
+    handlerUser("hello");
   }catch(e){
     print("请求异常:$e");
   }
 }
 
-void handlerUser(dynamic data){
-  var subtype = data[constants.subtype];
+void handlerUser(dynamic data)async{
+  await Future<bool>((){
+    while(true) if(userCenterState!=null) break;
+  }).whenComplete((){
+    userCenterState.acceptSocketData(data);
+  });
 
 }

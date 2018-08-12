@@ -5,6 +5,9 @@ import 'package:flutter_app/com/navigation/beautiful/CustomerOval.dart';
 import 'package:flutter_app/com/navigation/component/message_list_item.dart';
 import 'package:flutter_app/com/navigation/models/message_list_item_model.dart';
 import 'package:flutter_app/com/navigation/page/subpage/about_program.dart';
+import 'package:flutter_app/com/navigation/page/subpage/contacts.dart';
+import 'package:flutter_app/com/navigation/page/subpage/dynamic_state.dart';
+import 'package:flutter_app/com/navigation/page/subpage/message.dart';
 import 'package:flutter_app/com/navigation/page/subpage/personInfo.dart';
 import 'package:flutter_app/com/navigation/page/subpage/search.dart';
 import 'package:flutter_app/com/navigation/page/login.dart';
@@ -17,22 +20,11 @@ class UserCenter extends StatefulWidget {
 
 class UserCenterState extends State<UserCenter>
     with SingleTickerProviderStateMixin {
-  static final List<MessageListItem> messageListItem = [
-    MessageListItem(MessageListItemModel(messags: ["hello"], name: "yangkui")),
-    MessageListItem(MessageListItemModel(messags: ["hello"], name: "yangkui"))
-  ];
-  static final List<Tab> _tabs = [
-    Tab(
-      child: ListView(
-        children: messageListItem,
-      ),
-    ),
-    Tab(
-      text: "联系人",
-    ),
-    Tab(
-      text: "动态",
-    )
+
+  static final List<StatefulWidget> _tabs = [
+    Message(),
+    Contacts(),
+    DynamicState()
   ];
   TabController _tabController;
   int _currentIndex = 0;
@@ -91,6 +83,7 @@ class UserCenterState extends State<UserCenter>
   @override
   void initState() {
     super.initState();
+    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top]);
     handler.userCenterState=this;
     _tabController = TabController(initialIndex: 0, length: _tabs.length, vsync: this);
     _tabController.addListener(() {
@@ -297,5 +290,6 @@ class UserCenterState extends State<UserCenter>
 
   void acceptSocketData(dynamic data) {
    // todo 处理服务器发送过来的数据
+    print(data);
   }
 }
