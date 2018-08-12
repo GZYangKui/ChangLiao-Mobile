@@ -7,6 +7,7 @@ import 'package:flutter_app/com/navigation/page/register.dart';
 import 'package:flutter_app/com/navigation/page/user.dart';
 import 'package:flutter_app/com/navigation/netwok/socket_handler.dart' as handler;
 import 'package:flutter_app/com/navigation/utils/constant.dart' as constants;
+import 'package:flutter_app/com/navigation/utils/utils.dart';
 
 
 class Login extends StatefulWidget {
@@ -161,7 +162,7 @@ class LoginState extends State<Login> {
       constants.type:constants.user,
       constants.subtype:constants.subtype,
       constants.user:_userName,
-      constants.password:_password,
+      constants.password:md5(_password),
       constants.version:constants.currentVersion,
     };
     try {
