@@ -100,10 +100,11 @@ class SystemPropelState extends State<SystemPropel> {
           Container(
             alignment: Alignment.centerLeft,
             decoration: BoxDecoration(color: Colors.lightBlue),
-            child: Text("好友回复"),
+            child: Text("好友回复",style: TextStyle(fontSize: 23.0),),
           ),
           Container(
-            child: Text(widget._model.message),
+            margin: EdgeInsets.all(10.0),
+            child: Text(widget._model.message,style: TextStyle(fontSize: 17.0),),
           ),
         ],
       ),
@@ -167,7 +168,6 @@ class SystemPropelState extends State<SystemPropel> {
       constants.accept: isAccept,
       constants.version: constants.currentVersion
     };
-    print(message.toString());
     handler.sendRequest(message);
     this.setState(() {
       handler.systemPropel=new List.from(handler.systemPropel);

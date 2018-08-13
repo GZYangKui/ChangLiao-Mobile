@@ -61,6 +61,7 @@ void socketHandler() async {
 ///
 ///
 void sendRequest(Map message) {
+  print(message.toString());
   socket.write(json.encode(message) + constants.end);
 }
 
@@ -102,8 +103,8 @@ void handlerFriend(dynamic data) {
   if (subtype == constants.response) {
     systemPropel.add(SystemPropelModel(
         data[constants.accept]
-            ? "${data[constants.from]}拒绝你的好友请求"
-            : "${data[constants.from]}接受你的好友请求",
+            ? "${data[constants.from]}接受你的好友请求"
+            : "${data[constants.from]}拒绝你的好友请求",
         constants.response,
         data["from"]));
   }
