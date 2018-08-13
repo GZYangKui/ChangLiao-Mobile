@@ -7,19 +7,19 @@ flutter dart java
 服务端采用github上开源项目[social-vertx](https://github.com/whitewoodcity/social-vertex),并且严格遵守该项目通讯协议
 ## 效果图
 ### 注册界面
-![加载失败](https://github.com/GZYangKui/flutter-IM/blob/master/snap-shot/Screenshot_2018-08-11-00-40-10.png "注册")
+![加载失败](https://github.com/GZYangKui/flutter-IM/blob/master/snap-shot/register.png "注册")
 ### 登录界面
-![加载失败](https://github.com/GZYangKui/flutter-IM/blob/master/snap-shot/Screenshot_2018-08-11-00-40-07.png "登录界面")
+![加载失败](https://github.com/GZYangKui/flutter-IM/blob/master/snap-shot/login.png "登录界面")
 ### 消息界面
-![加载失败](https://github.com/GZYangKui/flutter-IM/blob/master/snap-shot/Screenshot_2018-08-11-00-40-19.png "消息")
+![加载失败](https://github.com/GZYangKui/flutter-IM/blob/master/snap-shot/Message.png "消息")
 ### 好友列表界面
-![加载失败](https://github.com/GZYangKui/flutter-IM/blob/master/snap-shot/Screenshot_2018-08-11-00-44-52.png "好友列表")
+![加载失败](https://github.com/GZYangKui/flutter-IM/blob/master/snap-shot/friends.png "好友列表")
 ### 好友动态
-![加载失败](https://github.com/GZYangKui/flutter-IM/blob/master/snap-shot/Screenshot_2018-08-11-00-44-55.png "动态")
+![加载失败](https://github.com/GZYangKui/flutter-IM/blob/master/snap-shot/zoon.png "动态")
 ### Drawer
-![加载失败](https://github.com/GZYangKui/flutter-IM/blob/master/snap-shot/Screenshot_2018-08-11-00-40-23.png "drawer")
+![加载失败](https://github.com/GZYangKui/flutter-IM/blob/master/snap-shot/draw.png "drawer")
 ### 个人信息中心
-![加载失败](https://github.com/GZYangKui/flutter-IM/blob/master/snap-shot/Screenshot_2018-08-11-09-50-14.png "个人信息中心")
+![加载失败](https://github.com/GZYangKui/flutter-IM/blob/master/snap-shot/personInf.png "个人信息中心")
 
 
 ### 由于本人也是初次接触flutter,代码存在不足之处,还烦请不吝指出!
