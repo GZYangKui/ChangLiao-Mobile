@@ -19,6 +19,11 @@ class SystemInform extends StatefulWidget {
 
 class SystemInformState extends State<SystemInform> {
   @override
+  void initState() {
+    super.initState();
+    handler.currentState=this;
+  }
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(

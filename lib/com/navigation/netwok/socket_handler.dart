@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_app/com/navigation/models/contacts_list_model.dart';
 import 'package:flutter_app/com/navigation/models/system_propel_model.dart';
 import 'package:flutter_app/com/navigation/page/login.dart';
@@ -13,6 +15,7 @@ import 'package:flutter_app/com/navigation/utils/constant.dart' as constants;
 /// @contactsList 储存联系人列表
 /// @leftMessage 储存离线消息
 /// @systemPropel为系统推送消息
+/// @timer 定时器,定时向服务器发送数据以确保,连接正常可用
 ///
 
 Socket socket;
@@ -20,9 +23,16 @@ List<Entry> contactsList = [];
 List<Entry> leftMessage = [];
 List<SystemPropelModel> systemPropel = [];
 
-LoginState login;
+Timer timer;
+LoginState loginState;
 String userName;
 String password;
+State currentState;
+
+///
+///
+/// 初始化连接
+///
 
 Future<Socket> initSocket() {
   if (socket != null) {
@@ -31,11 +41,25 @@ Future<Socket> initSocket() {
   }
   return Socket.connect(constants.server, constants.tcpPort);
 }
-
+///
+///
+/// 处理服务器返回来的数据
+///
+///
 void socketHandler() async {
   if (socket != null) {
     socket.done.catchError(() {}, test: (e) {
-      print("网络异常........");
+      if(timer!=null&&timer.isActive){
+        timer.cancel();
+      }
+      ///
+      /// todo 此处有点不友好不建议这样做
+      ///
+      if(currentState!=null){
+        Login login = Login();
+        dispose();
+        Navigator.push(currentState.context, MaterialPageRoute(builder: (BuildContext context)=>login));
+      }
       return true;
     });
     socket.transform(utf8.decoder).listen((data) {
@@ -82,10 +106,10 @@ void handlerUser(dynamic data) async {
         for (var friend in friends) list.add(Entry(friend["id"]));
         contactsList.add(Entry("我的好友", list));
       }
-      login.toUserCenter();
+      loginState.toUserCenter();
     } else {
       socket?.close();
-      login.showAlertMessage("登录失败,请检查用户名/密码!");
+      loginState.showAlertMessage("登录失败,请检查用户名/密码!");
     }
   }
 }
@@ -108,6 +132,18 @@ void handlerFriend(dynamic data) {
         constants.response,
         data["from"]));
   }
+}
+///
+///
+/// 心跳机制定时向服务器发送空包检验socket是否可用
+///
+///
+
+void heartBeat(){
+  timer = Timer.periodic(Duration(seconds: 10),(event){
+    socket.write("");
+  });
+
 }
 
 

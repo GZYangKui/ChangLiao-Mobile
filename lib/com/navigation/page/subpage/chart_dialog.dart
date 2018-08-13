@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/com/navigation/component/chart_message_item.dart';
+import 'package:flutter_app/com/navigation/netwok/socket_handler.dart' as handler;
 
 class ChartDialog extends StatefulWidget {
   List<String> _list;
@@ -16,8 +17,11 @@ class ChartDialog extends StatefulWidget {
 }
 
 class ChartDialogState extends State<ChartDialog> {
-  ChartDialogState();
-
+  @override
+  void initState() {
+    super.initState();
+    handler.currentState = this;
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

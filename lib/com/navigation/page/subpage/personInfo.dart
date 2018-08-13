@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/com/navigation/netwok/socket_handler.dart' as handler;
 
 class PersonInfo extends StatefulWidget {
   @override
@@ -7,6 +8,11 @@ class PersonInfo extends StatefulWidget {
 }
 
 class PersonInfoState extends State<PersonInfo> {
+  @override
+  void initState() {
+    super.initState();
+    handler.currentState = this;
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

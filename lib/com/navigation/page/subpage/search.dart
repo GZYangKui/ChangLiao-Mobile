@@ -17,6 +17,11 @@ class SearchState extends State<Search> {
   String _keyword ="";
   GlobalKey<ScaffoldState> key = GlobalKey();
   @override
+  void initState() {
+    super.initState();
+    handler.currentState=this;
+  }
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: key,

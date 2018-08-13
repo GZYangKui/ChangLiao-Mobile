@@ -12,7 +12,9 @@ import 'package:flutter_app/com/navigation/utils/utils.dart';
 
 class Login extends StatefulWidget {
   @override
-  LoginState createState() => LoginState();
+  LoginState createState()=>LoginState();
+
+
 }
 
 class LoginState extends State<Login> {
@@ -146,7 +148,7 @@ class LoginState extends State<Login> {
   @override
   void initState() {
     super.initState();
-    handler.login=this;
+    handler.loginState=this;
   }
 
   void _vailUser() async {
@@ -168,6 +170,7 @@ class LoginState extends State<Login> {
     try {
       handler.socket=await handler.initSocket();
       handler.socketHandler();
+      handler.heartBeat();
       handler.userName=_userName;
       handler.password=md5(_password);
       handler.sendRequest(requestMes);
