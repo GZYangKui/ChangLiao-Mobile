@@ -42,6 +42,11 @@ class SearchState extends State<Search> {
                     onChanged: (value){
                       _keyword = value;
                     },
+                    controller: TextEditingController(text: ""),
+                    onSubmitted: (value){
+                      _keyword = value;
+                      _search();
+                    },
                   ),
                 ),
                 GestureDetector(
@@ -69,6 +74,7 @@ class SearchState extends State<Search> {
   }
 
   void _search() {
+    list.clear();
     if (_keyword != null && _keyword.trim() != "") {
       var message = {
         constants.type: constants.search,
@@ -88,14 +94,13 @@ class SearchState extends State<Search> {
       }).then((response) {
         response.transform(utf8.decoder).listen((data) {
             var _result = json.decode(data);
-            if(_result!=null) {
+            if(_result["user"]!=null) {
               list.clear();
               list.add(_result["user"]["id"]);
-              setState(() {
-
-              });
             }
-            else key.currentState.showSnackBar(SnackBar(content: Text("找不到该用户信息!")));
+            else
+              key.currentState.showSnackBar(SnackBar(content: Text("找不到该用户信息!")));
+            this.setState((){});
         });
       });
       _keyword = "";

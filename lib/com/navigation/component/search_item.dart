@@ -58,10 +58,7 @@ class UserItemState extends State<UserItem> {
                   constants.message: "${handler.userName}请求添加你为好友!",
                   constants.version: constants.currentVersion
                 };
-                Scaffold
-                    .of(context)
-                    .showSnackBar(SnackBar(content: Text("请求已经发送！")));
-                handler.sendRequest(json.encode(message)+constants.end);
+                _sendRequest(json.encode(message)+constants.end);
               },
             ),
           ),
@@ -69,5 +66,8 @@ class UserItemState extends State<UserItem> {
         ),
       ],
     );
+  }
+  void _sendRequest(String message) async{
+     handler.sendRequest(message);
   }
 }

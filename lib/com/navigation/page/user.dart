@@ -84,7 +84,6 @@ class UserCenterState extends State<UserCenter>
   void initState() {
     super.initState();
     SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top]);
-    handler.userCenterState=this;
     _tabController = TabController(initialIndex: 0, length: _tabs.length, vsync: this);
     _tabController.addListener(() {
       this.setState(() {

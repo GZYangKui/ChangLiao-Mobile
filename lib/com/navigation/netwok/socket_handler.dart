@@ -3,39 +3,61 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter_app/com/navigation/models/contacts_list_model.dart';
 import 'package:flutter_app/com/navigation/page/login.dart';
-import 'package:flutter_app/com/navigation/page/user.dart';
 import 'package:flutter_app/com/navigation/utils/constant.dart' as constants;
+
+///
+/// 整个app向服务器发送请求和接收服务器回复的综合处理类,
+/// 此类不涉及有关ui部分的操作,只负责产生数据,某个页面需要数据直接获取即可.
+/// @socket   整个app socket
+/// @contactsList 储存联系人列表
+/// @leftMessage 储存离线消息
+///
+///
 
 Socket socket;
 List<Entry> contactsList = [];
-List<Entry> leftMessage  = [];
-UserCenterState userCenterState;
-LoginState     login;
-String         userName;
-String         password;
+List<Entry> leftMessage = [];
+LoginState login;
+String userName;
+String password;
 
-Future<Socket> initSocket(){
-    return Socket.connect(constants.server, constants.tcpPort);
+Future<Socket> initSocket() {
+  if (socket != null) {
+    socket.destroy();
+    socket.close();
+  }
+  return Socket.connect(constants.server, constants.tcpPort);
 }
-void socketHandler() async{
-  if(socket!=null){
-    socket.transform(utf8.decoder).listen((data){
+
+void socketHandler() async {
+  if (socket != null) {
+    socket.done.catchError(() {}, test: (e) {
+      print("网络异常........");
+      return true;
+    });
+    socket.transform(utf8.decoder).listen((data) {
       var result = json.decode(data);
-      var type   = result[constants.type];
-      switch(type){
-        case constants.user: handlerUser(result); break;
-        case constants.friend:handlerFriend(result); break;
+      var type = result[constants.type];
+      switch (type) {
+        case constants.user:
+          handlerUser(result);
+          break;
+        case constants.friend:
+          handlerFriend(result);
+          break;
       }
     });
   }
 }
 
-void sendRequest(String message){
-  try {
-    socket.write(message);
-  }catch(e){
-    print("请求异常:$e");
-  }
+///
+///
+///
+/// 向服务器发送数据
+///
+///
+void sendRequest(String message) {
+  socket.write(message);
 }
 
 ///
@@ -44,19 +66,19 @@ void sendRequest(String message){
 ///
 ///
 
-void handlerUser(dynamic data)async{
+void handlerUser(dynamic data) async {
   var subtype = data[constants.subtype];
-  if(subtype=="login"){
+  if (subtype == "login") {
     var status = data["login"];
-    if(status){
+    if (status) {
       var friends = data["friends"];
-      if(friends.length>0){
-        List<Entry> list=[];
-        for(var friend in friends) list.add(Entry(friend["id"]));
-        contactsList.add(Entry("我的好友",list));
+      if (friends.length > 0) {
+        List<Entry> list = [];
+        for (var friend in friends) list.add(Entry(friend["id"]));
+        contactsList.add(Entry("我的好友", list));
       }
       login.toUserCenter();
-    }else{
+    } else {
       socket?.close();
       login.showAlertMessage("登录失败,请检查用户名/密码!");
     }
@@ -67,7 +89,6 @@ void handlerUser(dynamic data)async{
 ///
 ///处理type为friend的所有socket事件
 ///
-void handlerFriend(dynamic data){
+void handlerFriend(dynamic data) {
   print(data["to"]);
-
 }
