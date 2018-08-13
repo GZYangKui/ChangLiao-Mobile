@@ -109,3 +109,18 @@ void handlerFriend(dynamic data) {
         data["from"]));
   }
 }
+
+
+///
+///
+///退出登录时释放掉该用户所有信息
+///
+///
+
+void dispose(){
+  socket?.destroy();
+  socket.close();
+  contactsList?.clear();
+  leftMessage?.clear();
+  systemPropel?.clear();
+}
