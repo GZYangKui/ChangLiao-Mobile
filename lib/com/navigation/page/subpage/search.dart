@@ -89,6 +89,7 @@ class SearchState extends State<Search> {
         response.transform(utf8.decoder).listen((data) {
             var _result = json.decode(data);
             if(_result!=null) {
+              list.clear();
               list.add(_result["user"]["id"]);
               setState(() {
 
