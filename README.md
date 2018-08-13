@@ -6,6 +6,8 @@ flutter dart java
 ## 服务器
 服务端采用github上开源项目[social-vertx](https://github.com/whitewoodcity/social-vertex),并且严格遵守该项目通讯协议
 ## 效果图
+## SplashScreen
+![加载失败](https://github.com/GZYangKui/flutter-IM/blob/master/snap-shot/SplashScreen.png "SplashScreen")
 ### 注册界面
 ![加载失败](https://github.com/GZYangKui/flutter-IM/blob/master/snap-shot/register.png "注册")
 ### 登录界面
@@ -18,6 +20,8 @@ flutter dart java
 ![加载失败](https://github.com/GZYangKui/flutter-IM/blob/master/snap-shot/zoon.png "动态")
 ### 聊天界面
 ![加载失败](https://github.com/GZYangKui/flutter-IM/blob/master/snap-shot/chat.png "聊天")
+### 添加好友
+![加载失败](https://github.com/GZYangKui/flutter-IM/blob/master/snap-shot/addfriends.png "聊天")
 ### Drawer
 ![加载失败](https://github.com/GZYangKui/flutter-IM/blob/master/snap-shot/draw.png "drawer")
 ### 个人信息中心
