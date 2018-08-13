@@ -59,6 +59,7 @@ class UserItemState extends State<UserItem> {
                   constants.version: constants.currentVersion
                 };
                handler.sendRequest(message);
+               Scaffold.of(context).showSnackBar(SnackBar(content: Text("请求已发送")));
               },
             ),
           ),
