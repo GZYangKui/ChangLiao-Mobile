@@ -24,6 +24,7 @@ flutter dart java
 ![加载失败](https://github.com/GZYangKui/flutter-IM/blob/master/snap-shot/personInf.png "个人信息中心")
 ### 系统消息
 ![加载失败](https://github.com/GZYangKui/flutter-IM/blob/master/snap-shot/systemInform1.png "系统消息")
+![加载失败](https://github.com/GZYangKui/flutter-IM/blob/master/snap-shot/systeminform.png "系统消息")
 
 
 ### 由于本人也是初次接触flutter,代码存在不足之处,还烦请不吝指出!
