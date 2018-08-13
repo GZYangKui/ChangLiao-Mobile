@@ -278,8 +278,7 @@ class UserCenterState extends State<UserCenter>
                   RaisedButton(
                     child: Text("确定"),
                     onPressed: () {
-                      handler.socket?.destroy();
-                      handler.socket?.close();
+                      handler.dispose();
                       Navigator.push(
                           context,
                           MaterialPageRoute(
