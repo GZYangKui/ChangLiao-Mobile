@@ -58,7 +58,7 @@ class UserItemState extends State<UserItem> {
                   constants.message: "${handler.userName}请求添加你为好友!",
                   constants.version: constants.currentVersion
                 };
-                _sendRequest(json.encode(message)+constants.end);
+               handler.sendRequest(message);
               },
             ),
           ),
@@ -66,8 +66,5 @@ class UserItemState extends State<UserItem> {
         ),
       ],
     );
-  }
-  void _sendRequest(String message) async{
-     handler.sendRequest(message);
   }
 }

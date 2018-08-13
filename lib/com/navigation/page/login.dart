@@ -170,7 +170,7 @@ class LoginState extends State<Login> {
       handler.socketHandler();
       handler.userName=_userName;
       handler.password=md5(_password);
-      handler.sendRequest(json.encode(requestMes)+constants.end);
+      handler.sendRequest(requestMes);
     }catch(e){
       showAlertMessage("网络异常");
       return;

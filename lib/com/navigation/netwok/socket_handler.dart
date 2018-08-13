@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter_app/com/navigation/models/contacts_list_model.dart';
+import 'package:flutter_app/com/navigation/models/system_propel_model.dart';
 import 'package:flutter_app/com/navigation/page/login.dart';
 import 'package:flutter_app/com/navigation/utils/constant.dart' as constants;
 
@@ -11,12 +12,14 @@ import 'package:flutter_app/com/navigation/utils/constant.dart' as constants;
 /// @socket   整个app socket
 /// @contactsList 储存联系人列表
 /// @leftMessage 储存离线消息
-///
+/// @systemPropel为系统推送消息
 ///
 
 Socket socket;
 List<Entry> contactsList = [];
 List<Entry> leftMessage = [];
+List<SystemPropelModel> systemPropel = [];
+
 LoginState login;
 String userName;
 String password;
@@ -36,6 +39,7 @@ void socketHandler() async {
       return true;
     });
     socket.transform(utf8.decoder).listen((data) {
+      print(data.toString());
       var result = json.decode(data);
       var type = result[constants.type];
       switch (type) {
@@ -56,8 +60,8 @@ void socketHandler() async {
 /// 向服务器发送数据
 ///
 ///
-void sendRequest(String message) {
-  socket.write(message);
+void sendRequest(Map message) {
+  socket.write(json.encode(message) + constants.end);
 }
 
 ///
@@ -90,5 +94,17 @@ void handlerUser(dynamic data) async {
 ///处理type为friend的所有socket事件
 ///
 void handlerFriend(dynamic data) {
-  print(data["to"]);
+  var subtype = data[constants.subtype];
+  if (subtype == constants.request) {
+    systemPropel.add(SystemPropelModel(data[constants.message],
+        data[constants.subtype], data[constants.from]));
+  }
+  if (subtype == constants.response) {
+    systemPropel.add(SystemPropelModel(
+        data[constants.accept]
+            ? "${data[constants.from]}拒绝你的好友请求"
+            : "${data[constants.from]}接受你的好友请求",
+        constants.response,
+        data["from"]));
+  }
 }

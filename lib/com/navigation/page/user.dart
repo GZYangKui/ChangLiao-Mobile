@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app/com/navigation/beautiful/CustomerOval.dart';
 import 'package:flutter_app/com/navigation/component/message_list_item.dart';
+import 'package:flutter_app/com/navigation/component/system_propel.dart';
 import 'package:flutter_app/com/navigation/models/message_list_item_model.dart';
 import 'package:flutter_app/com/navigation/page/subpage/about_program.dart';
 import 'package:flutter_app/com/navigation/page/subpage/contacts.dart';
@@ -12,6 +13,7 @@ import 'package:flutter_app/com/navigation/page/subpage/personInfo.dart';
 import 'package:flutter_app/com/navigation/page/subpage/search.dart';
 import 'package:flutter_app/com/navigation/page/login.dart';
 import 'package:flutter_app/com/navigation/netwok/socket_handler.dart' as handler;
+import 'package:flutter_app/com/navigation/page/subpage/system_inform.dart';
 
 class UserCenter extends StatefulWidget {
   @override
@@ -46,6 +48,10 @@ class UserCenterState extends State<UserCenter>
                     MaterialPageRoute(
                         builder: (BuildContext context) => Search()));
               },
+            ),
+            IconButton(
+              icon: Icon(Icons.notifications),
+              onPressed: ()=>Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context)=>SystemInform())),
             ),
           ],
         ),
