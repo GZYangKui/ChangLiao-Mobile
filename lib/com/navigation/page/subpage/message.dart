@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'dart:convert';
 
@@ -27,6 +28,8 @@ class MessageState extends State<Message> {
     super.initState();
     _offlineMessage();
     _initData();
+    _periodicUpdate();
+
   }
 
   @override
@@ -80,6 +83,18 @@ class MessageState extends State<Message> {
     Map<String,List<String>> map = handler.messageList;
     map.forEach((id,messages){
       messageListItem.add(MessageListItem(MessageListItemModel(messags: messages,name: id)));
+    });
+  }
+
+  ///
+  ///
+  /// 每隔一秒刷新消息
+  ///
+  ///
+
+  void  _periodicUpdate(){
+    Timer.periodic(Duration(seconds: 1),(event){
+      this.setState((){});
     });
   }
 

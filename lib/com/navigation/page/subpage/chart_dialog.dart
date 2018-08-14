@@ -44,7 +44,6 @@ class ChartDialogState extends State<ChartDialog> {
               itemCount: widget._list.length,
             ),
           ),
-          Builder(builder: (BuildContext context)=>
           Column(
             children: <Widget>[
               Row(
@@ -53,7 +52,8 @@ class ChartDialogState extends State<ChartDialog> {
                     onChanged: (value){
                       _message = value;
                     },
-                    controller:TextEditingController(text: _message),
+                    controller:MyController(text: _message,textSelection: TextSelection(baseOffset:_message.length, extentOffset:_message.length)),
+
                   ),
                   ),
                   RaisedButton(
@@ -65,7 +65,6 @@ class ChartDialogState extends State<ChartDialog> {
                 ],
               ),
             ],
-          ),
           ),
         ],
       ),
@@ -97,5 +96,13 @@ class ChartDialogState extends State<ChartDialog> {
     super.dispose();
     if(timer!=null&&timer.isActive) timer.cancel();
   }
+
+}
+class MyController extends TextEditingController{
+  MyController({String text,TextSelection textSelection}):super(text:text){
+    this.text = text;
+    super.selection =textSelection;
+  }
+
 
 }
