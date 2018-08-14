@@ -33,4 +33,5 @@ const String keyword = "keyword";
 const String offline = "offiline";
 
 const String end = "\r\n";
+const String messageOwn ="{[|@#\$%|]}";
 

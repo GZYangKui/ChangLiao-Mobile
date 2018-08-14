@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/com/navigation/models/contacts_list_model.dart';
 import 'package:flutter_app/com/navigation/page/subpage/chart_dialog.dart';
+import 'package:flutter_app/com/navigation/netwok/socket_handler.dart' as handler;
 
 class ContactItem extends StatelessWidget {
   ContactItem(this.entry);
@@ -19,8 +20,7 @@ class ContactItem extends StatelessWidget {
           Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (BuildContext context) => ChartDialog(
-                        name: root.title,
-                        messages: ["hello", "吃饭了吗???"],
+                        name: root.title,messages: handler.getChatRecorder(root.title),
                       ),
                 ),
               );

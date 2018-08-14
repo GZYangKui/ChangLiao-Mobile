@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/com/navigation/models/message_list_item_model.dart';
 import 'package:flutter_app/com/navigation/page/subpage/chart_dialog.dart';
+import 'package:flutter_app/com/navigation/utils/constant.dart' as constants;
 
 ///
 /// 消息列表itme
@@ -53,7 +54,7 @@ class MessageListItemState extends State<MessageListItem> {
                     children: <Widget>[
                       Expanded(
                         child: Text(
-                          widget.model.messages[widget.model.messages.length - 1],
+                          widget.model.messages[widget.model.messages.length - 1].split(constants.messageOwn)[0],
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),

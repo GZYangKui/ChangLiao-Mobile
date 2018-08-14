@@ -1,26 +1,33 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/com/navigation/beautiful/CustomerOval.dart';
+import 'package:flutter_app/com/navigation/utils/constant.dart' as constants;
 
 ///
 ///
-/// 聊天消息列表item
+/// @_message代表一条消息判其是否以{[|@#\$%|]}结尾来区分发送者身份
 ///
 
 class ChartMessageItem extends StatefulWidget {
   final String _message;
-  
+
   ChartMessageItem(this._message);
-  
+
   @override
   ChartMessageItemState createState() => ChartMessageItemState();
 }
 
 class ChartMessageItemState extends State<ChartMessageItem> {
-
   ChartMessageItemState();
+
   @override
   Widget build(BuildContext context) {
+    return widget._message.endsWith(constants.messageOwn)
+        ? _ownSend()
+        : _friendSend();
+  }
+
+  Widget _friendSend() {
     return Row(
       children: <Widget>[
         ClipOval(
@@ -40,10 +47,48 @@ class ChartMessageItemState extends State<ChartMessageItem> {
           padding: EdgeInsets.all(10.0),
           decoration: BoxDecoration(
               color: Color.fromRGBO(250, 250, 210, 1.0),
-              borderRadius: BorderRadius.all(Radius.circular(5.00),)
-          ),
+              borderRadius: BorderRadius.all(
+                Radius.circular(5.00),
+              )),
           width: 150.0,
-          child: Text(widget._message,style: TextStyle(fontSize: 20.0),),
+          child: Text(
+            widget._message,
+            style: TextStyle(fontSize: 20.0),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _ownSend() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: <Widget>[
+        Container(
+          margin: EdgeInsets.only(top: 15.0),
+          alignment: Alignment.center,
+          padding: EdgeInsets.all(10.0),
+          decoration: BoxDecoration(
+              color: Color.fromRGBO(250, 250, 210, 1.0),
+              borderRadius: BorderRadius.all(
+                Radius.circular(5.00),
+              )),
+          width: 150.0,
+          child: Text(
+            widget._message.split(constants.messageOwn)[0],
+            style: TextStyle(fontSize: 20.0),
+          ),
+        ),
+        ClipOval(
+          child: IconButton(
+            icon: Image.asset(
+              "assets/images/receiver.png",
+              width: 100.0,
+              height: 100.0,
+            ),
+            onPressed: () {},
+          ),
+          clipper: CustomerOval(30.0, 30.0, 70.0),
         ),
       ],
     );

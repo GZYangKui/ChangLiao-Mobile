@@ -20,15 +20,13 @@ class Message extends StatefulWidget {
 
 class MessageState extends State<Message> {
 
-  List<MessageListItem> messageListItem = [
-    MessageListItem(MessageListItemModel(messags: ["hello"], name: "Tom")),
-    MessageListItem(MessageListItemModel(messags: ["hello"], name: "Jack"))
-  ];
+  List<MessageListItem> messageListItem = [];
 
   @override
   void initState() {
     super.initState();
     _offlineMessage();
+    _initData();
   }
 
   @override
@@ -43,10 +41,11 @@ class MessageState extends State<Message> {
           }),
     );
   }
-
-  void _dealDragUpdate() async {
-
-  }
+  ///
+  /// 请求离线消息
+  /// todo 将其加入到handler的Map中去
+  ///
+  ///
   void _offlineMessage(){
     Map requestMes = {
       constants.type:constants.user,
@@ -71,7 +70,17 @@ class MessageState extends State<Message> {
   @override
   void dispose() {
     super.dispose();
-    print("dispose");
+  }
+  ///
+  ///
+  /// 初始化数据
+  ///
+  ///
+  void _initData(){
+    Map<String,List<String>> map = handler.messageList;
+    map.forEach((id,messages){
+      messageListItem.add(MessageListItem(MessageListItemModel(messags: messages,name: id)));
+    });
   }
 
 }
