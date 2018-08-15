@@ -85,9 +85,7 @@ class ChartDialogState extends State<ChartDialog> {
   }
   void periodicUpdate(){
     Timer.periodic(Duration(seconds:1),(event){
-      this.setState((){
-        widget._list =List.from(widget._list);
-      });
+      this.setState((){});
     });
 
   }

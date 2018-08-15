@@ -29,7 +29,6 @@ class MessageState extends State<Message> {
     _offlineMessage();
     _initData();
     _periodicUpdate();
-
   }
 
   @override
