@@ -1,9 +1,11 @@
 import 'dart:async';
+import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/com/navigation/component/chart_message_item.dart';
-import 'package:flutter_app/com/navigation/netwok/socket_handler.dart' as handler;
+import 'package:flutter_app/com/navigation/netwok/socket_handler.dart'
+    as handler;
 import 'package:flutter_app/com/navigation/utils/constant.dart' as constants;
 
 class ChartDialog extends StatefulWidget {
@@ -21,13 +23,17 @@ class ChartDialog extends StatefulWidget {
 
 class ChartDialogState extends State<ChartDialog> {
   String _message = "";
-  Timer timer;
+  Timer _timer;
+
   @override
   void initState() {
     super.initState();
     handler.currentState = this;
-    periodicUpdate();
+    _timer = Timer.periodic(Duration(milliseconds: 20), (e) {
+      this.setState(() {});
+    });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,13 +54,17 @@ class ChartDialogState extends State<ChartDialog> {
             children: <Widget>[
               Row(
                 children: <Widget>[
-                  Expanded(child: TextField(
-                    onChanged: (value){
-                      _message = value;
-                    },
-                    controller:MyController(text: _message,textSelection: TextSelection(baseOffset:_message.length, extentOffset:_message.length)),
-
-                  ),
+                  Expanded(
+                    child: TextField(
+                      onChanged: (value) {
+                        _message = value;
+                      },
+                      controller: MyController(
+                          text: _message,
+                          textSelection: TextSelection(
+                              baseOffset: _message.length,
+                              extentOffset: _message.length)),
+                    ),
                   ),
                   RaisedButton(
                     child: Text("发送"),
@@ -70,7 +80,9 @@ class ChartDialogState extends State<ChartDialog> {
       ),
     );
   }
-  void _sendMessage(String value){
+
+  void _sendMessage(String value) {
+    //widget._list.add(value + constants.messageOwn);
     var message = {
       constants.type: constants.message,
       constants.subtype: constants.text,
@@ -79,28 +91,20 @@ class ChartDialogState extends State<ChartDialog> {
       constants.version: constants.currentVersion
     };
     handler.sendRequest(message);
-    widget._list.add(value+constants.messageOwn);
-    handler.handlerMessageList(widget._name,value+constants.messageOwn);
-    _message="";
+    handler.handlerMessageList(widget._name, value + constants.messageOwn);
+    _message = "";
   }
-  void periodicUpdate(){
-    Timer.periodic(Duration(seconds:1),(event){
-      this.setState((){});
-    });
 
-  }
   @override
   void dispose() {
     super.dispose();
-    if(timer!=null&&timer.isActive) timer.cancel();
+    if (_timer != null && _timer.isActive) _timer.cancel();
   }
-
 }
-class MyController extends TextEditingController{
-  MyController({String text,TextSelection textSelection}):super(text:text){
+
+class MyController extends TextEditingController {
+  MyController({String text, TextSelection textSelection}) : super(text: text) {
     this.text = text;
-    super.selection =textSelection;
+    super.selection = textSelection;
   }
-
-
 }

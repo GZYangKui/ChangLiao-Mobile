@@ -89,7 +89,7 @@ void socketHandler() async {
 /// 向服务器发送数据
 ///
 ///
-void sendRequest(Map message) {
+void sendRequest(Map message) async {
   socket.write(json.encode(message) + constants.end);
 }
 
