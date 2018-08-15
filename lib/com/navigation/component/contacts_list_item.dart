@@ -2,14 +2,19 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/com/navigation/models/contacts_list_model.dart';
 import 'package:flutter_app/com/navigation/page/subpage/chart_dialog.dart';
-import 'package:flutter_app/com/navigation/netwok/socket_handler.dart' as handler;
+import 'package:flutter_app/com/navigation/netwok/socket_handler.dart'
+    as handler;
 
-class ContactItem extends StatelessWidget {
-  ContactItem(this.entry);
-
-  BuildContext context;
+class ContactItem extends StatefulWidget {
   final Entry entry;
 
+  ContactItem(this.entry);
+
+  @override
+  ContactItemState createState() => ContactItemState();
+}
+
+class ContactItemState extends State<ContactItem> {
   Widget _buildTiles(Entry root) {
     if (root.list.isEmpty)
       return GestureDetector(
@@ -18,12 +23,13 @@ class ContactItem extends StatelessWidget {
         ),
         onTap: () {
           Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (BuildContext context) => ChartDialog(
-                        name: root.title,messages: handler.getChatRecorder(root.title),
-                      ),
-                ),
-              );
+            MaterialPageRoute(
+              builder: (BuildContext context) => ChartDialog(
+                    name: root.title,
+                    messages: handler.getChatRecorder(root.title),
+                  ),
+            ),
+          );
         },
       );
     return ExpansionTile(
@@ -35,8 +41,7 @@ class ContactItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    this.context = context;
-    return _buildTiles(entry);
+    return _buildTiles(widget.entry);
   }
 
   getGroup(String title) {

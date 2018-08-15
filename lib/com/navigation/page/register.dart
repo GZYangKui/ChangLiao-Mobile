@@ -15,7 +15,6 @@ class RegisterState extends State<Register> {
   String _userName = "";
   String _password = "";
   String _rePassword = "";
-  BuildContext _context;
 
   @override
   Widget build(BuildContext context) {

@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_app/com/navigation/models/system_propel_model.dart';
 import 'package:flutter_app/com/navigation/utils/constant.dart' as constants;
