@@ -167,6 +167,7 @@ class SystemPropelState extends State<SystemPropel> {
       constants.version: constants.currentVersion
     };
     handler.sendRequest(message);
+    if(isAccept) handler.handlerContacts(widget._model.to);
     this.setState(() {
       handler.systemPropel=new List.from(handler.systemPropel);
     });
