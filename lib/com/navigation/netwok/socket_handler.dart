@@ -77,7 +77,9 @@ void socketHandler() async {
         case constants.friend:
           handlerFriend(result);
           break;
-        case constants.message:handlerMessage(result);break;
+        case constants.message:
+          handlerMessage(result);
+          break;
       }
     });
   }
@@ -210,43 +212,45 @@ void handlerContacts(String id) {
 
 ///
 /// 通过用户id查找相应的聊天记录
-/// 
 ///
-  List<String> getChatRecorder(String id){
-    List<String> record = List();
-  if(messageList.length>0&&messageList.containsKey(id)){
-    messageList.forEach((key,list){
-      if(key == id) {
-        record=List.from(list);
+///
+List<String> getChatRecorder(String id) {
+  print("hello");
+  List<String> record = [];
+  if (messageList.length > 0 && messageList.containsKey(id)) {
+    messageList.forEach((key, list) {
+      if (key == id) {
+        record = List.from(list);
         return;
       }
     });
   }
   return record;
- 
-   }
+}
+
 ///
 /// 请求获取离线消息
 /// todo 将其加入到handler的Map中去
 ///
 ///
-void _offlineMessage(){
+void _offlineMessage() {
   Map requestMes = {
-    constants.type:constants.user,
-    constants.subtype:constants.offline,
-    constants.id:userName,
-    constants.password:password,
-    constants.version:constants.currentVersion
+    constants.type: constants.user,
+    constants.subtype: constants.offline,
+    constants.id: userName,
+    constants.password: password,
+    constants.version: constants.currentVersion
   };
   HttpClient client = HttpClient();
-  client.put(constants.server, constants.httpPort,"/${constants.user}/${constants.offline}")
-      .then((request){
+  client
+      .put(constants.server, constants.httpPort,
+          "/${constants.user}/${constants.offline}")
+      .then((request) {
     request.write(json.encode(requestMes));
     return request.close();
-  }).then((response){
-    response.transform(utf8.decoder).listen((data){
+  }).then((response) {
+    response.transform(utf8.decoder).listen((data) {
       var result = json.decode(data);
-
     });
   });
 }

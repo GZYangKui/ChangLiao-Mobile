@@ -18,20 +18,19 @@ class ContactItemState extends State<ContactItem> {
   Widget _buildTiles(Entry root) {
     if (root.list.isEmpty)
       return GestureDetector(
-        child: ListTile(
-          title: getPerson(root.title),
-        ),
-        onTap: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (BuildContext context) => ChartDialog(
-                    name: root.title,
-                    messages: handler.getChatRecorder(root.title),
-                  ),
-            ),
-          );
-        },
-      );
+          child: ListTile(
+            title: getPerson(root.title),
+          ),
+          onTapDown: (e) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (BuildContext context) => ChartDialog(
+                      messages:handler.getChatRecorder(root.title),name: root.title,
+                    ),
+              ),
+            );
+          });
     return ExpansionTile(
       key: PageStorageKey<Entry>(root),
       title: getGroup(root.title),
