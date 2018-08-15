@@ -20,15 +20,17 @@ class Message extends StatefulWidget {
 }
 
 class MessageState extends State<Message> {
+  Timer _timer;
 
   List<MessageListItem> messageListItem = [];
 
   @override
   void initState() {
     super.initState();
-    _offlineMessage();
     _initData();
-    _periodicUpdate();
+    _timer = Timer.periodic(Duration(seconds: 1), (e){
+      this.setState((){});
+    });
   }
 
   @override
@@ -43,35 +45,10 @@ class MessageState extends State<Message> {
           }),
     );
   }
-  ///
-  /// 请求离线消息
-  /// todo 将其加入到handler的Map中去
-  ///
-  ///
-  void _offlineMessage(){
-    Map requestMes = {
-      constants.type:constants.user,
-      constants.subtype:constants.offline,
-      constants.id:handler.userName,
-      constants.password:handler.password,
-      constants.version:constants.currentVersion
-    };
-    HttpClient client = HttpClient();
-    client.put(constants.server, constants.httpPort,"/${constants.user}/${constants.offline}")
-        .then((request){
-      request.write(json.encode(requestMes));
-      return request.close();
-    }).then((response){
-      response.transform(utf8.decoder).listen((data){
-        var result = json.decode(data);
-        print(result.toString());
-      });
-    });
-  }
-
   @override
   void dispose() {
     super.dispose();
+    if(_timer!=null&&_timer.isActive) _timer.cancel();
   }
   ///
   ///
@@ -85,16 +62,5 @@ class MessageState extends State<Message> {
     });
   }
 
-  ///
-  ///
-  /// 每隔一秒刷新消息
-  ///
-  ///
-
-  void  _periodicUpdate(){
-    Timer.periodic(Duration(seconds: 1),(event){
-      this.setState((){});
-    });
-  }
 
 }
