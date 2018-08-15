@@ -21,25 +21,20 @@ class Message extends StatefulWidget {
 
 class MessageState extends State<Message> {
   Timer _timer;
-
-  List<MessageListItem> messageListItem = [];
+  List<MessageListItemModel> _list= [];
 
   @override
   void initState() {
     super.initState();
     _initData();
-    _timer = Timer.periodic(Duration(seconds: 1), (e){
-      this.setState((){});
-    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Tab(
       child: RefreshIndicator(
-          child: ListView(
-            children: messageListItem,
-          ),
+          child: ListView.builder(itemBuilder: (BuildContext context,int index)=>MessageListItem(_list[index]),
+          itemCount: _list.length,),
           onRefresh: () {
             return TickerFuture.complete();
           }),
@@ -49,6 +44,7 @@ class MessageState extends State<Message> {
   void dispose() {
     super.dispose();
     if(_timer!=null&&_timer.isActive) _timer.cancel();
+    if(_list!=null) _list.clear();
   }
   ///
   ///
@@ -58,7 +54,7 @@ class MessageState extends State<Message> {
   void _initData(){
     Map<String,List<String>> map = handler.messageList;
     map.forEach((id,messages){
-      messageListItem.add(MessageListItem(MessageListItemModel(messags: messages,name: id)));
+      _list.add(MessageListItemModel(messags: messages,name: id));
     });
   }
 

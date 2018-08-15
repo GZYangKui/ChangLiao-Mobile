@@ -82,7 +82,7 @@ class ChartDialogState extends State<ChartDialog> {
   }
 
   void _sendMessage(String value) {
-    //widget._list.add(value + constants.messageOwn);
+    widget._list.add(value + constants.messageOwn);
     var message = {
       constants.type: constants.message,
       constants.subtype: constants.text,
@@ -91,7 +91,6 @@ class ChartDialogState extends State<ChartDialog> {
       constants.version: constants.currentVersion
     };
     handler.sendRequest(message);
-    handler.handlerMessageList(widget._name, value + constants.messageOwn);
     _message = "";
   }
 
