@@ -111,8 +111,9 @@ void handlerUser(dynamic data) async {
         contactsList.add(Entry("我的好友", list));
       }
       loginState.toUserCenter();
+      _offlineMessage();
     } else {
-      socket?.close();
+      dispose();
       loginState.showAlertMessage("登录失败,请检查用户名/密码!");
     }
   }
@@ -159,7 +160,6 @@ void heartBeat() {
 ///
 ///
 void handlerMessage(dynamic data) {
- // print("handler...$data");
   var subtype = data["subtype"];
   var id = data[constants.from];
   var body = data[constants.body];
@@ -225,6 +225,31 @@ void handlerContacts(String id) {
   return record;
  
    }
+///
+/// 请求获取离线消息
+/// todo 将其加入到handler的Map中去
+///
+///
+void _offlineMessage(){
+  Map requestMes = {
+    constants.type:constants.user,
+    constants.subtype:constants.offline,
+    constants.id:userName,
+    constants.password:password,
+    constants.version:constants.currentVersion
+  };
+  HttpClient client = HttpClient();
+  client.put(constants.server, constants.httpPort,"/${constants.user}/${constants.offline}")
+      .then((request){
+    request.write(json.encode(requestMes));
+    return request.close();
+  }).then((response){
+    response.transform(utf8.decoder).listen((data){
+      var result = json.decode(data);
+
+    });
+  });
+}
 
 ///
 ///
