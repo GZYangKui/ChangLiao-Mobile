@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/com/navigation/component/contacts_list_item.dart';
@@ -13,6 +15,14 @@ class Contacts extends StatefulWidget {
 }
 
 class ContactsState extends State<Contacts> {
+  Timer _timer;
+  @override
+  void initState() {
+    super.initState();
+    _timer = Timer.periodic(Duration(seconds: 1), (event){
+      this.setState((){});
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Tab(
@@ -39,4 +49,11 @@ class ContactsState extends State<Contacts> {
       onRefresh: () => TickerFuture.complete(),
     ));
   }
+
+  @override
+  void dispose() {
+    super.dispose();
+    if(_timer!=null&&_timer.isActive) _timer.cancel();
+  }
+
 }

@@ -132,6 +132,7 @@ void handlerFriend(dynamic data) {
     if (data[constants.accept]) {
       systemPropel.add(SystemPropelModel("${data[constants.from]}同意添加你为好友!",
           constants.response, data["from"]));
+      handlerContacts(data[constants.from]);
     } else {
       systemPropel.add(SystemPropelModel("${data[constants.from]}拒绝添加你为好友!",
           constants.response, data["from"]));
