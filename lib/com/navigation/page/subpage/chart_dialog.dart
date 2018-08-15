@@ -9,13 +9,12 @@ import 'package:flutter_app/com/navigation/netwok/socket_handler.dart'
 import 'package:flutter_app/com/navigation/utils/constant.dart' as constants;
 
 class ChartDialog extends StatefulWidget {
-  List<String> _list;
+ final List<String> _list;
   String _name;
 
-  ChartDialog({List<String> messages, String name}) {
-    this._list = messages;
+  ChartDialog({List<String> messages, String name}):
+    this._list =messages,
     this._name = name;
-  }
 
   @override
   ChartDialogState createState() => ChartDialogState();
@@ -50,29 +49,25 @@ class ChartDialogState extends State<ChartDialog> {
               itemCount: widget._list.length,
             ),
           ),
-          Column(
+          Row(
             children: <Widget>[
-              Row(
-                children: <Widget>[
-                  Expanded(
-                    child: TextField(
-                      onChanged: (value) {
-                        _message = value;
-                      },
-                      controller: MyController(
-                          text: _message,
-                          textSelection: TextSelection(
-                              baseOffset: _message.length,
-                              extentOffset: _message.length)),
-                    ),
-                  ),
-                  RaisedButton(
-                    child: Text("发送"),
-                    onPressed: () {
-                      _sendMessage(_message);
-                    },
-                  ),
-                ],
+              Expanded(
+                child: TextField(
+                  onChanged: (value) {
+                    _message = value;
+                  },
+                  controller: MyController(
+                      text: _message,
+                      textSelection: TextSelection(
+                          baseOffset: _message.length,
+                          extentOffset: _message.length)),
+                ),
+              ),
+              RaisedButton(
+                child: Text("发送"),
+                onPressed: () {
+                  _sendMessage(_message);
+                },
               ),
             ],
           ),
