@@ -7,6 +7,7 @@ import 'package:flutter_app/com/navigation/models/contacts_list_model.dart';
 import 'package:flutter_app/com/navigation/models/system_propel_model.dart';
 import 'package:flutter_app/com/navigation/page/login.dart';
 import 'package:flutter_app/com/navigation/utils/constant.dart' as constants;
+import 'package:http/http.dart';
 
 ///
 /// 整个app向服务器发送请求和接收服务器回复的综合处理类,
@@ -41,7 +42,7 @@ Future<Socket> initSocket() {
     socket.destroy();
     socket.close();
   }
-  return Socket.connect(constants.server, constants.tcpPort);
+  return Socket.connect(constants.domain, constants.tcpPort);
 }
 
 ///
@@ -215,7 +216,6 @@ void handlerContacts(String id) {
 ///
 ///
 List<String> getChatRecorder(String id) {
-  print("hello");
   List<String> record = [];
   if (messageList.length > 0 && messageList.containsKey(id)) {
     messageList.forEach((key, list) {
@@ -241,17 +241,13 @@ void _offlineMessage() {
     constants.password: password,
     constants.version: constants.currentVersion
   };
-  HttpClient client = HttpClient();
-  client
-      .put(constants.server, constants.httpPort,
-          "/${constants.user}/${constants.offline}")
-      .then((request) {
-    request.write(json.encode(requestMes));
-    return request.close();
-  }).then((response) {
-    response.transform(utf8.decoder).listen((data) {
-      var result = json.decode(data);
-    });
+  put("${constants.http}${constants.domain}/${constants.user}/${constants.offline}"
+      ,body:"${json.encode(requestMes)}${constants.end}")
+      .then((response){
+        if(response.statusCode == 200){
+          var result = json.decode(utf8.decode(response.bodyBytes));
+          print("offline:$result");
+        }
   });
 }
 

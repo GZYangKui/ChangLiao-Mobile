@@ -7,6 +7,7 @@ import 'package:flutter_app/com/navigation/component/search_item.dart';
 import 'package:flutter_app/com/navigation/utils/constant.dart' as constants;
 import 'package:flutter_app/com/navigation/netwok/socket_handler.dart'
     as handler;
+import 'package:http/http.dart';
 
 class Search extends StatefulWidget {
   @override
@@ -184,16 +185,11 @@ class SearchDialogState extends State<SearchDialog> {
         constants.keyword: _keyword,
         constants.version: constants.currentVersion
       };
-      var httpClient = HttpClient();
-      httpClient
-          .put(constants.server, constants.httpPort,
-              "/${constants.search}/${constants.info}")
-          .then((request) {
-        request.write(json.encode(message) + constants.end);
-        return request.close();
-      }).then((response) {
-        response.transform(utf8.decoder).listen((data) {
-          var _result = json.decode(data);
+      put("${constants.http}${constants.domain}/${constants.search}/${constants.info}",
+              body: json.encode(message) + constants.end)
+          .then((response) {
+        if (response.statusCode == 200) {
+          var _result = json.decode(utf8.decode(response.bodyBytes));
           if (_result["user"] != null) {
             list.clear();
             list.add(_result["user"]["id"]);
@@ -201,7 +197,9 @@ class SearchDialogState extends State<SearchDialog> {
             key.currentState.showSnackBar(SnackBar(content: Text("该用户不存在")));
           }
           this.setState(() {});
-        });
+        } else {
+          key.currentState.showSnackBar(SnackBar(content: Text("服务器错误")));
+        }
       });
       _keyword = "";
     }

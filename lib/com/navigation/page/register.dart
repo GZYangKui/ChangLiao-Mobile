@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:flutter_app/com/navigation/utils/constant.dart' as constants;
 import 'package:flutter_app/com/navigation/utils/utils.dart';
+import 'package:http/http.dart';
 
 class Register extends StatefulWidget {
   @override
@@ -148,22 +149,18 @@ class RegisterState extends State<Register> {
   }
 
   void _sendRequest(String message, BuildContext context) {
-    HttpClient client = new HttpClient();
-    client
-        .put(constants.server, constants.httpPort, "user/register")
-        .then((request) {
-      request.write(message);
-      return request.close();
-    }).then((response) {
-      response.transform(utf8.decoder).listen((result) {
-        var res = json.decode(result);
-        if (res["register"]) {
+    put("${constants.http}${constants.domain}/${constants.user}/${constants.register}",body: message).then((response){
+      if(response.statusCode==200) {
+        var result = json.decode( utf8.decode(response.bodyBytes));
+        if (result["register"]) {
           _showMessage(context, "注册成功!");
         } else {
-          _showMessage(context, res["info"]);
+          _showMessage(context, result["info"]);
         }
+      }else{
+        _showMessage(context, "服务器异常,请重试!");
+      }
       });
-    });
   }
 
   void _vailData(BuildContext context) {

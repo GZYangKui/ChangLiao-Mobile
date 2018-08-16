@@ -1,6 +1,7 @@
 const double currentVersion = 0.2;
-const String server = "119.23.22.230";
-const int httpPort = 7575;
+const String http  ="http://";
+const String domain ="polyglot.net.cn";
+const int httpPort = 80;
 const int tcpPort = 7373;
 const String type="type";
 const String subtype="subtype";

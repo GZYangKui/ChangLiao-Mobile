@@ -9,12 +9,14 @@ import 'package:flutter_app/com/navigation/netwok/socket_handler.dart'
 import 'package:flutter_app/com/navigation/utils/constant.dart' as constants;
 
 class ChartDialog extends StatefulWidget {
-  final List<String> _list;
-  final String _name;
+   final List<String> _list;
+   final String _name;
 
   ChartDialog({List<String> messages, String name}):
-    this._list =messages,
+    this._list = List.from(messages),
     this._name = name;
+
+
 
   @override
   ChartDialogState createState() => ChartDialogState();
@@ -30,7 +32,6 @@ class ChartDialogState extends State<ChartDialog> {
     handler.currentState = this;
     _timer = Timer.periodic(Duration(milliseconds: 20), (event){
       this.setState((){
-
       });
 
     });
