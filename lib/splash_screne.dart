@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/com/navigation/page/login.dart';
+import 'package:flutter_app/com/navigation/utils/file_handler.dart' as fileHandler;
 
 class SplashScreen extends StatefulWidget {
   final int seconds;
@@ -103,6 +104,7 @@ class _SplashScreenState extends State<SplashScreen> {
   ///
   ///
   void _loadData(){
+    fileHandler.initFileState();
     Timer(Duration(seconds: widget.seconds),(){
       Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context)=>Login()));
     });

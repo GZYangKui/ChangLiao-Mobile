@@ -34,4 +34,11 @@ const String offline = "offiline";
 
 const String end = "\r\n";
 const String messageOwn ="{[|@#\$%|]}";
+const String carefree  ="carefree";
+const String phone     ="phone";
+const String mail      ="mail";
+const String address   ="address";
+const String website   ="website";
+const String company   ="company";
+const String brief     ="brief";
 
