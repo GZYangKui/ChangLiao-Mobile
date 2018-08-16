@@ -217,13 +217,15 @@ void handlerContacts(String id) {
 ///
 List<String> getChatRecorder(String id) {
   List<String> record = [];
-  if (messageList.length > 0 && messageList.containsKey(id)) {
+  if (messageList.containsKey(id)) {
     messageList.forEach((key, list) {
       if (key == id) {
-        record = List.from(list);
+        record = list;
         return;
       }
     });
+  }else{
+    messageList.putIfAbsent(id, ()=>record);
   }
   return record;
 }

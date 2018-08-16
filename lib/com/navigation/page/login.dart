@@ -173,6 +173,7 @@ class LoginState extends State<Login> {
       handler.password=md5(_password);
       handler.sendRequest(requestMes);
     }catch(e){
+      print(e);
       showAlertMessage("网络异常");
       return;
     }

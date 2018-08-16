@@ -13,7 +13,7 @@ class ChartDialog extends StatefulWidget {
    final String _name;
 
   ChartDialog({List<String> messages, String name}):
-    this._list = List.from(messages),
+    this._list = messages,
     this._name = name;
 
 
@@ -30,8 +30,9 @@ class ChartDialogState extends State<ChartDialog> {
   void initState() {
     super.initState();
     handler.currentState = this;
-    _timer = Timer.periodic(Duration(milliseconds: 20), (event){
+    _timer = Timer.periodic(Duration(milliseconds: 30), (event){
       this.setState((){
+
       });
 
     });
@@ -81,16 +82,15 @@ class ChartDialogState extends State<ChartDialog> {
   }
 
   void _sendMessage(String value) {
-    widget._list.add(value + constants.messageOwn);
+    widget._list.add(value+constants.messageOwn);
     var message = {
       constants.type: constants.message,
       constants.subtype: constants.text,
       constants.to: widget._name,
-      constants.body: _message,
+      constants.body: value,
       constants.version: constants.currentVersion
     };
     handler.sendRequest(message);
-    //handler.handlerMessageList(widget._name,value+constants.messageOwn);
     _message = "";
   }
 

@@ -33,7 +33,7 @@ class AboutState extends State<About> {
                     ),
                   ),
                 ),
-                Text("版本:0.1")
+                Text("版本:0.1"),
               ],
             ),
           ),
