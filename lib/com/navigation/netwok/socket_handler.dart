@@ -8,7 +8,7 @@ import 'package:flutter_app/com/navigation/models/system_propel_model.dart';
 import 'package:flutter_app/com/navigation/page/login.dart';
 import 'package:flutter_app/com/navigation/utils/constant.dart' as constants;
 import 'package:http/http.dart';
-
+import 'package:flutter_app/com/navigation/utils/file_handler.dart' as fileHandler;
 ///
 /// 整个app向服务器发送请求和接收服务器回复的综合处理类,
 /// 此类强烈不建议与ui部分发生直接交互,只负责产生数据,某个页面需要数据直接获取即可.
@@ -113,6 +113,7 @@ void handlerUser(dynamic data) async {
         for (var friend in friends) list.add(Entry(friend["id"]));
         contactsList.add(Entry("我的好友", list));
       }
+      fileHandler.writerChatRecord("hello");
       loginState.toUserCenter();
       _offlineMessage();
     } else {
@@ -229,7 +230,20 @@ List<String> getChatRecorder(String id) {
   }
   return record;
 }
-
+///
+/// 清除指定用户的聊天记录
+///
+///
+void clearMessage(String id) async{
+  if(messageList.containsKey(id)){
+    messageList.forEach((key,value){
+      if(key == id&&value.length>0) {
+        value.clear();
+        return;
+      }
+    });
+  }
+}
 ///
 /// 请求获取离线消息
 /// todo 将其加入到handler的Map中去

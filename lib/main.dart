@@ -21,7 +21,7 @@ class HomeState extends State<ApplicationHome> {
   @override
   Widget build(BuildContext context) {
     return SplashScreen(
-      seconds: 1,
+      seconds: 3,
       image: Image.asset("assets/images/icon.png"),
       photoSize: 70.0,
       title: Text(

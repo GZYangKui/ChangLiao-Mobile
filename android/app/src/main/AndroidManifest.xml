@@ -14,8 +14,10 @@
          FlutterApplication and put your custom class here. -->
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="flutter_app"
+        android:label="畅聊"
         android:icon="@mipmap/ic_launcher">
+        <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+        <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
