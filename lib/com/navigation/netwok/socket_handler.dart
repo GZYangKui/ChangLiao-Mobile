@@ -239,6 +239,7 @@ void clearMessage(String id) async{
     messageList.forEach((key,value){
       if(key == id&&value.length>0) {
         value.clear();
+        messageList.remove(key);
         return;
       }
     });

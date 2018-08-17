@@ -127,7 +127,7 @@ class UserCenterState extends State<UserCenter>
                                       context,
                                       MaterialPageRoute(
                                           builder: (BuildContext context) =>
-                                              PersonInfo()));
+                                              PersonInfo(handler.userName)));
                                 },
                               ),
                             ],
