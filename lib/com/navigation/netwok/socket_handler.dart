@@ -237,7 +237,7 @@ List<String> getChatRecorder(String id) {
 void clearMessage(String id) async{
   if(messageList.containsKey(id)){
     messageList.forEach((key,value){
-      if(key == id&&value.length>0) {
+      if(key == id) {
         value.clear();
         messageList.remove(key);
         return;
