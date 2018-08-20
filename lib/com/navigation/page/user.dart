@@ -267,6 +267,9 @@ class UserCenterState extends State<UserCenter>
                 children: <Widget>[
                   RaisedButton(
                     child: Text("取消"),
+                    shape: StadiumBorder(
+                      side: BorderSide(color: Colors.red),
+                    ),
                     onPressed: () =>Navigator.pop(context),
                   ),
                   SizedBox(
@@ -275,6 +278,9 @@ class UserCenterState extends State<UserCenter>
                   ),
                   RaisedButton(
                     child: Text("确定"),
+                    shape: StadiumBorder(
+                      side: BorderSide(color: Colors.red),
+                    ),
                     onPressed: () {
                       handler.dispose();
                       Navigator.push(

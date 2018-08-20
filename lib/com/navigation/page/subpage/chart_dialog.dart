@@ -78,6 +78,7 @@ class ChartDialogState extends State<ChartDialog> {
                 ),
               ),
               RaisedButton(
+                padding: EdgeInsets.all(3.0),
                 child: Text("发送"),
                 onPressed: () {
                   _sendMessage(_message);
@@ -159,7 +160,7 @@ class ChartDialogState extends State<ChartDialog> {
   void dispose() {
     super.dispose();
     if (_timer != null && _timer.isActive) _timer.cancel();
-    if(widget._list.length==0) handler.clearMessage(widget._name);
+    if (widget._list.length == 0) handler.clearMessage(widget._name);
   }
 }
 

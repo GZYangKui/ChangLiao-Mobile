@@ -100,7 +100,9 @@ class SearchState extends State<Search> with SingleTickerProviderStateMixin {
                 ),
               ],
             ),
-            onTapDown: (e) {},
+            onTapDown: (e) {
+              key.currentState.showSnackBar(SnackBar(content: Text("该功能将在下一个版本开放!")));
+            },
           ),
         ),
         Padding(
@@ -124,7 +126,9 @@ class SearchState extends State<Search> with SingleTickerProviderStateMixin {
                 ),
               ],
             ),
-            onTapDown: (e) {},
+            onTapDown: (e) {
+              key.currentState.showSnackBar(SnackBar(content: Text("该功能将在下一个版本开放!")));
+            },
           ),
         ),
       ],

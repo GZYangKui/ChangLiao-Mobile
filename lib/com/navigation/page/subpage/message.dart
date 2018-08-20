@@ -20,17 +20,21 @@ class Message extends StatefulWidget {
 }
 
 class MessageState extends State<Message> {
-  Timer _timer;
   List<MessageListItemModel> _list= [];
+  Timer _timer;
 
   @override
   void initState() {
     super.initState();
-    _initData();
+
+    _timer = Timer.periodic(Duration(seconds: 1),(e){
+      this.setState((){});
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    _initData();
     return Tab(
       child: RefreshIndicator(
           child: ListView.builder(itemBuilder: (BuildContext context,int index)=>MessageListItem(_list[index]),
@@ -52,11 +56,11 @@ class MessageState extends State<Message> {
   ///
   ///
   void _initData(){
+    if(_list.length>0) _list.clear();
     Map<String,List<String>> map = handler.messageList;
     map.forEach((id,messages){
       _list.add(MessageListItemModel(messags: messages,name: id));
     });
   }
-
 
 }

@@ -27,7 +27,7 @@ class DynamicOfState extends State<DynamicState> {
                 ],
               ),
               onTapDown: (e){
-                Scaffold.of(context).showSnackBar(SnackBar(content: Text("该部分功能暂未开放")));
+                Scaffold.of(context).showSnackBar(SnackBar(content: Text("该功能将在下一个版本开放!")));
               },
             ),
           ),

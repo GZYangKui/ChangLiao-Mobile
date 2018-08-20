@@ -79,7 +79,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   flex: 1,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
+                   /* children: <Widget>[
                       CircularProgressIndicator(
                         valueColor: new AlwaysStoppedAnimation<Color>(widget.loaderColor),
                       ),
@@ -88,7 +88,7 @@ class _SplashScreenState extends State<SplashScreen> {
                       ),
                       Text("加载中.....",style: widget.styleTextUnderTheLoader
                       ),
-                    ],
+                    ],*/
                   ),
                 ),
               ],
