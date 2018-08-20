@@ -276,7 +276,7 @@ void _offlineMessage() {
 
 void dispose() {
   socket?.destroy();
-  socket.close();
+  socket?.close();
   contactsList?.clear();
   systemPropel?.clear();
   messageList?.clear();

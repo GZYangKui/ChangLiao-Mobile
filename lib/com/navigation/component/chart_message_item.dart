@@ -1,3 +1,5 @@
+import 'dart:ui' as ui;
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/com/navigation/beautiful/CustomerOval.dart';
@@ -61,6 +63,7 @@ class ChartMessageItemState extends State<ChartMessageItem> {
   }
 
   Widget _ownSend() {
+    final message = widget._message.split(constants.messageOwn)[0];
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: <Widget>[
@@ -73,9 +76,9 @@ class ChartMessageItemState extends State<ChartMessageItem> {
               borderRadius: BorderRadius.all(
                 Radius.circular(5.00),
               )),
-          width: 150.0,
+          width:(ui.window.physicalSize.width/ui.window.devicePixelRatio)*0.7,
           child: Text(
-            widget._message.split(constants.messageOwn)[0],
+            message,
             style: TextStyle(fontSize: 20.0),
           ),
         ),
