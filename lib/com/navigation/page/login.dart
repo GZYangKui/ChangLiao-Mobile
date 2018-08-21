@@ -7,6 +7,7 @@ import 'package:flutter_app/com/navigation/netwok/socket_handler.dart'
     as handler;
 import 'package:flutter_app/com/navigation/utils/constant.dart' as constants;
 import 'package:flutter_app/com/navigation/utils/utils.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -85,7 +86,7 @@ class LoginState extends State<Login> {
                         decoration: BoxDecoration(
                           color: Color.fromRGBO(0, 245, 255, 0.8),
                         ),
-                        child: Text(
+                        child: const Text(
                           "登录",
                           style: TextStyle(
                               fontSize: 20.0,
@@ -103,7 +104,7 @@ class LoginState extends State<Login> {
                 children: <Widget>[
                   Expanded(
                     child: GestureDetector(
-                      child: Text(
+                      child: const Text(
                         "忘记密码？",
                         style: TextStyle(fontSize: 18.0, color: Colors.green),
                       ),
@@ -116,7 +117,7 @@ class LoginState extends State<Login> {
                     child: Align(
                       alignment: Alignment.centerRight,
                       child: GestureDetector(
-                        child: Text("新用户注册",
+                        child: const Text("新用户注册",
                             style:
                                 TextStyle(fontSize: 18.0, color: Colors.green)),
                         onTapDown: (e) {
@@ -166,6 +167,7 @@ class LoginState extends State<Login> {
     try {
       handler.socket = await handler.initSocket();
       handler.socketHandler();
+      _showToast("登录中..");
       handler.sendRequest(requestMes);
       handler.userName = _userName;
       handler.password = md5(_password);
@@ -175,9 +177,19 @@ class LoginState extends State<Login> {
     }
   }
 
+  void _showToast(String msg) {
+    Fluttertoast.showToast(
+        msg: msg,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        bgcolor: "#e74c3c",
+        textcolor: '#ffffff');
+  }
+
   void toUserCenter() {
     Navigator.push(context,
         MaterialPageRoute(builder: (BuildContext context) => UserCenter()));
+    _showToast("登录成功");
   }
 
   void showAlertMessage(String message) {
