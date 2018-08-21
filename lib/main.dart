@@ -21,12 +21,12 @@ class HomeState extends State<ApplicationHome> {
   @override
   Widget build(BuildContext context) {
     return SplashScreen(
-      seconds: 3,
+      seconds: 1,
       image: Image.asset("assets/images/icon.png"),
       photoSize: 70.0,
       title: Text(
         "畅聊",
-        style: TextStyle(fontSize: 22.0),
+        style: TextStyle(fontSize: 25.0),
       ),
     );
   }
