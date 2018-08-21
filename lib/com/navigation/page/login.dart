@@ -3,21 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app/com/navigation/page/register.dart';
 import 'package:flutter_app/com/navigation/page/user.dart';
-import 'package:flutter_app/com/navigation/netwok/socket_handler.dart' as handler;
+import 'package:flutter_app/com/navigation/netwok/socket_handler.dart'
+    as handler;
 import 'package:flutter_app/com/navigation/utils/constant.dart' as constants;
 import 'package:flutter_app/com/navigation/utils/utils.dart';
 
-
 class Login extends StatefulWidget {
   @override
-  LoginState createState()=>LoginState();
-
-
+  LoginState createState() => LoginState();
 }
 
 class LoginState extends State<Login> {
-  String _userName ="";
-  String _password ="";
+  String _userName = "";
+  String _password = "";
   GlobalKey<ScaffoldState> key = GlobalKey();
   @override
   Widget build(BuildContext context) {
@@ -60,7 +58,7 @@ class LoginState extends State<Login> {
                   Expanded(
                     child: TextField(
                       decoration: InputDecoration(labelText: "用户名"),
-                      onChanged: (value)=>_userName = value,
+                      onChanged: (value) => _userName = value,
                     ),
                   ),
                 ],
@@ -70,7 +68,7 @@ class LoginState extends State<Login> {
                   Expanded(
                     child: TextField(
                       decoration: InputDecoration(labelText: "密码"),
-                      onChanged: (value)=>_password=value,
+                      onChanged: (value) => _password = value,
                       obscureText: true,
                     ),
                   )
@@ -146,44 +144,44 @@ class LoginState extends State<Login> {
   @override
   void initState() {
     super.initState();
-    handler.loginState=this;
+    handler.loginState = this;
   }
 
   void _vailUser() async {
-    if(_userName.trim()==""){
+    if (_userName.trim() == "") {
       showAlertMessage("用户名不能为空!");
       return;
     }
-    if(_password.trim()==""){
+    if (_password.trim() == "") {
       showAlertMessage("密码不能为空!");
       return;
     }
-    Map requestMes ={
-      constants.type:constants.user,
-      constants.subtype:constants.login,
-      constants.id:_userName,
-      constants.password:md5(_password),
-      constants.version:constants.currentVersion,
+    Map requestMes = {
+      constants.type: constants.user,
+      constants.subtype: constants.login,
+      constants.id: _userName,
+      constants.password: md5(_password),
+      constants.version: constants.currentVersion,
     };
     try {
-      handler.socket=await handler.initSocket();
+      handler.socket = await handler.initSocket();
       handler.socketHandler();
-      handler.heartBeat();
-      handler.userName=_userName;
-      handler.password=md5(_password);
+      handler.userName = _userName;
+      handler.password = md5(_password);
       handler.sendRequest(requestMes);
-    }catch(e){
+    } catch (e) {
       print(e);
       showAlertMessage("网络异常");
       return;
     }
   }
-  void toUserCenter(){
+
+  void toUserCenter() {
     Navigator.push(context,
         MaterialPageRoute(builder: (BuildContext context) => UserCenter()));
   }
 
-  void showAlertMessage(String message){
-   key.currentState.showSnackBar(SnackBar(content: Text(message)));
+  void showAlertMessage(String message) {
+    key.currentState.showSnackBar(SnackBar(content: Text(message)));
   }
 }

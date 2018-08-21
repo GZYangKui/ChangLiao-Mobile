@@ -9,7 +9,8 @@ import 'package:flutter_app/com/navigation/page/subpage/message.dart';
 import 'package:flutter_app/com/navigation/page/subpage/personInfo.dart';
 import 'package:flutter_app/com/navigation/page/subpage/search.dart';
 import 'package:flutter_app/com/navigation/page/login.dart';
-import 'package:flutter_app/com/navigation/netwok/socket_handler.dart' as handler;
+import 'package:flutter_app/com/navigation/netwok/socket_handler.dart'
+    as handler;
 import 'package:flutter_app/com/navigation/page/subpage/system_inform.dart';
 
 class UserCenter extends StatefulWidget {
@@ -19,7 +20,6 @@ class UserCenter extends StatefulWidget {
 
 class UserCenterState extends State<UserCenter>
     with SingleTickerProviderStateMixin {
-
   static final List<StatefulWidget> _tabs = [
     Message(),
     Contacts(),
@@ -48,7 +48,8 @@ class UserCenterState extends State<UserCenter>
             ),
             IconButton(
               icon: Icon(Icons.notifications),
-              onPressed: ()=>Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context)=>SystemInform())),
+              onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                  builder: (BuildContext context) => SystemInform())),
             ),
           ],
         ),
@@ -88,7 +89,8 @@ class UserCenterState extends State<UserCenter>
     super.initState();
     SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top]);
     handler.currentState = this;
-    _tabController = TabController(initialIndex: 0, length: _tabs.length, vsync: this);
+    _tabController =
+        TabController(initialIndex: 0, length: _tabs.length, vsync: this);
     _tabController.addListener(() {
       this.setState(() {
         this._currentIndex = _tabController.index;
@@ -243,7 +245,7 @@ class UserCenterState extends State<UserCenter>
   void dispose() {
     super.dispose();
     _tabController.dispose();
-    if(handler.socket!=null){
+    if (handler.socket != null) {
       handler.socket.destroy();
       handler.socket.close();
     }
@@ -270,7 +272,7 @@ class UserCenterState extends State<UserCenter>
                     shape: StadiumBorder(
                       side: BorderSide(color: Colors.red),
                     ),
-                    onPressed: () =>Navigator.pop(context),
+                    onPressed: () => Navigator.pop(context),
                   ),
                   SizedBox(
                     width: 10.0,

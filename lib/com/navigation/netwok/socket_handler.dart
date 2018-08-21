@@ -8,7 +8,9 @@ import 'package:flutter_app/com/navigation/models/system_propel_model.dart';
 import 'package:flutter_app/com/navigation/page/login.dart';
 import 'package:flutter_app/com/navigation/utils/constant.dart' as constants;
 import 'package:http/http.dart';
-import 'package:flutter_app/com/navigation/utils/file_handler.dart' as fileHandler;
+import 'package:flutter_app/com/navigation/utils/file_handler.dart'
+    as fileHandler;
+
 ///
 /// 整个app向服务器发送请求和接收服务器回复的综合处理类,
 /// 此类强烈不建议与ui部分发生直接交互,只负责产生数据,某个页面需要数据直接获取即可.
@@ -25,8 +27,8 @@ Socket socket;
 List<Entry> contactsList = [];
 List<SystemPropelModel> systemPropel = [];
 Map<String, List<String>> messageList = {};
+Map<String, int> lastNum = {};
 
-Timer timer;
 LoginState loginState;
 String userName;
 String password;
@@ -53,19 +55,7 @@ Future<Socket> initSocket() {
 void socketHandler() async {
   if (socket != null) {
     socket.done.catchError(() {}, test: (e) {
-      if (timer != null && timer.isActive) {
-        timer.cancel();
-      }
-
-      ///
-      /// todo 此处有点不友好不建议这样做
-      ///
-      if (currentState != null) {
-        Login login = Login();
-        dispose();
-        Navigator.push(currentState.context,
-            MaterialPageRoute(builder: (BuildContext context) => login));
-      }
+      dispose();
       return true;
     });
     socket.transform(utf8.decoder).listen((data) {
@@ -113,7 +103,7 @@ void handlerUser(dynamic data) async {
         for (var friend in friends) list.add(Entry(friend["id"]));
         contactsList.add(Entry("我的好友", list));
       }
-      fileHandler.createUserDir(userName,password,friends);
+      fileHandler.createUserDir(userName, password, friends);
       loginState.toUserCenter();
       _offlineMessage();
     } else {
@@ -147,18 +137,6 @@ void handlerFriend(dynamic data) {
 
 ///
 ///
-/// 心跳机制定时向服务器发送空包检验socket是否可用
-///
-///
-
-void heartBeat() {
-  timer = Timer.periodic(Duration(seconds: 10), (event) {
-    socket.write("");
-  });
-}
-
-///
-///
 /// 处理所有type为message的服务器返回数据
 /// 目前只有subtype为text的数据,在将来可能添加image voice等
 ///
@@ -187,6 +165,7 @@ void handlerMessageList(String id, String message) async {
     List<String> list = List();
     list.add(message);
     messageList.putIfAbsent(id, () => list);
+    lastNum.putIfAbsent(id, () => 0);
   }
 }
 
@@ -225,19 +204,20 @@ List<String> getChatRecorder(String id) {
         return;
       }
     });
-  }else{
-    messageList.putIfAbsent(id, ()=>record);
+  } else {
+    messageList.putIfAbsent(id, () => record);
   }
   return record;
 }
+
 ///
 /// 清除指定用户的聊天记录
 ///
 ///
-void clearMessage(String id) async{
-  if(messageList.containsKey(id)){
-    messageList.forEach((key,value){
-      if(key == id) {
+void clearMessage(String id) async {
+  if (messageList.containsKey(id)) {
+    messageList.forEach((key, value) {
+      if (key == id) {
         value.clear();
         messageList.remove(key);
         return;
@@ -245,6 +225,7 @@ void clearMessage(String id) async{
     });
   }
 }
+
 ///
 /// 请求获取离线消息
 /// todo 将其加入到handler的Map中去
@@ -258,18 +239,41 @@ void _offlineMessage() {
     constants.password: password,
     constants.version: constants.currentVersion
   };
-  put("${constants.http}${constants.domain}/${constants.user}/${constants.offline}"
-      ,body:"${json.encode(requestMes)}${constants.end}")
-      .then((response){
-        if(response.statusCode == 200){
-          var result = json.decode(utf8.decode(response.bodyBytes));
-          print("offline:$result");
-        }
+  put("${constants.http}${constants.domain}/${constants.user}/${constants.offline}",
+      body: "${json.encode(requestMes)}${constants.end}").then((response) {
+    if (response.statusCode == 200) {
+      var result = json.decode(utf8.decode(response.bodyBytes));
+      print("offline:$result");
+    }
   });
 }
 
 ///
+/// 通过id获取上一次消息数目
 ///
+int obtainMessageNumber(String id) {
+  int number = 0;
+  if (lastNum.containsKey(id)) {
+    lastNum.forEach((key, value) {
+      if (key == id) {
+        number = value;
+        return;
+      }
+    });
+  }
+  return number;
+}
+
+///
+///
+/// 通过id更新消息条数
+///
+void updateMessageNumber(String id, int number) async {
+  if (lastNum.containsKey(id)) {
+    lastNum.update(id, (old) => number);
+  }
+}
+
 ///退出登录时释放掉该用户所有信息
 ///
 ///
@@ -280,4 +284,5 @@ void dispose() {
   contactsList?.clear();
   systemPropel?.clear();
   messageList?.clear();
+  lastNum?.clear();
 }

@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
@@ -101,7 +100,8 @@ class SearchState extends State<Search> with SingleTickerProviderStateMixin {
               ],
             ),
             onTapDown: (e) {
-              key.currentState.showSnackBar(SnackBar(content: Text("该功能将在下一个版本开放!")));
+              key.currentState
+                  .showSnackBar(SnackBar(content: Text("该功能将在下一个版本开放!")));
             },
           ),
         ),
@@ -127,7 +127,8 @@ class SearchState extends State<Search> with SingleTickerProviderStateMixin {
               ],
             ),
             onTapDown: (e) {
-              key.currentState.showSnackBar(SnackBar(content: Text("该功能将在下一个版本开放!")));
+              key.currentState
+                  .showSnackBar(SnackBar(content: Text("该功能将在下一个版本开放!")));
             },
           ),
         ),
@@ -190,8 +191,7 @@ class SearchDialogState extends State<SearchDialog> {
         constants.version: constants.currentVersion
       };
       put("${constants.http}${constants.domain}/${constants.search}/${constants.info}",
-              body: json.encode(message) + constants.end)
-          .then((response) {
+          body: json.encode(message) + constants.end).then((response) {
         if (response.statusCode == 200) {
           var _result = json.decode(utf8.decode(response.bodyBytes));
           if (_result["user"] != null) {

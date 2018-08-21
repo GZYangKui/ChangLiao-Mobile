@@ -11,8 +11,10 @@ class ChartDialog extends StatefulWidget {
   final List<String> _list;
   final String _name;
 
-  ChartDialog({List<String> messages, String name})
-      : this._list = messages,
+  ChartDialog({
+    @required List<String> messages,
+    @required String name,
+  })  : this._list = messages,
         this._name = name;
 
   @override
@@ -161,6 +163,8 @@ class ChartDialogState extends State<ChartDialog> {
     super.dispose();
     if (_timer != null && _timer.isActive) _timer.cancel();
     if (widget._list.length == 0) handler.clearMessage(widget._name);
+    if (widget._list.length != handler.obtainMessageNumber(widget._name))
+      handler.updateMessageNumber(widget._name, widget._list.length);
   }
 }
 

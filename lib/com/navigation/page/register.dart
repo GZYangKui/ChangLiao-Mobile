@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
@@ -149,18 +147,19 @@ class RegisterState extends State<Register> {
   }
 
   void _sendRequest(String message, BuildContext context) {
-    put("${constants.http}${constants.domain}/${constants.user}/${constants.register}",body: message).then((response){
-      if(response.statusCode==200) {
-        var result = json.decode( utf8.decode(response.bodyBytes));
+    put("${constants.http}${constants.domain}/${constants.user}/${constants.register}",
+        body: message).then((response) {
+      if (response.statusCode == 200) {
+        var result = json.decode(utf8.decode(response.bodyBytes));
         if (result["register"]) {
           _showMessage(context, "注册成功!");
         } else {
           _showMessage(context, result["info"]);
         }
-      }else{
+      } else {
         _showMessage(context, "服务器异常,请重试!");
       }
-      });
+    });
   }
 
   void _vailData(BuildContext context) {
