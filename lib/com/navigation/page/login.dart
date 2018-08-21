@@ -166,11 +166,10 @@ class LoginState extends State<Login> {
     try {
       handler.socket = await handler.initSocket();
       handler.socketHandler();
+      handler.sendRequest(requestMes);
       handler.userName = _userName;
       handler.password = md5(_password);
-      handler.sendRequest(requestMes);
     } catch (e) {
-      print(e);
       showAlertMessage("网络异常");
       return;
     }

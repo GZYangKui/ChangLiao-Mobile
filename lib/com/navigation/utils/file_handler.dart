@@ -4,7 +4,8 @@ import 'dart:io';
 
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_app/com/navigation/utils/constant.dart' as constants;
-import 'package:flutter_app/com/navigation/netwok/socket_handler.dart' as handler;
+import 'package:flutter_app/com/navigation/netwok/socket_handler.dart'
+    as handler;
 
 ///
 ///
@@ -125,38 +126,40 @@ void updateFriends(List<dynamic> friends, String path) async {
         constants.brief: "这家伙很懒什么都没留下!"
       }));
     }
-  }else{
+  } else {
     ///TODO 添加缺省好友
-    list.forEach((item){
-      print(item.path);
-    });
+
   }
 }
+
 ///
 /// 根据id得到个人信息
 ///
 ///
-Future<dynamic> loadPersonInfo(String id) async{
+Future<dynamic> loadPersonInfo(String id) async {
   String infoDir;
-  if(id==handler.userName)
+  if (id == handler.userName)
     infoDir = "$dir/${constants.carefree}/${handler.userName}/$id.json";
   else
-    infoDir = "$dir/${constants.carefree}/${handler.userName}/${constants.friends}/$id/$id.json";
+    infoDir =
+        "$dir/${constants.carefree}/${handler.userName}/${constants.friends}/$id/$id.json";
   File file = File(infoDir);
   var result = json.decode(file.readAsStringSync());
   return result;
 }
+
 ///
 ///
 /// 根据id更改个人信息
 ///
-Future<File> savePersonInfo(String id,dynamic data) async{
+Future<File> savePersonInfo(String id, dynamic data) async {
   String infoDir;
-  if(id==handler.userName)
+  if (id == handler.userName)
     infoDir = "$dir/${constants.carefree}/${handler.userName}/$id.json";
   else
-    infoDir = "$dir/${constants.carefree}/${handler.userName}/${constants.friends}/$id/$id.json";
+    infoDir =
+        "$dir/${constants.carefree}/${handler.userName}/${constants.friends}/$id/$id.json";
   File file = File(infoDir);
-  var result =file.writeAsString(json.encode(data));
+  var result = file.writeAsString(json.encode(data));
   return result;
 }
