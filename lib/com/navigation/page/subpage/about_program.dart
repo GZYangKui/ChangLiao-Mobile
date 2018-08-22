@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app/com/navigation/beautiful/CustomerOval.dart';
+import 'package:flutter_app/com/navigation/page/subpage/webview.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class About extends StatefulWidget {
@@ -115,7 +116,14 @@ class AboutState extends State<About> {
   }
 
   void _openLink(String url) async {
-    if (await canLaunch(url)) {
+    Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (BuildContext context) => WebViewStateful(
+                  url: url,
+                ),
+          ),
+        );
+    /* if (await canLaunch(url)) {
       await launch(url);
     } else {
       key.currentState.showSnackBar(
@@ -144,6 +152,6 @@ class AboutState extends State<About> {
           ),
         ),
       );
-    }
+    }*/
   }
 }

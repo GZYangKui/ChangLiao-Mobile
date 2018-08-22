@@ -165,6 +165,7 @@ void handlerMessageList(String id, String message) async {
     List<String> list = List();
     list.add(message);
     messageList.putIfAbsent(id, () => list);
+    if (!lastNum.containsKey(id)) lastNum.putIfAbsent(id, () => 0);
   }
 }
 

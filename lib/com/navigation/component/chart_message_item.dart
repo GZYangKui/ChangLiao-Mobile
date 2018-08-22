@@ -44,15 +44,22 @@ class ChartMessageItemState extends State<ChartMessageItem> {
           clipper: CustomerOval(30.0, 30.0, 70.0),
         ),
         Container(
+          foregroundDecoration: ShapeDecoration(
+            shape: RoundedRectangleBorder(
+                side: BorderSide(color: Colors.lightBlue),
+                borderRadius: BorderRadius.all(Radius.circular(10.0))),
+          ),
           margin: EdgeInsets.only(top: 15.0),
           alignment: Alignment.center,
           padding: EdgeInsets.all(10.0),
           decoration: BoxDecoration(
-              color: Color.fromRGBO(250, 250, 210, 1.0),
-              borderRadius: BorderRadius.all(
-                Radius.circular(5.00),
-              )),
-          width: 150.0,
+            color: Color.fromRGBO(250, 250, 210, 1.0),
+            borderRadius: BorderRadius.all(
+              Radius.circular(20.00),
+            ),
+          ),
+          width:
+              (ui.window.physicalSize.width / ui.window.devicePixelRatio) * 0.7,
           child: Text(
             widget._message,
             style: TextStyle(fontSize: 20.0),
@@ -68,15 +75,22 @@ class ChartMessageItemState extends State<ChartMessageItem> {
       mainAxisAlignment: MainAxisAlignment.end,
       children: <Widget>[
         Container(
+          foregroundDecoration: ShapeDecoration(
+            shape: RoundedRectangleBorder(
+                side: BorderSide(color: Colors.lightBlue),
+                borderRadius: BorderRadius.all(Radius.circular(10.0))),
+          ),
           margin: EdgeInsets.only(top: 15.0),
           alignment: Alignment.center,
           padding: EdgeInsets.all(10.0),
           decoration: BoxDecoration(
-              color: Color.fromRGBO(250, 250, 210, 1.0),
-              borderRadius: BorderRadius.all(
-                Radius.circular(5.00),
-              )),
-          width:(ui.window.physicalSize.width/ui.window.devicePixelRatio)*0.7,
+            color: Color.fromRGBO(250, 250, 210, 1.0),
+            borderRadius: BorderRadius.all(
+              Radius.circular(20.00),
+            ),
+          ),
+          width:
+              (ui.window.physicalSize.width / ui.window.devicePixelRatio) * 0.7,
           child: Text(
             message,
             style: TextStyle(fontSize: 20.0),
