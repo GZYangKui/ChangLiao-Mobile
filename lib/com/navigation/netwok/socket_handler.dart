@@ -165,7 +165,6 @@ void handlerMessageList(String id, String message) async {
     List<String> list = List();
     list.add(message);
     messageList.putIfAbsent(id, () => list);
-    lastNum.putIfAbsent(id, () => 0);
   }
 }
 
@@ -207,6 +206,7 @@ List<String> getChatRecorder(String id) {
   } else {
     messageList.putIfAbsent(id, () => record);
   }
+  if (!lastNum.containsKey(id)) lastNum.putIfAbsent(id, () => 0);
   return record;
 }
 
