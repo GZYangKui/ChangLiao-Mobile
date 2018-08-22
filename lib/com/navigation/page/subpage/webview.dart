@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
@@ -25,7 +27,13 @@ class WebViewState extends State<WebViewStateful> {
     return WebviewScaffold(
       url: widget._url,
       appBar: AppBar(
-        title: Text(_title,style: TextStyle(),),
+        title: Container(
+          alignment: Alignment.center,
+          width: (window.physicalSize.width / window.devicePixelRatio) * 0.6,
+          child: Text(
+            _title,
+          ),
+        ),
         centerTitle: true,
         backgroundColor: Colors.black87,
       ),
@@ -42,7 +50,6 @@ class WebViewState extends State<WebViewStateful> {
         });
       });
     });
-
   }
 
   @override
