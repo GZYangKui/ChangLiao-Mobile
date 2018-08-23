@@ -6,12 +6,12 @@ import 'package:flutter/material.dart';
 /// 之人社会热点
 ///
 ///
-class SocialHotspot extends StatefulWidget {
+class SocialHotSpot extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => SocialHotspotState();
+  State<StatefulWidget> createState() => SocialHotSpotState();
 }
 
-class SocialHotspotState extends State<SocialHotspot> {
+class SocialHotSpotState extends State<SocialHotSpot> {
   @override
   Widget build(BuildContext context) {
     return Tab(
