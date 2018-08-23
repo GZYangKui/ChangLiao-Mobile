@@ -1,9 +1,9 @@
 const double currentVersion = 0.2;
-const String http  ="http://";
-const String domain ="polyglot.net.cn";
+const String http = "http://";
+const String domain = "polyglot.net.cn";
 const int tcpPort = 7373;
-const String type="type";
-const String subtype="subtype";
+const String type = "type";
+const String subtype = "subtype";
 const String message = "message";
 const String search = "search";
 const String friend = "friend";
@@ -33,12 +33,11 @@ const String keyword = "keyword";
 const String offline = "offiline";
 
 const String end = "\r\n";
-const String messageOwn ="{[|@#\$%|]}";
-const String carefree  ="carefree";
-const String phone     ="phone";
-const String mail      ="mail";
-const String address   ="address";
-const String website   ="website";
-const String company   ="company";
-const String brief     ="brief";
-
+const String messageOwn = "{[|@#\$%|]}";
+const String carefree = "carefree";
+const String phone = "phone";
+const String mail = "mail";
+const String address = "address";
+const String website = "website";
+const String company = "company";
+const String brief = "brief";
