@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/com/navigation/page/subpage/new_trend.dart';
 
 class DynamicState extends StatefulWidget {
   @override
@@ -58,9 +59,7 @@ class DynamicOfState extends State<DynamicState> {
                 ],
               ),
               onTapDown: (e) {
-                Scaffold
-                    .of(context)
-                    .showSnackBar(SnackBar(content: Text("该功能将在下一个版本开放!")));
+                Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context)=>NewTrend()));
               },
             ),
           ),
