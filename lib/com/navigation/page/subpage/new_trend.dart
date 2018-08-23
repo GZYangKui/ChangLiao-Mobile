@@ -19,7 +19,7 @@ class NewTrendState extends State<NewTrend>
     with SingleTickerProviderStateMixin {
   TabController _tabController;
   int _currentIndex = 0;
-  final List<String> _titles = ["人工智能", "区块链", "社会热点","游戏","众筹"];
+  final List<String> _titles = ["人工智能", "区块链", "社会热点", "游戏", "众筹"];
   final List<Widget> _tabs = [
     ArtificialIntelligence(),
     BlockChain(),

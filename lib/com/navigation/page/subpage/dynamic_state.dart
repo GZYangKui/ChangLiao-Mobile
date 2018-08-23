@@ -14,20 +14,53 @@ class DynamicOfState extends State<DynamicState> {
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child:GestureDetector(
-              child:  Row(
+            child: GestureDetector(
+              child: Column(
                 children: <Widget>[
-                  Icon(Icons.free_breakfast),
-                  Expanded(
-                    child: Text(
-                      "我的空间",
-                      style: TextStyle(fontSize: 20.0),
-                    ),
+                  Row(
+                    children: <Widget>[
+                      Icon(Icons.free_breakfast),
+                      Expanded(
+                        child: Text(
+                          "我的空间",
+                          style: TextStyle(fontSize: 20.0),
+                        ),
+                      ),
+                    ],
                   ),
+                  Divider(),
                 ],
               ),
-              onTapDown: (e){
-                Scaffold.of(context).showSnackBar(SnackBar(content: Text("该功能将在下一个版本开放!")));
+              onTapDown: (e) {
+                Scaffold
+                    .of(context)
+                    .showSnackBar(SnackBar(content: Text("该功能将在下一个版本开放!")));
+              },
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: GestureDetector(
+              child: Column(
+                children: <Widget>[
+                  Row(
+                    children: <Widget>[
+                      Icon(Icons.new_releases),
+                      Expanded(
+                        child: Text(
+                          "新趋势",
+                          style: TextStyle(fontSize: 20.0),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Divider(),
+                ],
+              ),
+              onTapDown: (e) {
+                Scaffold
+                    .of(context)
+                    .showSnackBar(SnackBar(content: Text("该功能将在下一个版本开放!")));
               },
             ),
           ),
