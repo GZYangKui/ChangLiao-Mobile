@@ -43,6 +43,7 @@ class DynamicOfState extends State<DynamicState> {
             padding: const EdgeInsets.all(8.0),
             child: GestureDetector(
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Row(
                     children: <Widget>[
