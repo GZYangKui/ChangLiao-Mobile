@@ -52,10 +52,14 @@ class NewTrendState extends State<NewTrend>
         controller: _tabController,
       ),
       bottomNavigationBar: BottomNavigationBar(
+        fixedColor: Colors.blue,
         items: [
           BottomNavigationBarItem(
               title: Text("人工智能"), icon: Icon(Icons.threed_rotation)),
-          BottomNavigationBarItem(title: Text("区块链"), icon: Icon(Icons.block)),
+          BottomNavigationBarItem(
+              title: Text("区块链"),
+              icon: Icon(Icons.block),
+              activeIcon: Icon(Icons.new_releases)),
           BottomNavigationBarItem(
               title: Text("社会热点"), icon: Icon(Icons.hot_tub)),
           BottomNavigationBarItem(title: Text("游戏"), icon: Icon(Icons.games)),
