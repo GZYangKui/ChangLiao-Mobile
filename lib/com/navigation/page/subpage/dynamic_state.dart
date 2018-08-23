@@ -59,7 +59,8 @@ class DynamicOfState extends State<DynamicState> {
                 ],
               ),
               onTapDown: (e) {
-                Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context)=>NewTrend()));
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (BuildContext context) => NewTrend()));
               },
             ),
           ),
