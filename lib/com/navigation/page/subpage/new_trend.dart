@@ -45,8 +45,12 @@ class NewTrendState extends State<NewTrend>
       appBar: AppBar(
         title: Text(_titles[_currentIndex]),
         centerTitle: true,
+        automaticallyImplyLeading: false,
       ),
-      body: TabBarView(children: []),
+      body: TabBarView(
+        children: _tabs,
+        controller: _tabController,
+      ),
       bottomNavigationBar: BottomNavigationBar(
         items: [
           BottomNavigationBarItem(
@@ -64,6 +68,7 @@ class NewTrendState extends State<NewTrend>
           });
           _tabController.animateTo(index);
         },
+        currentIndex: _currentIndex,
       ),
     );
   }
