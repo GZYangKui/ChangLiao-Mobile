@@ -7,6 +7,7 @@ import 'package:flutter_app/com/navigation/models/contacts_list_model.dart';
 import 'package:flutter_app/com/navigation/models/system_propel_model.dart';
 import 'package:flutter_app/com/navigation/page/login.dart';
 import 'package:flutter_app/com/navigation/utils/constant.dart' as constants;
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
 import 'package:flutter_app/com/navigation/utils/file_handler.dart'
     as fileHandler;
@@ -54,9 +55,9 @@ Future<Socket> initSocket() {
 ///
 void socketHandler() async {
   if (socket != null) {
-    socket.done.catchError(() {}, test: (e) {
-      dispose();
-      return true;
+    socket.done.catchError((error) {
+      Fluttertoast.showToast(
+          msg: "连接异常,请重新登录!", toastLength: Toast.LENGTH_LONG);
     });
     socket.transform(utf8.decoder).listen((data) {
       var result = json.decode(data);

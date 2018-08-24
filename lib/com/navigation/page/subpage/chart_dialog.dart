@@ -24,6 +24,7 @@ class ChartDialog extends StatefulWidget {
 class ChartDialogState extends State<ChartDialog> {
   String _message = "";
   Timer _timer;
+  bool enable = false;
 
   @override
   void initState() {
@@ -69,7 +70,36 @@ class ChartDialogState extends State<ChartDialog> {
             children: <Widget>[
               Expanded(
                 child: TextField(
+                  decoration: InputDecoration(
+                    filled: true,
+                    suffixIcon: GestureDetector(
+                      child: Container(
+                        margin: EdgeInsets.all(8.0),
+                        width: 50.0,
+                        height: 20.0,
+                        decoration: BoxDecoration(
+                          color: enable ? Colors.white : Colors.grey,
+                          border: Border.all(color: Colors.red),
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(5.0),
+                          ),
+                        ),
+                        alignment: Alignment.center,
+                        child: Text(
+                          "发送",
+                          style: TextStyle(fontSize: 16.0),
+                        ),
+                      ),
+                      onTapDown: (e) {
+                        _sendMessage(_message);
+                      },
+                    ),
+                  ),
                   onChanged: (value) {
+                    if (value != "")
+                      enable = true;
+                    else
+                      enable = false;
                     _message = value;
                   },
                   controller: MyController(
@@ -79,13 +109,6 @@ class ChartDialogState extends State<ChartDialog> {
                           extentOffset: _message.length)),
                 ),
               ),
-              RaisedButton(
-                padding: EdgeInsets.all(3.0),
-                child: Text("发送"),
-                onPressed: () {
-                  _sendMessage(_message);
-                },
-              ),
             ],
           ),
         ],
@@ -94,16 +117,19 @@ class ChartDialogState extends State<ChartDialog> {
   }
 
   void _sendMessage(String value) {
-    widget._list.add(value + constants.messageOwn);
-    var message = {
-      constants.type: constants.message,
-      constants.subtype: constants.text,
-      constants.to: widget._name,
-      constants.body: value,
-      constants.version: constants.currentVersion
-    };
-    handler.sendRequest(message);
-    _message = "";
+    if (enable) {
+      widget._list.add(value + constants.messageOwn);
+      var message = {
+        constants.type: constants.message,
+        constants.subtype: constants.text,
+        constants.to: widget._name,
+        constants.body: value,
+        constants.version: constants.currentVersion
+      };
+      handler.sendRequest(message);
+      _message = "";
+      enable = false;
+    }
   }
 
   void _clearMessage() {
