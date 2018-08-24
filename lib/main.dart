@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app/splash_screne.dart';
+import 'package:flutter_app/com/navigation/utils/application.dart'
+    as application;
 
 void main() => runApp(Application());
 
@@ -8,7 +10,7 @@ class Application extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MaterialApp(
         home: ApplicationHome(),
-        title: "flutter_IM",
+        title: "畅聊",
       );
 }
 

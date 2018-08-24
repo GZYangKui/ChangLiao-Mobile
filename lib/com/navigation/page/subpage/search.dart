@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/com/navigation/component/search_item.dart';
+import 'package:flutter_app/com/navigation/page/subpage/sweep_code.dart';
 import 'package:flutter_app/com/navigation/utils/constant.dart' as constants;
 import 'package:flutter_app/com/navigation/netwok/socket_handler.dart'
     as handler;
@@ -127,8 +128,8 @@ class SearchState extends State<Search> with SingleTickerProviderStateMixin {
               ],
             ),
             onTapDown: (e) {
-              key.currentState
-                  .showSnackBar(SnackBar(content: Text("该功能将在下一个版本开放!")));
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (BuildContext context) => SweepCode()));
             },
           ),
         ),

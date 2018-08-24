@@ -37,6 +37,13 @@
             </list>
           </value>
         </entry>
+        <entry key="camera">
+          <value>
+            <list>
+              <option value="$USER_HOME$/application/flutter/.pub-cache/hosted/pub.flutter-io.cn/camera-0.2.3/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="charcode">
           <value>
             <list>
@@ -437,6 +444,7 @@
       <root url="file://$USER_HOME$/application/flutter/.pub-cache/hosted/pub.flutter-io.cn/async-2.0.7/lib" />
       <root url="file://$USER_HOME$/application/flutter/.pub-cache/hosted/pub.flutter-io.cn/audioplayers-0.7.5/lib" />
       <root url="file://$USER_HOME$/application/flutter/.pub-cache/hosted/pub.flutter-io.cn/boolean_selector-1.0.3/lib" />
+      <root url="file://$USER_HOME$/application/flutter/.pub-cache/hosted/pub.flutter-io.cn/camera-0.2.3/lib" />
       <root url="file://$USER_HOME$/application/flutter/.pub-cache/hosted/pub.flutter-io.cn/charcode-1.1.1/lib" />
       <root url="file://$USER_HOME$/application/flutter/.pub-cache/hosted/pub.flutter-io.cn/collection-1.14.6/lib" />
       <root url="file://$USER_HOME$/application/flutter/.pub-cache/hosted/pub.flutter-io.cn/convert-2.0.1/lib" />

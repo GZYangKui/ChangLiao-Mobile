@@ -3,4 +3,5 @@
 ///
 ///
 bool voiceSwitch = true;
+//暂时不支持
 bool nightModel = false;

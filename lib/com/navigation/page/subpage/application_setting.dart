@@ -40,8 +40,9 @@ class ApplicationSettingState extends State<ApplicationSetting> {
                     Switch(
                         value: application.voiceSwitch,
                         onChanged: (value) {
-                          application.voiceSwitch = value;
-                          this.setState(() {});
+                          this.setState(() {
+                            application.voiceSwitch = value;
+                          });
                         }),
                   ],
                 ),
@@ -66,8 +67,9 @@ class ApplicationSettingState extends State<ApplicationSetting> {
                     Switch(
                         value: application.nightModel,
                         onChanged: (value) {
-                          application.nightModel = value;
-                          this.setState(() {});
+                          this.setState(() {
+                            application.nightModel = value;
+                          });
                         })
                   ],
                 ),
