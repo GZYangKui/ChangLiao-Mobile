@@ -13,6 +13,8 @@ import 'package:flutter_app/com/navigation/utils/file_handler.dart'
     as fileHandler;
 import 'package:flutter_app/com/navigation/utils/system_announce.dart'
     as system;
+import 'package:flutter_app/com/navigation/utils/application.dart'
+    as application;
 
 ///
 /// 整个app向服务器发送请求和接收服务器回复的综合处理类,
@@ -141,7 +143,7 @@ void handlerUser(dynamic data) async {
 ///处理type为friend的所有socket事件
 ///
 void handlerFriend(dynamic data) {
-  system.playFriendMention();
+  if (application.voiceSwitch) system.playFriendMention();
   var subtype = data[constants.subtype];
   if (subtype == constants.request) {
     systemPropel.add(SystemPropelModel(data[constants.message],
@@ -166,11 +168,11 @@ void handlerFriend(dynamic data) {
 ///
 ///
 void handlerMessage(dynamic data) {
-  system.playMessageMention();
   var subtype = data["subtype"];
   var id = data[constants.from];
   var body = data[constants.body];
   if (subtype == constants.text) {
+    if (application.voiceSwitch) system.playMessageMention();
     handlerMessageList(id, body);
   }
 }

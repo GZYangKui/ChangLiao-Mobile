@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app/com/navigation/beautiful/CustomerOval.dart';
 import 'package:flutter_app/com/navigation/page/subpage/about_program.dart';
+import 'package:flutter_app/com/navigation/page/subpage/application_setting.dart';
 import 'package:flutter_app/com/navigation/page/subpage/contacts.dart';
 import 'package:flutter_app/com/navigation/page/subpage/dynamic_state.dart';
 import 'package:flutter_app/com/navigation/page/subpage/message.dart';
@@ -180,6 +181,10 @@ class UserCenterState extends State<UserCenter>
                     ),
                   ],
                 ),
+                onTapDown: (e) {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (BuildContext context) => ApplicationSetting()));
+                },
               ),
               GestureDetector(
                 child: Row(

@@ -1,7 +1,8 @@
 import 'package:flutter_app/com/navigation/utils/constant.dart' as constants;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/com/navigation/netwok/socket_handler.dart' as handler;
+import 'package:flutter_app/com/navigation/netwok/socket_handler.dart'
+    as handler;
 
 class UserItem extends StatefulWidget {
   final String userId;
@@ -17,52 +18,74 @@ class UserItemState extends State<UserItem> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Column(
       children: <Widget>[
-        Expanded(
-          child: Row(
-            children: <Widget>[
-              Column(
+        Row(
+          children: <Widget>[
+            Expanded(
+              child: Row(
                 children: <Widget>[
-                  Icon(Icons.account_box),
+                  Column(
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                        child: Image.asset(
+                          "assets/images/person.png",
+                          width: 50.0,
+                          height: 50.0,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Expanded(
+                    child: Column(
+                      children: <Widget>[
+                        Row(
+                          children: <Widget>[
+                            Text(
+                              widget.userId,
+                              style: TextStyle(fontSize: 30.0),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: <Widget>[
+                            Text(
+                              "个性签名:",
+                              style: TextStyle(fontSize: 15.0),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
-              Column(
-                children: <Widget>[
-                  Padding(
-                      padding: EdgeInsets.only(left: 5.00),
-                      child: Text(
-                        widget.userId,
-                        overflow: TextOverflow.ellipsis,
-                      )),
-                ],
-              ),
-            ],
-          ),
-          flex: 8,
-        ),
-        Expanded(
-          child: Align(
-            alignment: Alignment.centerRight,
-            child: IconButton(
-              icon: InputDecorator(
-                decoration: InputDecoration(icon: Icon(Icons.add)),
-              ),
-              onPressed: () {
-                var message = {
-                  constants.type: constants.friend,
-                  constants.subtype: constants.request,
-                  constants.to: widget.userId,
-                  constants.message: "${handler.userName}请求添加你为好友!",
-                  constants.version: constants.currentVersion
-                };
-               handler.sendRequest(message);
-               Scaffold.of(context).showSnackBar(SnackBar(content: Text("请求已发送")));
-              },
             ),
-          ),
-          flex: 2,
+            Align(
+              alignment: Alignment.centerRight,
+              child: IconButton(
+                icon: InputDecorator(
+                  decoration: InputDecoration(icon: Icon(Icons.add)),
+                ),
+                onPressed: () {
+                  var message = {
+                    constants.type: constants.friend,
+                    constants.subtype: constants.request,
+                    constants.to: widget.userId,
+                    constants.message: "${handler.userName}请求添加你为好友!",
+                    constants.version: constants.currentVersion
+                  };
+                  handler.sendRequest(message);
+                  Scaffold
+                      .of(context)
+                      .showSnackBar(SnackBar(content: Text("请求已发送")));
+                },
+              ),
+            ),
+          ],
         ),
+        Divider(),
       ],
     );
   }

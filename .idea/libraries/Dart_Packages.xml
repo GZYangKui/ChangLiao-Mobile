@@ -23,6 +23,13 @@
             </list>
           </value>
         </entry>
+        <entry key="audioplayers">
+          <value>
+            <list>
+              <option value="$USER_HOME$/application/flutter/.pub-cache/hosted/pub.flutter-io.cn/audioplayers-0.7.5/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="boolean_selector">
           <value>
             <list>
@@ -380,6 +387,13 @@
             </list>
           </value>
         </entry>
+        <entry key="uuid">
+          <value>
+            <list>
+              <option value="$USER_HOME$/application/flutter/.pub-cache/hosted/pub.flutter-io.cn/uuid-1.0.3/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="vector_math">
           <value>
             <list>
@@ -421,6 +435,7 @@
       <root url="file://$USER_HOME$/application/flutter/.pub-cache/hosted/pub.flutter-io.cn/analyzer-0.31.2-alpha.2/lib" />
       <root url="file://$USER_HOME$/application/flutter/.pub-cache/hosted/pub.flutter-io.cn/args-1.4.3/lib" />
       <root url="file://$USER_HOME$/application/flutter/.pub-cache/hosted/pub.flutter-io.cn/async-2.0.7/lib" />
+      <root url="file://$USER_HOME$/application/flutter/.pub-cache/hosted/pub.flutter-io.cn/audioplayers-0.7.5/lib" />
       <root url="file://$USER_HOME$/application/flutter/.pub-cache/hosted/pub.flutter-io.cn/boolean_selector-1.0.3/lib" />
       <root url="file://$USER_HOME$/application/flutter/.pub-cache/hosted/pub.flutter-io.cn/charcode-1.1.1/lib" />
       <root url="file://$USER_HOME$/application/flutter/.pub-cache/hosted/pub.flutter-io.cn/collection-1.14.6/lib" />
@@ -469,6 +484,7 @@
       <root url="file://$USER_HOME$/application/flutter/.pub-cache/hosted/pub.flutter-io.cn/typed_data-1.1.5/lib" />
       <root url="file://$USER_HOME$/application/flutter/.pub-cache/hosted/pub.flutter-io.cn/url_launcher-3.0.3/lib" />
       <root url="file://$USER_HOME$/application/flutter/.pub-cache/hosted/pub.flutter-io.cn/utf-0.9.0+4/lib" />
+      <root url="file://$USER_HOME$/application/flutter/.pub-cache/hosted/pub.flutter-io.cn/uuid-1.0.3/lib" />
       <root url="file://$USER_HOME$/application/flutter/.pub-cache/hosted/pub.flutter-io.cn/vector_math-2.0.6/lib" />
       <root url="file://$USER_HOME$/application/flutter/.pub-cache/hosted/pub.flutter-io.cn/vm_service_client-0.2.4+3/lib" />
       <root url="file://$USER_HOME$/application/flutter/.pub-cache/hosted/pub.flutter-io.cn/watcher-0.9.7+8/lib" />
