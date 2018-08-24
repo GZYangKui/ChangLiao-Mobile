@@ -7,6 +7,7 @@ import 'package:flutter_app/com/navigation/models/contacts_list_model.dart';
 import 'package:flutter_app/com/navigation/models/system_propel_model.dart';
 import 'package:flutter_app/com/navigation/page/login.dart';
 import 'package:flutter_app/com/navigation/utils/constant.dart' as constants;
+import 'package:flutter_app/com/navigation/utils/utils.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
 import 'package:flutter_app/com/navigation/utils/file_handler.dart'
@@ -40,12 +41,28 @@ State currentState;
 /// 初始化连接
 ///
 
-Future<Socket> initSocket() {
+void initSocket(Map req) async {
   if (socket != null) {
     socket.destroy();
     socket.close();
   }
-  return Socket.connect(constants.domain, constants.tcpPort);
+  Socket.connect(constants.domain, constants.tcpPort)
+    ..then((_socket) {
+      if (_socket != null) {
+        socket = _socket;
+        socketHandler();
+        sendRequest(req);
+        userName = req[constants.id];
+        password = md5(req[constants.password]);
+      }
+    })
+    ..catchError((error) {
+      showToast("连接服务器发生未知错误!");
+      dispose();
+    })
+    ..timeout(Duration(seconds: 5), onTimeout: () {
+      showToast("连接超时.....");
+    });
 }
 
 ///
@@ -53,7 +70,7 @@ Future<Socket> initSocket() {
 /// 处理服务器返回来的数据id
 ///
 ///
-void socketHandler() async {
+void socketHandler() {
   if (socket != null) {
     socket.done.catchError((error) {
       showToast("网络异常,请重新登录!");
@@ -98,6 +115,7 @@ void handlerUser(dynamic data) async {
   if (subtype == "login") {
     var status = data["login"];
     if (status) {
+      showToast("登录成功");
       var friends = data["friends"];
       if (friends.length > 0) {
         List<Entry> list = [];
@@ -109,7 +127,7 @@ void handlerUser(dynamic data) async {
       _offlineMessage();
     } else {
       dispose();
-      loginState.showAlertMessage("登录失败,请检查用户名/密码!");
+      showToast("用户名/密码错误!");
     }
   }
 }

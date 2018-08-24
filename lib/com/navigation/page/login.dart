@@ -164,23 +164,12 @@ class LoginState extends State<Login> {
       constants.password: md5(_password),
       constants.version: constants.currentVersion,
     };
-    try {
-      handler.socket = await handler.initSocket();
-      handler.socketHandler();
-      handler.sendRequest(requestMes);
-      showToast("登录中..");
-      handler.userName = _userName;
-      handler.password = md5(_password);
-    } catch (e) {
-      showAlertMessage("网络异常");
-      return;
-    }
+    handler.initSocket(requestMes);
   }
 
   void toUserCenter() {
     Navigator.push(context,
         MaterialPageRoute(builder: (BuildContext context) => UserCenter()));
-    showToast("登录成功");
   }
 
   void showAlertMessage(String message) {
