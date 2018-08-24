@@ -56,7 +56,7 @@ flutter:
   #音频素材
 
   - assets/audio/request.mp3
-  - assets/audio/message.mp3
+  - assets/audio/message.wav
 
 
   # To add assets to your application, add an assets section, like this:

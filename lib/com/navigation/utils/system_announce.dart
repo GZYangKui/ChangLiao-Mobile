@@ -12,5 +12,5 @@ void playFriendMention() {
 
 void playMessageMention() {
   AudioCache player = new AudioCache(prefix: "audio/");
-  player.play('message.mp3');
+  player.play('message.wav');
 }
