@@ -52,25 +52,24 @@ class NewTrendState extends State<NewTrend>
         controller: _tabController,
       ),
       bottomNavigationBar: BottomNavigationBar(
-        fixedColor: Colors.blue,
         items: [
           BottomNavigationBarItem(
-              title: Text("人工智能"), icon: Icon(Icons.threed_rotation)),
-          BottomNavigationBarItem(
-            title: Text("区块链"),
-            icon: Icon(Icons.block),
+            icon: Icon(Icons.threed_rotation),
+            title: Text("人工智能"),
           ),
           BottomNavigationBarItem(
-              title: Text("社会热点"), icon: Icon(Icons.hot_tub)),
-          BottomNavigationBarItem(title: Text("游戏"), icon: Icon(Icons.games)),
+            icon: Icon(Icons.block),
+            title: Text("区块链"),
+          ),
           BottomNavigationBarItem(
-              title: Text("众筹"), icon: Icon(Icons.attach_money)),
+            icon: Icon(Icons.hot_tub),
+            title: Text("社会热点"),
+          ),
         ],
         onTap: (index) {
           this.setState(() {
             _currentIndex = index;
           });
-          _tabController.animateTo(index);
         },
         currentIndex: _currentIndex,
       ),
