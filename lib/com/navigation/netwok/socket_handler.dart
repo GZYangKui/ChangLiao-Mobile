@@ -8,10 +8,11 @@ import 'package:flutter_app/com/navigation/models/system_propel_model.dart';
 import 'package:flutter_app/com/navigation/page/login.dart';
 import 'package:flutter_app/com/navigation/utils/constant.dart' as constants;
 import 'package:flutter_app/com/navigation/utils/utils.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
 import 'package:flutter_app/com/navigation/utils/file_handler.dart'
     as fileHandler;
+import 'package:flutter_app/com/navigation/utils/system_announce.dart'
+    as system;
 
 ///
 /// 整个app向服务器发送请求和接收服务器回复的综合处理类,
@@ -36,6 +37,8 @@ String userName;
 String password;
 State currentState;
 
+Timer _timer;
+
 ///
 ///
 /// 初始化连接
@@ -52,6 +55,7 @@ void initSocket(Map req) async {
         socket = _socket;
         socketHandler();
         sendRequest(req);
+        keepAlive();
         userName = req[constants.id];
         password = md5(req[constants.password]);
       }
@@ -137,6 +141,7 @@ void handlerUser(dynamic data) async {
 ///处理type为friend的所有socket事件
 ///
 void handlerFriend(dynamic data) {
+  system.playFriendMention();
   var subtype = data[constants.subtype];
   if (subtype == constants.request) {
     systemPropel.add(SystemPropelModel(data[constants.message],
@@ -294,6 +299,20 @@ void updateMessageNumber(String id, int number) async {
   }
 }
 
+///
+/// 心跳机制保持连接可用
+///
+///
+void keepAlive() async {
+  if (_timer != null && _timer.isActive) _timer;
+  _timer = Timer.periodic(Duration(seconds: 10), (event) {
+    handlerMessage({});
+    print("心跳中........");
+  });
+}
+
+///
+///
 ///退出登录时释放掉该用户所有信息
 ///
 ///
@@ -305,4 +324,5 @@ void dispose() {
   systemPropel?.clear();
   messageList?.clear();
   lastNum?.clear();
+  if (_timer != null && _timer.isActive) _timer.cancel();
 }
