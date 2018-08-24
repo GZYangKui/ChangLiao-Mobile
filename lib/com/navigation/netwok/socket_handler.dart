@@ -166,6 +166,7 @@ void handlerFriend(dynamic data) {
 ///
 ///
 void handlerMessage(dynamic data) {
+  system.playMessageMention();
   var subtype = data["subtype"];
   var id = data[constants.from];
   var body = data[constants.body];
@@ -305,9 +306,8 @@ void updateMessageNumber(String id, int number) async {
 ///
 void keepAlive() async {
   if (_timer != null && _timer.isActive) _timer;
-  _timer = Timer.periodic(Duration(seconds: 10), (event) {
+  _timer = Timer.periodic(Duration(seconds: 5), (event) {
     handlerMessage({});
-    print("心跳中........");
   });
 }
 

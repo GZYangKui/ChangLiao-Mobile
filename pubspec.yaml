@@ -12,6 +12,7 @@ version: 1.0.0+1
 dependencies:
   flutter:
     sdk: flutter
+  audioplayers: ^0.7.5
   path_provider: ^0.4.1
   url_launcher: ^3.0.3
   fluttertoast: ^2.0.7
@@ -37,6 +38,9 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   assets:
+
+  # 图片素材
+
   - assets/images/splash.jpeg
   - assets/images/user.png
   - assets/images/password.png
@@ -48,6 +52,12 @@ flutter:
   - assets/images/group.png
   - assets/images/person.png
   - assets/images/clear.png
+
+  #音频素材
+
+  - assets/audio/request.mp3
+  - assets/audio/message.mp3
+
 
   # To add assets to your application, add an assets section, like this:
   # assets:

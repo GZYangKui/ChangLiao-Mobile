@@ -6,5 +6,11 @@ import 'package:audioplayers/audio_cache.dart';
 ///
 
 void playFriendMention() {
-  new AudioCache().play("assets/audio/friend_request.mp3");
+  AudioCache player = new AudioCache(prefix: "audio/");
+  player.play('request.mp3');
+}
+
+void playMessageMention() {
+  AudioCache player = new AudioCache(prefix: "audio/");
+  player.play('message.mp3');
 }
