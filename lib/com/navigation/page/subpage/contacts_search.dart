@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app/com/navigation/component/search_contacts_item.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_app/com/navigation/page/login.dart';
 import 'package:flutter_app/com/navigation/netwok/socket_handler.dart'
     as handler;
 
@@ -45,7 +45,7 @@ class ContactsSearchState extends State<ContactsSearch> {
                       _search(value);
                       _addChip(value);
                     } else {
-                      _showMessage("搜索关键字不能为空!");
+                      showToast("搜索关键字不能为空!");
                     }
                   },
                 ),
@@ -111,12 +111,8 @@ class ContactsSearchState extends State<ContactsSearch> {
       }
       if (isExist) return;
     });
-    if (!isExist) _showMessage("找不到相关信息!");
+    if (!isExist) showToast("找不到相关信息!");
     this.setState(() {});
-  }
-
-  void _showMessage(String msg) {
-    Fluttertoast.showToast(msg: msg, toastLength: Toast.LENGTH_SHORT);
   }
 
   void _addChip(String message) {

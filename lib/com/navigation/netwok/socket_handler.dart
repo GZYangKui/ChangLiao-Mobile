@@ -56,8 +56,8 @@ Future<Socket> initSocket() {
 void socketHandler() async {
   if (socket != null) {
     socket.done.catchError((error) {
-      Fluttertoast.showToast(
-          msg: "连接异常,请重新登录!", toastLength: Toast.LENGTH_LONG);
+      showToast("网络异常,请重新登录!");
+      dispose();
     });
     socket.transform(utf8.decoder).listen((data) {
       var result = json.decode(data);

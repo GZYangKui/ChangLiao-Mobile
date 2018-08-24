@@ -167,8 +167,8 @@ class LoginState extends State<Login> {
     try {
       handler.socket = await handler.initSocket();
       handler.socketHandler();
-      _showToast("登录中..");
       handler.sendRequest(requestMes);
+      showToast("登录中..");
       handler.userName = _userName;
       handler.password = md5(_password);
     } catch (e) {
@@ -177,22 +177,22 @@ class LoginState extends State<Login> {
     }
   }
 
-  void _showToast(String msg) {
-    Fluttertoast.showToast(
-        msg: msg,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        bgcolor: "#e74c3c",
-        textcolor: '#ffffff');
-  }
-
   void toUserCenter() {
     Navigator.push(context,
         MaterialPageRoute(builder: (BuildContext context) => UserCenter()));
-    _showToast("登录成功");
+    showToast("登录成功");
   }
 
   void showAlertMessage(String message) {
     key.currentState.showSnackBar(SnackBar(content: Text(message)));
   }
+}
+
+void showToast(String msg) {
+  Fluttertoast.showToast(
+      msg: msg,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      bgcolor: "#e74c3c",
+      textcolor: '#ffffff');
 }
