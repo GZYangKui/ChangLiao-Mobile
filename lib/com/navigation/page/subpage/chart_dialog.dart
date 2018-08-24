@@ -188,9 +188,9 @@ class ChartDialogState extends State<ChartDialog> {
   void dispose() {
     super.dispose();
     if (_timer != null && _timer.isActive) _timer.cancel();
-    if (widget._list.length == 0) handler.clearMessage(widget._name);
     if (widget._list.length != handler.obtainMessageNumber(widget._name))
       handler.updateMessageNumber(widget._name, widget._list.length);
+    if (widget._list.length == 0) handler.clearMessage(widget._name);
   }
 }
 

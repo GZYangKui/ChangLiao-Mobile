@@ -51,7 +51,9 @@ class SearchContactsItemState extends State<SearchContactsItem> {
                 ),
               ],
             ),
-            Divider()
+            Divider(
+              height: 3.0,
+            ),
           ],
         ),
       ),

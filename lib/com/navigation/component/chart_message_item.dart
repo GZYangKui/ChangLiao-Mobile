@@ -46,8 +46,11 @@ class ChartMessageItemState extends State<ChartMessageItem> {
         Container(
           foregroundDecoration: ShapeDecoration(
             shape: RoundedRectangleBorder(
-                side: BorderSide(color: Colors.lightBlue),
-                borderRadius: BorderRadius.all(Radius.circular(10.0))),
+              side: BorderSide(color: Colors.lightBlue),
+              borderRadius: BorderRadius.all(
+                Radius.circular(10.0),
+              ),
+            ),
           ),
           margin: EdgeInsets.only(top: 15.0),
           alignment: Alignment.center,

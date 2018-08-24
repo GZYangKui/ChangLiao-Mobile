@@ -1,4 +1,4 @@
-# 畅聊 v1.0
+# 畅聊 v0.2
 ## 构建环境：
 flutter dart java
 ## 功能

@@ -88,7 +88,9 @@ class MessageListItemState extends State<MessageListItem> {
               ),
             ],
           ),
-          Divider(),
+          Divider(
+            height: 3.0,
+          ),
         ],
       ),
       onTapDown: (event) {

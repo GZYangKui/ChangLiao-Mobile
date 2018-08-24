@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_app/com/navigation/beautiful/CustomerOval.dart';
 import 'package:flutter_app/com/navigation/page/subpage/webview.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class About extends StatefulWidget {
   @override
@@ -47,7 +45,7 @@ class AboutState extends State<About> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Text(
-                      "版本:1.0",
+                      "版本:0.2",
                       style: TextStyle(fontSize: 20.0),
                     ),
                   ],
