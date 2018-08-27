@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/com/navigation/netwok/socket_handler.dart' as handler;
-import 'package:flutter_app/com/navigation/utils/file_handler.dart' as fileHandler;
+import 'package:flutter_app/com/navigation/netwok/socket_handler.dart'
+    as handler;
+import 'package:flutter_app/com/navigation/utils/file_handler.dart'
+    as fileHandler;
 
 class PersonInfo extends StatefulWidget {
   final String _name;
@@ -19,13 +21,8 @@ class PersonInfoState extends State<PersonInfo> {
   void initState() {
     super.initState();
     handler.currentState = this;
-    fileHandler.loadPersonInfo(handler.userName).then((value){
-      info = value;
-      this.setState((){});
-    }).catchError((){},test: (e){
-      _showMessage("加载出错了!!!");
-    });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,8 +40,9 @@ class PersonInfoState extends State<PersonInfo> {
                 Icon(Icons.perm_identity),
                 Expanded(
                   child: TextField(
-                    decoration: InputDecoration(hintText: info==null?"用户名":info["id"]),
-                    onChanged: (value)=>info["id"]=value,
+                    decoration: InputDecoration(
+                        hintText: info == null ? "用户名" : info["id"]),
+                    onChanged: (value) => info["id"] = value,
                   ),
                 )
               ],
@@ -54,8 +52,9 @@ class PersonInfoState extends State<PersonInfo> {
                 Icon(Icons.phone),
                 Expanded(
                   child: TextField(
-                    decoration:InputDecoration(hintText: info==null?"手机":info["phone"]),
-                    onChanged: (value)=>info["phone"]=value,
+                    decoration: InputDecoration(
+                        hintText: info == null ? "手机" : info["phone"]),
+                    onChanged: (value) => info["phone"] = value,
                   ),
                 )
               ],
@@ -65,8 +64,9 @@ class PersonInfoState extends State<PersonInfo> {
                 Icon(Icons.email),
                 Expanded(
                   child: TextField(
-                    decoration: InputDecoration(hintText: info==null?"邮箱":info["mail"]),
-                    onChanged: (value)=>info["mail"]=value,
+                    decoration: InputDecoration(
+                        hintText: info == null ? "邮箱" : info["mail"]),
+                    onChanged: (value) => info["mail"] = value,
                   ),
                 )
               ],
@@ -76,8 +76,9 @@ class PersonInfoState extends State<PersonInfo> {
                 Icon(Icons.link),
                 Expanded(
                   child: TextField(
-                    decoration: InputDecoration(hintText: info==null?"个人主页":info["website"]),
-                    onChanged: (value)=>info["website"]=value,
+                    decoration: InputDecoration(
+                        hintText: info == null ? "个人主页" : info["website"]),
+                    onChanged: (value) => info["website"] = value,
                   ),
                 )
               ],
@@ -87,8 +88,9 @@ class PersonInfoState extends State<PersonInfo> {
                 Icon(Icons.work),
                 Expanded(
                   child: TextField(
-                    decoration:InputDecoration(hintText: info==null?"公司":info["company"]),
-                    onChanged: (value)=>info["company"]=value,
+                    decoration: InputDecoration(
+                        hintText: info == null ? "公司" : info["company"]),
+                    onChanged: (value) => info["company"] = value,
                   ),
                 )
               ],
@@ -98,8 +100,9 @@ class PersonInfoState extends State<PersonInfo> {
                 Icon(Icons.location_on),
                 Expanded(
                   child: TextField(
-                    decoration: InputDecoration(hintText: info==null?"所在地":info["address"]),
-                    onChanged: (value)=>info["address"]=value,
+                    decoration: InputDecoration(
+                        hintText: info == null ? "所在地" : info["address"]),
+                    onChanged: (value) => info["address"] = value,
                   ),
                 )
               ],
@@ -109,8 +112,9 @@ class PersonInfoState extends State<PersonInfo> {
                 Icon(Icons.info),
                 Expanded(
                   child: TextField(
-                    decoration: InputDecoration(hintText: info==null?"个人简介/个性签名":info["brief"]),
-                    onChanged: (value)=>info["brief"]=value,
+                    decoration: InputDecoration(
+                        hintText: info == null ? "个人简介/个性签名" : info["brief"]),
+                    onChanged: (value) => info["brief"] = value,
                   ),
                 )
               ],
@@ -126,16 +130,9 @@ class PersonInfoState extends State<PersonInfo> {
       ),
     );
   }
-  void _saveMessage(){
-    fileHandler.savePersonInfo(widget._name, info).then((file){
-      print(file.path);
-      _showMessage("保存成功!");
-    }).catchError((){},test: (e){
-      print(e);
-      _showMessage("保存失败!");
-    });
-  }
-  void _showMessage(String message){
+
+  void _saveMessage() {}
+  void _showMessage(String message) {
     key.currentState.showSnackBar(SnackBar(content: Text(message)));
   }
 }

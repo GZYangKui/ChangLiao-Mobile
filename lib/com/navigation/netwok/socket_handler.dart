@@ -128,7 +128,6 @@ void handlerUser(dynamic data) async {
         for (var friend in friends) list.add(Entry(friend["id"]));
         contactsList.add(Entry("我的好友", list));
       }
-      fileHandler.createUserDir(userName, password, friends);
       loginState.toUserCenter();
       _offlineMessage();
     } else {
