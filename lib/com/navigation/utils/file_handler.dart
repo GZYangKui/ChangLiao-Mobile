@@ -30,7 +30,8 @@ void initFileState() async {
 
 ///
 ///创建app所需Table
-///@user 用户信息表
+///@user 用户信息表(id userName password brief)
+///
 ///
 void _initDataBases() async {
   Database database = await openDatabase(application.dbPath, version: 1);

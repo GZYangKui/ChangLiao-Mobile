@@ -19,13 +19,10 @@ class NewTrendState extends State<NewTrend>
     with SingleTickerProviderStateMixin {
   TabController _tabController;
   int _currentIndex = 0;
-  final List<String> _titles = ["人工智能", "区块链", "社会热点", "游戏", "众筹"];
   final List<Widget> _tabs = [
     ArtificialIntelligence(),
     BlockChain(),
     SocialHotSpot(),
-    Game(),
-    CrowdFunding(),
   ];
   @override
   void initState() {
@@ -43,7 +40,7 @@ class NewTrendState extends State<NewTrend>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(_titles[_currentIndex]),
+        title: Text("新趋势"),
         centerTitle: true,
         automaticallyImplyLeading: false,
       ),
@@ -69,6 +66,7 @@ class NewTrendState extends State<NewTrend>
         onTap: (index) {
           this.setState(() {
             _currentIndex = index;
+            _tabController.index = _currentIndex;
           });
         },
         currentIndex: _currentIndex,
