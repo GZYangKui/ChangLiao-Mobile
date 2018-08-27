@@ -35,5 +35,5 @@ void initFileState() async {
 void _initDataBases() async {
   Database database = await openDatabase(application.dbPath, version: 1);
   application.dataBases = database;
-  database.execute(constants.createUserTable);
+  await database.execute(constants.createUserTable);
 }
