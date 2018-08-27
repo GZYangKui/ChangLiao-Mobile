@@ -176,12 +176,3 @@ class LoginState extends State<Login> {
     key.currentState.showSnackBar(SnackBar(content: Text(message)));
   }
 }
-
-void showToast(String msg) {
-  Fluttertoast.showToast(
-      msg: msg,
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM,
-      bgcolor: "#e74c3c",
-      textcolor: '#ffffff');
-}

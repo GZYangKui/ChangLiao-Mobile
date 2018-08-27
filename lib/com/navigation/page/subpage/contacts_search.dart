@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app/com/navigation/component/search_contacts_item.dart';
-import 'package:flutter_app/com/navigation/page/login.dart';
 import 'package:flutter_app/com/navigation/netwok/socket_handler.dart'
     as handler;
+import 'package:flutter_app/com/navigation/utils/utils.dart';
 
 ///
 /// 联系人及聊天信息搜索
