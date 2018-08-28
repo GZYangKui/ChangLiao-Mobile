@@ -41,6 +41,8 @@ const String address = "address";
 const String website = "website";
 const String company = "company";
 const String brief = "brief";
+const String status = "status";
+const String data = "data";
 const String createUserTable = "CREATE TABLE IF NOT EXISTS "
     "user(id INTEGER(5) NOT NULL PRIMARY KEY,"
     "userName VARCHAR(50) NOT NULL,"

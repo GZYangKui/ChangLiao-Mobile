@@ -55,6 +55,10 @@ flutter:
   - assets/images/person.png
   - assets/images/clear.png
 
+  #新趋向图片素材
+  - assets/images/new_trend/ai.png
+
+
   #音频素材
 
   - assets/audio/request.mp3

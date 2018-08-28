@@ -22,7 +22,7 @@ class NewTrendState extends State<NewTrend>
   final List<Widget> _tabs = [
     ArtificialIntelligence(),
     BlockChain(),
-    SocialHotSpot(),
+    SocialHotSpot()
   ];
   @override
   void initState() {
