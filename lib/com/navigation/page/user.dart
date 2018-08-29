@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app/com/navigation/page/subpage/about_program.dart';
+import 'package:flutter_app/com/navigation/page/subpage/application_min.dart';
 import 'package:flutter_app/com/navigation/page/subpage/application_setting.dart';
 import 'package:flutter_app/com/navigation/page/subpage/contacts.dart';
-import 'package:flutter_app/com/navigation/page/subpage/dynamic_state.dart';
 import 'package:flutter_app/com/navigation/page/subpage/message.dart';
 import 'package:flutter_app/com/navigation/page/subpage/personInfo.dart';
 import 'package:flutter_app/com/navigation/page/subpage/search.dart';
@@ -23,11 +23,11 @@ class UserCenterState extends State<UserCenter>
   static final List<StatefulWidget> _tabs = [
     Message(),
     Contacts(),
-    DynamicState()
+    MinApplication()
   ];
   TabController _tabController;
   int _currentIndex = 0;
-  final List<String> _titles = ["消息", "联系人", "动态"];
+  final List<String> _titles = ["消息", "联系人", "小应用"];
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +67,7 @@ class UserCenterState extends State<UserCenter>
             BottomNavigationBarItem(
                 icon: Icon(Icons.perm_contact_calendar), title: Text("联系人")),
             BottomNavigationBarItem(
-                icon: Icon(Icons.streetview), title: Text("动态")),
+                icon: Icon(Icons.streetview), title: Text("小应用")),
           ],
           onTap: (index) {
             this.setState(() {
