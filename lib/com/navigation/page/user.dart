@@ -107,55 +107,36 @@ class UserCenterState extends State<UserCenter>
                 children: <Widget>[
                   Expanded(
                     child: Container(
-                      height: 200.0,
                       alignment: Alignment.centerLeft,
-                      decoration: BoxDecoration(
-                        color: Colors.lightBlue,
-                        border: Border(
-                          bottom: BorderSide(
-                            color: Color.fromRGBO(205, 205, 193, 0.8),
-                            width: 2.0,
-                          ),
-                        ),
-                      ),
                       child: Column(
                         children: <Widget>[
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: <Widget>[
-                              IconButton(
-                                icon: Icon(Icons.edit),
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (BuildContext context) =>
-                                              PersonInfo(handler.userName)));
-                                },
-                              ),
-                            ],
-                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
-                              ClipOval(
-                                clipper: CustomerOval(50.0, 50.0, 40.0),
-                                child: Image.asset(
-                                  "assets/images/head.png",
-                                  width: 100.0,
-                                  height: 100.0,
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: <Widget>[
-                              Padding(
-                                padding: EdgeInsets.only(top: 10.0, left: 10.0),
-                                child: Text(
-                                  handler.userName,
-                                  style: TextStyle(fontSize: 20.0),
+                              Expanded(
+                                child: UserAccountsDrawerHeader(
+                                  accountName: Text(handler.userName),
+                                  accountEmail: const Text("752544765@qqcom"),
+                                  currentAccountPicture: CircleAvatar(
+                                    backgroundImage:
+                                        AssetImage("assets/images/head.png"),
+                                  ),
+                                  otherAccountsPictures: <Widget>[
+                                    IconButton(
+                                      icon: Icon(Icons.edit),
+                                      onPressed: () {
+                                        Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                builder:
+                                                    (BuildContext context) =>
+                                                        PersonInfo(
+                                                            handler.userName),
+                                              ),
+                                            );
+                                      },
+                                    ),
+                                  ],
                                 ),
                               ),
                             ],

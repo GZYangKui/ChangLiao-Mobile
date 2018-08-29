@@ -8,6 +8,8 @@ import 'package:flutter_app/com/navigation/netwok/socket_handler.dart'
 import 'package:flutter_app/com/navigation/utils/constant.dart' as constants;
 import 'package:flutter_app/com/navigation/utils/utils.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_app/com/navigation/utils/application.dart'
+    as application;
 
 class Login extends StatefulWidget {
   @override
@@ -58,7 +60,9 @@ class LoginState extends State<Login> {
                 children: <Widget>[
                   Expanded(
                     child: TextField(
-                      decoration: InputDecoration(labelText: "用户名"),
+                      decoration: InputDecoration(
+                        labelText: "用户名",
+                      ),
                       onChanged: (value) => _userName = value,
                     ),
                   ),
