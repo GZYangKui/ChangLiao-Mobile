@@ -34,7 +34,23 @@ void initFileState() async {
 ///
 ///
 void _initDataBases() async {
-  Database database = await openDatabase(application.dbPath, version: 1);
-  application.dataBases = database;
-  await database.execute(constants.createUserTable);
+  application.dataBases = await openDatabase(application.dbPath, version: 1);
+  await application.dataBases.execute(constants.createUserTable);
+  _obtainUsers();
+}
+
+///
+///查取用户列表
+///
+void _obtainUsers() async {
+  application.dataBases.query(constants.obtainUser).then((value) {
+    print(value);
+  });
+}
+
+///
+/// 添加用户到数据库
+///
+void addUser(String userName, String password) async {
+  application.dataBases.execute(constants.addUser, [userName, password]);
 }

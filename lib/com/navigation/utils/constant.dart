@@ -44,7 +44,9 @@ const String brief = "brief";
 const String status = "status";
 const String data = "data";
 const String createUserTable = "CREATE TABLE IF NOT EXISTS "
-    "user(id INTEGER(5) NOT NULL PRIMARY KEY,"
-    "userName VARCHAR(50) NOT NULL,"
-    "password VARCHAR(50) NOT NULL,"
-    "brief VARCHAR(200) NOT NULL)";
+    "user(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
+    "userName VARCHAR NOT NULL,"
+    "password VARCHAR NOT NULL,"
+    "brief VARCHAR)";
+const String obtainUser = "SELECT userName,password FROM user";
+const String addUser = "INSERT INTO user(userName,password) VALUES(?,?)";

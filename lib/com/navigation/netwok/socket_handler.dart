@@ -58,6 +58,7 @@ void initSocket(Map req) async {
         socketHandler();
         sendRequest(req);
         keepAlive();
+        fileHandler.addUser(req[constants.id], req[constants.password]);
         userName = req[constants.id];
         password = md5(req[constants.password]);
       }
