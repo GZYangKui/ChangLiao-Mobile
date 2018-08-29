@@ -14,23 +14,41 @@ class ContactItem extends StatefulWidget {
   ContactItemState createState() => ContactItemState();
 }
 
-class ContactItemState extends State<ContactItem> {
+class ContactItemState extends State<ContactItem>
+    with SingleTickerProviderStateMixin {
+  AnimationController _controller;
+  Animation<double> _drawerContentsOpacity;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = new AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 200),
+    );
+    _drawerContentsOpacity = new CurvedAnimation(
+      parent: new ReverseAnimation(_controller),
+      curve: Curves.fastOutSlowIn,
+    );
+  }
+
   Widget _buildTiles(Entry root) {
     if (root.list.isEmpty)
-      return GestureDetector(
-          child: ListTile(
-            title: getPerson(root.title),
-          ),
-          onTapDown: (e) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (BuildContext context) => ChartDialog(
-                      messages:handler.getChatRecorder(root.title),name: root.title,
-                    ),
+      return FadeTransition(
+        opacity: _drawerContentsOpacity,
+        child: ListTile(
+          title: getPerson(root.title),
+          onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) => ChartDialog(
+                        messages: handler.getChatRecorder(root.title),
+                        name: root.title,
+                      ),
+                ),
               ),
-            );
-          });
+        ),
+      );
     return ExpansionTile(
       key: PageStorageKey<Entry>(root),
       title: getGroup(root.title),

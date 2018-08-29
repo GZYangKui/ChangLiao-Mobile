@@ -55,7 +55,7 @@ class UserCenterState extends State<UserCenter>
           ],
         ),
         drawer: Drawer(
-          child: _applicationDrawer(),
+          child: DrawerItems(),
         ),
         body: TabBarView(
           children: _tabs,
@@ -99,134 +99,6 @@ class UserCenterState extends State<UserCenter>
     });
   }
 
-  Widget _applicationDrawer() {
-    return Builder(
-      builder: (BuildContext context) => ListView(
-            children: <Widget>[
-              Row(
-                children: <Widget>[
-                  Expanded(
-                    child: Container(
-                      alignment: Alignment.centerLeft,
-                      child: Column(
-                        children: <Widget>[
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: <Widget>[
-                              Expanded(
-                                child: UserAccountsDrawerHeader(
-                                  accountName: Text(handler.userName),
-                                  accountEmail: const Text("752544765@qqcom"),
-                                  currentAccountPicture: CircleAvatar(
-                                    backgroundImage:
-                                        AssetImage("assets/images/head.png"),
-                                  ),
-                                  otherAccountsPictures: <Widget>[
-                                    IconButton(
-                                      icon: Icon(Icons.edit),
-                                      onPressed: () {
-                                        Navigator.of(context).push(
-                                              MaterialPageRoute(
-                                                builder:
-                                                    (BuildContext context) =>
-                                                        PersonInfo(
-                                                            handler.userName),
-                                              ),
-                                            );
-                                      },
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              GestureDetector(
-                child: Row(
-                  children: <Widget>[
-                    Icon(Icons.settings),
-                    Expanded(
-                      child: Padding(
-                        padding: EdgeInsets.all(20.0),
-                        child: Text(
-                          "设置",
-                          style: TextStyle(fontSize: 20.0),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                onTapDown: (e) {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (BuildContext context) => ApplicationSetting()));
-                },
-              ),
-              GestureDetector(
-                child: Row(
-                  children: <Widget>[
-                    Icon(Icons.info),
-                    Expanded(
-                      child: Padding(
-                        padding: EdgeInsets.all(20.0),
-                        child: Text(
-                          "关于",
-                          style: TextStyle(fontSize: 20.0),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                onTapDown: (e) {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (BuildContext context) => About()));
-                },
-              ),
-              GestureDetector(
-                child: Row(
-                  children: <Widget>[
-                    Icon(Icons.share),
-                    Expanded(
-                      child: Padding(
-                        padding: EdgeInsets.all(20.0),
-                        child: Text(
-                          "分享",
-                          style: TextStyle(fontSize: 20.0),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              GestureDetector(
-                child: Row(
-                  children: <Widget>[
-                    Icon(Icons.exit_to_app),
-                    Expanded(
-                      child: Padding(
-                        padding: EdgeInsets.all(20.0),
-                        child: Text(
-                          "注销",
-                          style: TextStyle(fontSize: 20.0),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                onTapDown: (e) {
-                  _logout();
-                },
-              ),
-            ],
-          ),
-    );
-  }
-
   @override
   void dispose() {
     super.dispose();
@@ -235,6 +107,130 @@ class UserCenterState extends State<UserCenter>
       handler.socket.destroy();
       handler.socket.close();
     }
+  }
+}
+
+class DrawerItems extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => DrawerItemsState();
+}
+
+class DrawerItemsState extends State<DrawerItems>
+    with TickerProviderStateMixin {
+  AnimationController _controller;
+  Animation<double> _drawerContentsOpacity;
+  @override
+  void initState() {
+    super.initState();
+    _controller = new AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 200),
+    );
+    _drawerContentsOpacity = new CurvedAnimation(
+      parent: new ReverseAnimation(_controller),
+      curve: Curves.fastOutSlowIn,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      children: <Widget>[
+        Row(
+          children: <Widget>[
+            Expanded(
+              child: Container(
+                alignment: Alignment.centerLeft,
+                child: Column(
+                  children: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Expanded(
+                          child: UserAccountsDrawerHeader(
+                            accountName: Text(handler.userName),
+                            accountEmail: const Text("752544765@qqcom"),
+                            currentAccountPicture: CircleAvatar(
+                              backgroundImage:
+                                  AssetImage("assets/images/head.png"),
+                            ),
+                            otherAccountsPictures: <Widget>[
+                              IconButton(
+                                icon: Icon(Icons.edit),
+                                onPressed: () {
+                                  Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (BuildContext context) =>
+                                              PersonInfo(handler.userName),
+                                        ),
+                                      );
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+        FadeTransition(
+          opacity: _drawerContentsOpacity,
+          child: Column(
+            children: <Widget>[
+              ListTile(
+                leading: Icon(Icons.settings),
+                title: Text(
+                  "设置",
+                  style: TextStyle(fontSize: 20.0),
+                ),
+                onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (BuildContext context) => ApplicationSetting(),
+                      ),
+                    ),
+              ),
+              ListTile(
+                leading: Icon(Icons.info),
+                title: Text(
+                  "关于",
+                  style: TextStyle(fontSize: 20.0),
+                ),
+                onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (BuildContext context) => About(),
+                      ),
+                    ),
+              ),
+              ListTile(
+                leading: Icon(Icons.share),
+                title: Text(
+                  "分享",
+                  style: TextStyle(fontSize: 20.0),
+                ),
+                onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (BuildContext context) => ApplicationSetting(),
+                      ),
+                    ),
+              ),
+              ListTile(
+                leading: Icon(Icons.exit_to_app),
+                title: Text(
+                  "注销",
+                  style: TextStyle(fontSize: 20.0),
+                ),
+                onTap: () => _logout(),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
   }
 
   void _logout() {
