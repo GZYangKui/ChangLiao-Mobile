@@ -242,15 +242,16 @@ List<String> getChatRecorder(String id) {
 ///
 ///
 void clearMessage(String id) async {
+  bool isRemove = false;
   if (messageList.containsKey(id)) {
     messageList.forEach((key, value) {
       if (key == id) {
-        value.clear();
-        messageList.remove(key);
+        isRemove = true;
         return;
       }
     });
   }
+  if (isRemove) messageList.remove(id);
 }
 
 ///
