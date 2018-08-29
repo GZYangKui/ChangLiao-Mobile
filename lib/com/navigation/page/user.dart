@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_app/com/navigation/beautiful/CustomerOval.dart';
 import 'package:flutter_app/com/navigation/page/subpage/about_program.dart';
 import 'package:flutter_app/com/navigation/page/subpage/application_setting.dart';
 import 'package:flutter_app/com/navigation/page/subpage/contacts.dart';

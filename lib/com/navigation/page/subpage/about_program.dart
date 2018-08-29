@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/com/navigation/beautiful/CustomerOval.dart';
 import 'package:flutter_app/com/navigation/page/subpage/webview.dart';
 
 class About extends StatefulWidget {
@@ -30,8 +29,9 @@ class AboutState extends State<About> {
                   children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: ClipOval(
-                        clipper: CustomerOval(50.0, 50.0, 60.0),
+                      child: CircleAvatar(
+                        backgroundColor: Colors.deepPurple,
+                        minRadius: 60.0,
                         child: Image.asset(
                           "assets/images/icon.png",
                           width: 100.0,

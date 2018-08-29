@@ -2,7 +2,6 @@ import 'dart:ui' as ui;
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/com/navigation/beautiful/CustomerOval.dart';
 import 'package:flutter_app/com/navigation/utils/constant.dart' as constants;
 
 ///
@@ -32,16 +31,13 @@ class ChartMessageItemState extends State<ChartMessageItem> {
   Widget _friendSend() {
     return Row(
       children: <Widget>[
-        ClipOval(
-          child: IconButton(
-            icon: Image.asset(
-              "assets/images/sender.png",
-              width: 100.0,
-              height: 100.0,
-            ),
-            onPressed: () {},
+        CircleAvatar(
+          backgroundColor: Colors.grey,
+          child: Image.asset(
+            "assets/images/sender.png",
+            width: 100.0,
+            height: 100.0,
           ),
-          clipper: CustomerOval(30.0, 30.0, 70.0),
         ),
         Container(
           foregroundDecoration: ShapeDecoration(
@@ -99,16 +95,13 @@ class ChartMessageItemState extends State<ChartMessageItem> {
             style: TextStyle(fontSize: 20.0),
           ),
         ),
-        ClipOval(
-          child: IconButton(
-            icon: Image.asset(
-              "assets/images/receiver.png",
-              width: 100.0,
-              height: 100.0,
-            ),
-            onPressed: () {},
+        CircleAvatar(
+          backgroundColor: Colors.grey,
+          child: Image.asset(
+            "assets/images/receiver.png",
+            width: 100.0,
+            height: 100.0,
           ),
-          clipper: CustomerOval(30.0, 30.0, 70.0),
         ),
       ],
     );
