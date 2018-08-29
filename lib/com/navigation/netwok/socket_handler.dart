@@ -58,9 +58,6 @@ void initSocket(Map req) async {
         socketHandler();
         sendRequest(req);
         keepAlive();
-        fileHandler.addUser(req[constants.id], req[constants.password]);
-        userName = req[constants.id];
-        password = md5(req[constants.password]);
       }
     })
     ..catchError((error) {
@@ -123,6 +120,8 @@ void handlerUser(dynamic data) async {
     var status = data["login"];
     if (status) {
       showToast("登录成功");
+      fileHandler.addUser(userName, password);
+      password = md5(password);
       var friends = data["friends"];
       if (friends.length > 0) {
         List<Entry> list = [];

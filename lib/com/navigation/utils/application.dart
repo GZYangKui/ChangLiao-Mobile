@@ -24,3 +24,6 @@ String aiDate = "2018-07-29";
 
 ///区块链查询时间
 String blockDate = "2018-07-29";
+
+///账号集合
+List<Map<String, dynamic>> counts = [];

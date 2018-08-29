@@ -43,8 +43,8 @@ void _initDataBases() async {
 ///查取用户列表
 ///
 void _obtainUsers() async {
-  application.dataBases.query(constants.obtainUser).then((value) {
-    print(value);
+  application.dataBases.rawQuery(constants.obtainUser).then((value) {
+    application.counts = value;
   });
 }
 
@@ -52,5 +52,15 @@ void _obtainUsers() async {
 /// 添加用户到数据库
 ///
 void addUser(String userName, String password) async {
-  application.dataBases.execute(constants.addUser, [userName, password]);
+  bool isExist = false;
+  application.counts.forEach((element) {
+    element.forEach((key, value) {
+      if (key == userName) {
+        isExist = true;
+        return;
+      }
+    });
+  });
+  if (!isExist)
+    application.dataBases.rawQuery(constants.addUser, [userName, password]);
 }

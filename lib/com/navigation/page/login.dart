@@ -164,6 +164,8 @@ class LoginState extends State<Login> {
       constants.password: md5(_password),
       constants.version: constants.currentVersion,
     };
+    handler.userName = _userName;
+    handler.password = _password;
     handler.initSocket(requestMes);
   }
 

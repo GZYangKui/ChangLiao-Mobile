@@ -49,4 +49,4 @@ const String createUserTable = "CREATE TABLE IF NOT EXISTS "
     "password VARCHAR NOT NULL,"
     "brief VARCHAR)";
 const String obtainUser = "SELECT userName,password FROM user";
-const String addUser = "INSERT INTO user(userName,password) VALUES(?,?)";
+const String addUser = " INSERT INTO user(userName,password) VALUES(?,?)";
