@@ -28,7 +28,7 @@ class ArtificialIntelligenceState extends State<ArtificialIntelligence> {
   @override
   void initState() {
     super.initState();
-    _loadData(application.date);
+    _loadData(application.aiDate);
   }
 
   @override
@@ -61,10 +61,10 @@ class ArtificialIntelligenceState extends State<ArtificialIntelligence> {
   void _showSelectDate() async {
     DateTime date = await showDatePicker(
         context: context,
-        firstDate: DateTime(2017),
-        initialDate: DateTime.tryParse(application.date),
-        lastDate: DateTime.tryParse(application.date));
-    application.date = date.toString().split(" ")[0];
+        firstDate: DateTime.parse("2018-07-20"),
+        initialDate: DateTime.tryParse(application.aiDate),
+        lastDate: DateTime.tryParse("2018-07-29"));
+    application.aiDate = date.toString().split(" ")[0];
     _loadData(date.toString().split(" ")[0]);
   }
 
@@ -97,7 +97,7 @@ class ArtificialIntelligenceState extends State<ArtificialIntelligence> {
   }
 
   _refreshLoadData() async {
-    await _loadData(application.date).then((value) {
+    await _loadData(application.aiDate).then((value) {
       showToast("刷新成功!");
     }).catchError((error) {
       showToast("未知错误!");

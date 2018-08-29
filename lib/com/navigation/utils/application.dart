@@ -20,4 +20,7 @@ String dbPath = "";
 Database dataBases;
 
 ///人工智能时间查询
-String date = "2018-07-29";
+String aiDate = "2018-07-29";
+
+///区块链查询时间
+String blockDate = "2018-07-29";

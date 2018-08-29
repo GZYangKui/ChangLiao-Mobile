@@ -57,6 +57,7 @@ flutter:
 
   #新趋向图片素材
   - assets/images/new_trend/ai.png
+  - assets/images/new_trend/block_chain.png
 
 
   #音频素材

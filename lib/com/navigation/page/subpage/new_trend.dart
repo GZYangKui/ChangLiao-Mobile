@@ -22,7 +22,6 @@ class NewTrendState extends State<NewTrend>
   final List<Widget> _tabs = [
     ArtificialIntelligence(),
     BlockChain(),
-    SocialHotSpot()
   ];
   @override
   void initState() {
@@ -57,10 +56,6 @@ class NewTrendState extends State<NewTrend>
           BottomNavigationBarItem(
             icon: Icon(Icons.block),
             title: Text("区块链"),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.hot_tub),
-            title: Text("社会热点"),
           ),
         ],
         onTap: (index) {
