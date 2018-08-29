@@ -104,4 +104,12 @@ class ArtificialIntelligenceState extends State<ArtificialIntelligence> {
     }).whenComplete(() {});
     return TickerFuture.complete();
   }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _urls?.clear();
+    _briefs?.clear();
+    _title?.clear();
+  }
 }
