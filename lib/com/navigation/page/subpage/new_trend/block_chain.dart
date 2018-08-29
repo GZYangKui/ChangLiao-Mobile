@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/com/navigation/component/block_chain_item.dart';
+import 'package:flutter_app/com/navigation/page/subpage/webview.dart';
 import 'package:flutter_app/com/navigation/utils/application.dart'
     as application;
 import 'package:http/http.dart';
@@ -20,14 +20,24 @@ class BlockChain extends StatefulWidget {
   State<StatefulWidget> createState() => BlockChainState();
 }
 
-class BlockChainState extends State<BlockChain> {
+class BlockChainState extends State<BlockChain> with TickerProviderStateMixin {
   List<String> _title = [];
   List<String> _briefs = [];
   List<String> _urls = [];
+  AnimationController _controller;
+  Animation<double> _drawerContentsOpacity;
   @override
   void initState() {
     super.initState();
     _loadData(application.blockDate);
+    _controller = new AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 200),
+    );
+    _drawerContentsOpacity = new CurvedAnimation(
+      parent: new ReverseAnimation(_controller),
+      curve: Curves.fastOutSlowIn,
+    );
   }
 
   @override
@@ -35,14 +45,31 @@ class BlockChainState extends State<BlockChain> {
     return Tab(
       child: Scaffold(
         body: RefreshIndicator(
-            child: ListView.builder(
-              itemBuilder: (BuildContext context, int index) => BlockChainItem(
-                    title: _title[index],
-                    brief: _briefs[index],
-                    url: _urls[index],
-                  ),
-              itemCount: _title.length,
-            ),
+            child: RefreshIndicator(
+                child: ListView(
+                  children: _title.map((title) {
+                    return FadeTransition(
+                      opacity: _drawerContentsOpacity,
+                      child: Column(
+                        children: <Widget>[
+                          ListTile(
+                            leading: CircleAvatar(child: Text("BC")),
+                            title: Text(title),
+                            onTap: () {
+                              _openLink(title);
+                            },
+                          ),
+                          Divider(
+                            height: 3.0,
+                          ),
+                        ],
+                      ),
+                    );
+                  }).toList(),
+                ),
+                onRefresh: () async {
+                  return await _refreshLoadData();
+                }),
             onRefresh: () async {
               return await _refreshLoadData();
             }),
@@ -92,6 +119,18 @@ class BlockChainState extends State<BlockChain> {
         showToast("连接服务器失败!");
       }
     });
+  }
+
+  void _openLink(String title) async {
+    int index = 0;
+    for (var item in _title) {
+      if (title == item) break;
+      index++;
+    }
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (BuildContext context) => WebViewStateful(
+              url: _urls[index],
+            )));
   }
 
   _refreshLoadData() async {

@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/com/navigation/component/artificial_intelligence_item.dart';
+import 'package:flutter_app/com/navigation/page/subpage/webview.dart';
 import 'package:flutter_app/com/navigation/utils/utils.dart';
 import 'package:http/http.dart';
 import 'package:flutter_app/com/navigation/utils/constant.dart' as constants;
@@ -20,15 +20,25 @@ class ArtificialIntelligence extends StatefulWidget {
   State<StatefulWidget> createState() => ArtificialIntelligenceState();
 }
 
-class ArtificialIntelligenceState extends State<ArtificialIntelligence> {
+class ArtificialIntelligenceState extends State<ArtificialIntelligence>
+    with TickerProviderStateMixin {
   List<String> _title = [];
   List<String> _briefs = [];
   List<String> _urls = [];
-
+  AnimationController _controller;
+  Animation<double> _drawerContentsOpacity;
   @override
   void initState() {
     super.initState();
     _loadData(application.aiDate);
+    _controller = new AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 200),
+    );
+    _drawerContentsOpacity = new CurvedAnimation(
+      parent: new ReverseAnimation(_controller),
+      curve: Curves.fastOutSlowIn,
+    );
   }
 
   @override
@@ -36,14 +46,28 @@ class ArtificialIntelligenceState extends State<ArtificialIntelligence> {
     return Tab(
       child: Scaffold(
         body: RefreshIndicator(
-            child: ListView.builder(
-              itemBuilder: (BuildContext context, int index) =>
-                  ArtificialIntelligenceItem(
-                    title: _title[index],
-                    brief: _briefs[index],
-                    url: _urls[index],
+            child: ListView(
+              children: _title.map((title) {
+                return FadeTransition(
+                  opacity: _drawerContentsOpacity,
+                  child: Column(
+                    children: <Widget>[
+                      ListTile(
+                        leading: CircleAvatar(
+                          child: Text("AI"),
+                        ),
+                        title: Text(title),
+                        onTap: () {
+                          _openLink(title);
+                        },
+                      ),
+                      Divider(
+                        height: 3.0,
+                      ),
+                    ],
                   ),
-              itemCount: _title.length,
+                );
+              }).toList(),
             ),
             onRefresh: () async {
               return await _refreshLoadData();
@@ -103,6 +127,18 @@ class ArtificialIntelligenceState extends State<ArtificialIntelligence> {
       showToast("未知错误!");
     }).whenComplete(() {});
     return TickerFuture.complete();
+  }
+
+  void _openLink(String title) async {
+    int index = 0;
+    for (var item in _title) {
+      if (title == item) break;
+      index++;
+    }
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (BuildContext context) => WebViewStateful(
+              url: _urls[index],
+            )));
   }
 
   @override
