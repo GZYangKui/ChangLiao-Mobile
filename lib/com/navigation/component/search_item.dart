@@ -18,75 +18,74 @@ class UserItemState extends State<UserItem> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Row(
-          children: <Widget>[
-            Expanded(
-              child: Row(
-                children: <Widget>[
-                  Column(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-                        child: Image.asset(
-                          "assets/images/person.png",
-                          width: 50.0,
-                          height: 50.0,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Expanded(
-                    child: Column(
+    return Padding(
+      padding: const EdgeInsets.only(top: 4.0, bottom: 4.0),
+      child: Column(
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Expanded(
+                child: Row(
+                  children: <Widget>[
+                    Column(
                       children: <Widget>[
-                        Row(
-                          children: <Widget>[
-                            Text(
-                              widget.userId,
-                              style: TextStyle(fontSize: 30.0),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                          child: CircleAvatar(
+                            radius: 25.0,
+                            backgroundColor: Colors.blue,
+                            child: Image.asset(
+                              "assets/images/person.png",
+                              width: 40.0,
+                              height: 40.0,
                             ),
-                          ],
-                        ),
-                        Row(
-                          children: <Widget>[
-                            Text(
-                              "个性签名:",
-                              style: TextStyle(fontSize: 15.0),
-                            ),
-                          ],
+                          ),
                         ),
                       ],
                     ),
-                  ),
-                ],
-              ),
-            ),
-            Align(
-              alignment: Alignment.centerRight,
-              child: IconButton(
-                icon: InputDecorator(
-                  decoration: InputDecoration(icon: Icon(Icons.add)),
+                    Expanded(
+                      child: Column(
+                        children: <Widget>[
+                          Row(
+                            children: <Widget>[
+                              Text(
+                                widget.userId,
+                                style: TextStyle(fontSize: 20.0),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-                onPressed: () {
-                  var message = {
-                    constants.type: constants.friend,
-                    constants.subtype: constants.request,
-                    constants.to: widget.userId,
-                    constants.message: "${handler.userName}请求添加你为好友!",
-                    constants.version: constants.currentVersion
-                  };
-                  handler.sendRequest(message);
-                  Scaffold
-                      .of(context)
-                      .showSnackBar(SnackBar(content: Text("请求已发送")));
-                },
               ),
-            ),
-          ],
-        ),
-        Divider(),
-      ],
+              Align(
+                alignment: Alignment.centerRight,
+                child: IconButton(
+                  icon: InputDecorator(
+                    decoration: InputDecoration(icon: Icon(Icons.add)),
+                  ),
+                  onPressed: () {
+                    var message = {
+                      constants.type: constants.friend,
+                      constants.subtype: constants.request,
+                      constants.to: widget.userId,
+                      constants.message: "${handler.userName}请求添加你为好友!",
+                      constants.version: constants.currentVersion
+                    };
+                    handler.sendRequest(message);
+                    Scaffold
+                        .of(context)
+                        .showSnackBar(SnackBar(content: Text("请求已发送")));
+                  },
+                ),
+              ),
+            ],
+          ),
+          Divider(),
+        ],
+      ),
     );
   }
 }
