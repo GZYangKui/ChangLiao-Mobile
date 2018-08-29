@@ -18,3 +18,6 @@ String dbPath = "";
 
 ///sqlite数据库操纵实例
 Database dataBases;
+
+///人工智能时间查询
+String date = "2018-07-29";

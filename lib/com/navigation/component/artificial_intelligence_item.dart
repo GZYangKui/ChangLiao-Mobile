@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/com/navigation/page/subpage/webview.dart';
 
 class ArtificialIntelligenceItem extends StatefulWidget {
   final String title;
@@ -19,47 +20,38 @@ class ArtificialIntelligenceItemState
     extends State<ArtificialIntelligenceItem> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Row(
-          children: <Widget>[
-            IconButton(
-              icon: Image.asset(
-                "assets/images/new_trend/ai.png",
-                width: 50.0,
-                height: 50.0,
-              ),
-              onPressed: () {},
-            ),
-            Expanded(
-              child: Column(
+    return RefreshIndicator(
+        child: GestureDetector(
+          child: Column(
+            children: <Widget>[
+              Row(
                 children: <Widget>[
-                  Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: Text(widget.title),
+                  IconButton(
+                      icon: Image.asset(
+                        "assets/images/new_trend/ai.png",
+                        width: 50.0,
+                        height: 50.0,
                       ),
-                    ],
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: Text(
-                          widget.brief,
-                          overflow: TextOverflow.clip,
-                        ),
-                      ),
-                    ],
+                      onPressed: () {}),
+                  Expanded(
+                    child: Text(
+                      widget.title,
+                    ),
                   ),
                 ],
               ),
-            ),
-          ],
+              Divider(
+                height: 3.0,
+              ),
+            ],
+          ),
+          onTapDown: (e) {
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (BuildContext context) => WebViewStateful(
+                      url: widget.url,
+                    )));
+          },
         ),
-        Divider(
-          height: 3.0,
-        ),
-      ],
-    );
+        onRefresh: () {});
   }
 }

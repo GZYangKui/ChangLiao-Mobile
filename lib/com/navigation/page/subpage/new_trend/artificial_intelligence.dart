@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
@@ -6,6 +7,8 @@ import 'package:flutter_app/com/navigation/component/artificial_intelligence_ite
 import 'package:flutter_app/com/navigation/utils/utils.dart';
 import 'package:http/http.dart';
 import 'package:flutter_app/com/navigation/utils/constant.dart' as constants;
+import 'package:flutter_app/com/navigation/utils/application.dart'
+    as application;
 
 ///
 /// 此页是new_trend的一个精简版界面
@@ -23,11 +26,17 @@ class ArtificialIntelligenceState extends State<ArtificialIntelligence> {
   List<String> _urls = [];
 
   @override
+  void initState() {
+    super.initState();
+    _loadData(application.date);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return RefreshIndicator(
-        child: Tab(
-          child: Scaffold(
-            body: ListView.builder(
+    return Tab(
+      child: Scaffold(
+        body: RefreshIndicator(
+            child: ListView.builder(
               itemBuilder: (BuildContext context, int index) =>
                   ArtificialIntelligenceItem(
                     title: _title[index],
@@ -36,27 +45,30 @@ class ArtificialIntelligenceState extends State<ArtificialIntelligence> {
                   ),
               itemCount: _title.length,
             ),
-            floatingActionButton: FloatingActionButton(
-              onPressed: () {
-                _showSelectDate();
-              },
-              child: Icon(Icons.date_range),
-            ),
-          ),
+            onRefresh: () async {
+              return await _refreshLoadData();
+            }),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            _showSelectDate();
+          },
+          child: Icon(Icons.date_range),
         ),
-        onRefresh: () {});
+      ),
+    );
   }
 
   void _showSelectDate() async {
     DateTime date = await showDatePicker(
         context: context,
         firstDate: DateTime(2017),
-        initialDate: DateTime.now(),
-        lastDate: DateTime.now());
+        initialDate: DateTime.tryParse(application.date),
+        lastDate: DateTime.tryParse(application.date));
+    application.date = date.toString().split(" ")[0];
     _loadData(date.toString().split(" ")[0]);
   }
 
-  void _loadData(String date) {
+  Future<Null> _loadData(String date) async {
     get("http://www.dashixiuxiu.cn/query_aitopics?crawltime=$date")
         .then((response) {
       if (response.statusCode == 200) {
@@ -66,11 +78,14 @@ class ArtificialIntelligenceState extends State<ArtificialIntelligence> {
           if (_briefs.length > 0) _briefs.clear();
           if (_urls.length > 0) _urls.clear();
           var data = result[constants.data];
-          print(data);
-          for (var item in data) {
-            _title.add(item["cn_title"]);
-            _urls.add(item["url"]);
-            _briefs.add(item["cn_brief"]);
+          if (data.length > 0)
+            for (var item in data) {
+              _title.add(item["cn_title"]);
+              _urls.add(item["url"]);
+              _briefs.add(item["cn_brief"]);
+            }
+          else {
+            showToast("没有找到该日期对应的ai信息,换个日期试试!");
           }
           this.setState(() {});
         } else
@@ -79,5 +94,14 @@ class ArtificialIntelligenceState extends State<ArtificialIntelligence> {
         showToast("连接服务器失败!");
       }
     });
+  }
+
+  _refreshLoadData() async {
+    await _loadData(application.date).then((value) {
+      showToast("刷新成功!");
+    }).catchError((error) {
+      showToast("未知错误!");
+    }).whenComplete(() {});
+    return TickerFuture.complete();
   }
 }
