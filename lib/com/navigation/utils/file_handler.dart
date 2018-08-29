@@ -55,7 +55,7 @@ void addUser(String userName, String password) async {
   bool isExist = false;
   application.counts.forEach((element) {
     element.forEach((key, value) {
-      if (key == userName) {
+      if (value == userName && key == "userName") {
         isExist = true;
         return;
       }
