@@ -2,9 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/com/navigation/page/subpage/new_trend/artificial_intelligence.dart';
 import 'package:flutter_app/com/navigation/page/subpage/new_trend/block_chain.dart';
-import 'package:flutter_app/com/navigation/page/subpage/new_trend/crowd_funding.dart';
-import 'package:flutter_app/com/navigation/page/subpage/new_trend/game.dart';
-import 'package:flutter_app/com/navigation/page/subpage/new_trend/social_hotspots.dart';
+import 'package:flutter_app/com/navigation/utils/application.dart'
+    as application;
 
 ///
 /// 此页是new_trend的一个精简版界面
@@ -37,34 +36,37 @@ class NewTrendState extends State<NewTrend>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("新趋势"),
-        centerTitle: true,
-        automaticallyImplyLeading: false,
-      ),
-      body: TabBarView(
-        children: _tabs,
-        controller: _tabController,
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.threed_rotation),
-            title: Text("人工智能"),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.block),
-            title: Text("区块链"),
-          ),
-        ],
-        onTap: (index) {
-          this.setState(() {
-            _currentIndex = index;
-            _tabController.index = _currentIndex;
-          });
-        },
-        currentIndex: _currentIndex,
+    return Theme(
+      data: application.theme,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text("新趋势"),
+          centerTitle: true,
+          automaticallyImplyLeading: false,
+        ),
+        body: TabBarView(
+          children: _tabs,
+          controller: _tabController,
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.threed_rotation),
+              title: Text("人工智能"),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.block),
+              title: Text("区块链"),
+            ),
+          ],
+          onTap: (index) {
+            this.setState(() {
+              _currentIndex = index;
+              _tabController.index = _currentIndex;
+            });
+          },
+          currentIndex: _currentIndex,
+        ),
       ),
     );
   }

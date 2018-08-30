@@ -5,6 +5,8 @@ import 'package:flutter_app/com/navigation/component/search_contacts_item.dart';
 import 'package:flutter_app/com/navigation/netwok/socket_handler.dart'
     as handler;
 import 'package:flutter_app/com/navigation/utils/utils.dart';
+import 'package:flutter_app/com/navigation/utils/application.dart'
+    as application;
 
 ///
 /// 联系人及聊天信息搜索
@@ -26,55 +28,57 @@ class ContactsSearchState extends State<ContactsSearch> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        automaticallyImplyLeading: false,
-        title: Container(
-          child: Row(
-            children: <Widget>[
-              Expanded(
-                child: TextField(
-                  decoration: InputDecoration(
-                      filled: true,
-                      prefixIcon: const Icon(Icons.search),
-                      hintText: "搜索"),
-                  textInputAction: TextInputAction.search,
-                  onSubmitted: (value) {
-                    if (value != "") {
-                      _search(value);
-                      _addChip(value);
-                    } else {
-                      showToast("搜索关键字不能为空!");
-                    }
-                  },
-                ),
-              ),
-              GestureDetector(
-                child: Container(
-                  margin: EdgeInsets.only(left: 3.0),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      "取消",
-                      style: TextStyle(color: Colors.blueAccent),
-                    ),
+    return Theme(
+      data: application.theme,
+      child: Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          title: Container(
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                  child: TextField(
+                    decoration: InputDecoration(
+                        filled: true,
+                        prefixIcon: const Icon(Icons.search),
+                        hintText: "搜索"),
+                    textInputAction: TextInputAction.search,
+                    onSubmitted: (value) {
+                      if (value != "") {
+                        _search(value);
+                        _addChip(value);
+                      } else {
+                        showToast("搜索关键字不能为空!");
+                      }
+                    },
                   ),
                 ),
-                onTapDown: (e) {
-                  Navigator.pop(context);
-                },
-              ),
-            ],
+                GestureDetector(
+                  child: Container(
+                    margin: EdgeInsets.only(left: 3.0),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "取消",
+                        style: TextStyle(color: Colors.blueAccent),
+                      ),
+                    ),
+                  ),
+                  onTapDown: (e) {
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            ),
           ),
         ),
-      ),
-      body: Column(
-        children: <Widget>[
-          Expanded(
-            child: _list.length == 0 ? _showCard() : _showContactList(),
-          ),
-        ],
+        body: Column(
+          children: <Widget>[
+            Expanded(
+              child: _list.length == 0 ? _showCard() : _showContactList(),
+            ),
+          ],
+        ),
       ),
     );
   }

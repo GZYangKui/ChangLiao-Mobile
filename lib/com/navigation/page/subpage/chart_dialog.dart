@@ -6,6 +6,8 @@ import 'package:flutter_app/com/navigation/component/chart_message_item.dart';
 import 'package:flutter_app/com/navigation/netwok/socket_handler.dart'
     as handler;
 import 'package:flutter_app/com/navigation/utils/constant.dart' as constants;
+import 'package:flutter_app/com/navigation/utils/application.dart'
+    as application;
 
 class ChartDialog extends StatefulWidget {
   final List<String> _list;
@@ -37,81 +39,84 @@ class ChartDialogState extends State<ChartDialog> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget._name),
-        centerTitle: true,
-        actions: <Widget>[
-          Tooltip(
-            child: IconButton(
-              icon: Image.asset(
-                "assets/images/clear.png",
-                width: 40.0,
-                height: 40.0,
+    return Theme(
+      data: application.theme,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(widget._name),
+          centerTitle: true,
+          actions: <Widget>[
+            Tooltip(
+              child: IconButton(
+                icon: Image.asset(
+                  "assets/images/clear.png",
+                  width: 40.0,
+                  height: 40.0,
+                ),
+                onPressed: () {
+                  _clearMessage();
+                },
               ),
-              onPressed: () {
-                _clearMessage();
-              },
+              message: "清除聊天记录",
             ),
-            message: "清除聊天记录",
-          ),
-        ],
-      ),
-      body: Column(
-        children: <Widget>[
-          Expanded(
-            child: ListView.builder(
-              itemBuilder: (BuildContext context, int index) =>
-                  ChartMessageItem(widget._list[index]),
-              itemCount: widget._list.length,
+          ],
+        ),
+        body: Column(
+          children: <Widget>[
+            Expanded(
+              child: ListView.builder(
+                itemBuilder: (BuildContext context, int index) =>
+                    ChartMessageItem(widget._list[index]),
+                itemCount: widget._list.length,
+              ),
             ),
-          ),
-          Row(
-            children: <Widget>[
-              Expanded(
-                child: TextField(
-                  decoration: InputDecoration(
-                    filled: true,
-                    suffixIcon: GestureDetector(
-                      child: Container(
-                        margin: EdgeInsets.all(8.0),
-                        width: 50.0,
-                        height: 20.0,
-                        decoration: BoxDecoration(
-                          color: enable ? Colors.white : Colors.grey,
-                          border: Border.all(color: Colors.red),
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(5.0),
+            Row(
+              children: <Widget>[
+                Expanded(
+                  child: TextField(
+                    decoration: InputDecoration(
+                      filled: true,
+                      suffixIcon: GestureDetector(
+                        child: Container(
+                          margin: EdgeInsets.all(8.0),
+                          width: 50.0,
+                          height: 20.0,
+                          decoration: BoxDecoration(
+                            color: enable ? Colors.white : Colors.grey,
+                            border: Border.all(color: Colors.red),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(5.0),
+                            ),
+                          ),
+                          alignment: Alignment.center,
+                          child: Text(
+                            "发送",
+                            style: TextStyle(fontSize: 16.0),
                           ),
                         ),
-                        alignment: Alignment.center,
-                        child: Text(
-                          "发送",
-                          style: TextStyle(fontSize: 16.0),
-                        ),
+                        onTapDown: (e) {
+                          _sendMessage(_message);
+                        },
                       ),
-                      onTapDown: (e) {
-                        _sendMessage(_message);
-                      },
                     ),
+                    onChanged: (value) {
+                      if (value != "")
+                        enable = true;
+                      else
+                        enable = false;
+                      _message = value;
+                    },
+                    controller: MyController(
+                        text: _message,
+                        textSelection: TextSelection(
+                            baseOffset: _message.length,
+                            extentOffset: _message.length)),
                   ),
-                  onChanged: (value) {
-                    if (value != "")
-                      enable = true;
-                    else
-                      enable = false;
-                    _message = value;
-                  },
-                  controller: MyController(
-                      text: _message,
-                      textSelection: TextSelection(
-                          baseOffset: _message.length,
-                          extentOffset: _message.length)),
                 ),
-              ),
-            ],
-          ),
-        ],
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -13,6 +13,8 @@ import 'package:flutter_app/com/navigation/netwok/socket_handler.dart'
     as handler;
 import 'package:flutter_app/com/navigation/page/subpage/system_inform.dart';
 import 'package:flutter_app/com/navigation/utils/utils.dart';
+import 'package:flutter_app/com/navigation/utils/application.dart'
+    as application;
 
 class UserCenter extends StatefulWidget {
   @override
@@ -32,56 +34,59 @@ class UserCenterState extends State<UserCenter>
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      child: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: new Text(_titles[_currentIndex]),
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.add),
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (BuildContext context) => Search()));
-              },
-            ),
-            IconButton(
-              icon: Icon(Icons.notifications),
-              onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                  builder: (BuildContext context) => SystemInform())),
-            ),
-          ],
+    return Theme(
+      data: application.theme,
+      child: WillPopScope(
+        child: Scaffold(
+          appBar: AppBar(
+            centerTitle: true,
+            title: new Text(_titles[_currentIndex]),
+            actions: <Widget>[
+              IconButton(
+                icon: Icon(Icons.add),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (BuildContext context) => Search()));
+                },
+              ),
+              IconButton(
+                icon: Icon(Icons.notifications),
+                onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                    builder: (BuildContext context) => SystemInform())),
+              ),
+            ],
+          ),
+          drawer: Drawer(
+            child: DrawerItems(),
+          ),
+          body: TabBarView(
+            children: _tabs,
+            controller: _tabController,
+          ),
+          bottomNavigationBar: BottomNavigationBar(
+            items: [
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.message), title: Text("消息")),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.perm_contact_calendar), title: Text("联系人")),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.streetview), title: Text("小应用")),
+            ],
+            onTap: (index) {
+              this.setState(() {
+                _currentIndex = index;
+              });
+              _tabController.animateTo(index);
+            },
+            currentIndex: _currentIndex,
+          ),
         ),
-        drawer: Drawer(
-          child: DrawerItems(),
-        ),
-        body: TabBarView(
-          children: _tabs,
-          controller: _tabController,
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-          items: [
-            BottomNavigationBarItem(
-                icon: Icon(Icons.message), title: Text("消息")),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.perm_contact_calendar), title: Text("联系人")),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.streetview), title: Text("小应用")),
-          ],
-          onTap: (index) {
-            this.setState(() {
-              _currentIndex = index;
-            });
-            _tabController.animateTo(index);
-          },
-          currentIndex: _currentIndex,
-        ),
+        onWillPop: () {
+          SystemNavigator.pop();
+        },
       ),
-      onWillPop: () {
-        SystemNavigator.pop();
-      },
     );
   }
 

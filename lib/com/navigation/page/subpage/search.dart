@@ -8,6 +8,8 @@ import 'package:flutter_app/com/navigation/utils/constant.dart' as constants;
 import 'package:flutter_app/com/navigation/netwok/socket_handler.dart'
     as handler;
 import 'package:http/http.dart';
+import 'package:flutter_app/com/navigation/utils/application.dart'
+    as application;
 
 class Search extends StatefulWidget {
   @override
@@ -25,53 +27,56 @@ class SearchState extends State<Search> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: key,
-      appBar: AppBar(
-        title: Text("添加"),
-        centerTitle: true,
-      ),
-      body: Column(
-        children: <Widget>[
-          Container(
-            margin:
-                EdgeInsets.only(top: 10.0, left: 3.0, right: 3.0, bottom: 10.0),
-            decoration: BoxDecoration(
-              color: Color.fromRGBO(211, 211, 211, 0.8),
-            ),
-            child: Row(
-              children: <Widget>[
-                Expanded(
-                  child: GestureDetector(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        child: Row(
-                          children: <Widget>[
-                            Icon(Icons.search),
-                            Expanded(
-                              child: Text(
-                                "搜索用户名",
-                                style: TextStyle(fontSize: 20.0),
+    return Theme(
+      data: application.theme,
+      child: Scaffold(
+        key: key,
+        appBar: AppBar(
+          title: Text("添加"),
+          centerTitle: true,
+        ),
+        body: Column(
+          children: <Widget>[
+            Container(
+              margin: EdgeInsets.only(
+                  top: 10.0, left: 3.0, right: 3.0, bottom: 10.0),
+              decoration: BoxDecoration(
+                color: Color.fromRGBO(211, 211, 211, 0.8),
+              ),
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    child: GestureDetector(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          child: Row(
+                            children: <Widget>[
+                              Icon(Icons.search),
+                              Expanded(
+                                child: Text(
+                                  "搜索用户名",
+                                  style: TextStyle(fontSize: 20.0),
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
+                      onTapDown: (event) {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (BuildContext context) => SearchDialog()));
+                      },
                     ),
-                    onTapDown: (event) {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (BuildContext context) => SearchDialog()));
-                    },
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          Expanded(
-            child: _showMenu(),
-          ),
-        ],
+            Expanded(
+              child: _showMenu(),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -155,27 +160,31 @@ class SearchDialogState extends State<SearchDialog> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: key,
-      appBar: AppBar(
-        title: TextField(
-          style: TextStyle(fontSize: 20.0),
-          decoration: InputDecoration(hintText: "搜索用户名"),
-          onSubmitted: (value) {
-            _keyword = value;
-            _search();
-          },
+    return Theme(
+      data: application.theme,
+      child: Scaffold(
+        key: key,
+        appBar: AppBar(
+          title: TextField(
+            style: TextStyle(fontSize: 20.0),
+            decoration: InputDecoration(hintText: "搜索用户名"),
+            onSubmitted: (value) {
+              _keyword = value;
+              _search();
+            },
+          ),
+          leading: IconButton(
+            icon: Icon(Icons.chevron_left),
+            onPressed: () => Navigator.pop(context),
+            padding: EdgeInsets.all(0.0),
+          ),
+          /* backgroundColor: Colors.lightBlue,*/
         ),
-        leading: IconButton(
-          icon: Icon(Icons.chevron_left),
-          onPressed: () => Navigator.pop(context),
-          padding: EdgeInsets.all(0.0),
+        body: ListView.builder(
+          itemBuilder: (BuildContext context, int index) =>
+              UserItem(list[index]),
+          itemCount: list.length,
         ),
-        backgroundColor: Colors.lightBlue,
-      ),
-      body: ListView.builder(
-        itemBuilder: (BuildContext context, int index) => UserItem(list[index]),
-        itemCount: list.length,
       ),
     );
   }

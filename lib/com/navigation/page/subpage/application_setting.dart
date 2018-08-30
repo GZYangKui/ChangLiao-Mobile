@@ -16,70 +16,66 @@ class ApplicationSetting extends StatefulWidget {
 class ApplicationSettingState extends State<ApplicationSetting> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("设置"),
-        centerTitle: true,
-      ),
-      body: ListView(
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              Icon(Icons.volume_up),
-              Expanded(
-                child: Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: Text(
-                        "新消息提醒",
-                        style: TextStyle(
-                          fontSize: 20.0,
+    return Theme(
+      data: application.theme,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text("设置"),
+          centerTitle: true,
+        ),
+        body: ListView(
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                Icon(Icons.volume_up),
+                Expanded(
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Text(
+                          "新消息提醒",
+                          style: TextStyle(
+                            fontSize: 20.0,
+                          ),
                         ),
                       ),
-                    ),
-                    Switch(
-                        value: application.voiceSwitch,
-                        onChanged: (value) {
-                          this.setState(() {
-                            application.voiceSwitch = value;
-                          });
-                        }),
-                  ],
+                      Switch(
+                          value: application.voiceSwitch,
+                          onChanged: (value) {
+                            this.setState(() {
+                              application.voiceSwitch = value;
+                            });
+                          }),
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          ),
-          Divider(
-            height: 0.0,
-          ),
-          Row(
-            children: <Widget>[
-              Icon(Icons.brightness_2),
-              Expanded(
-                child: Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: Text(
-                        "夜间模式",
-                        style: TextStyle(fontSize: 20.0),
+              ],
+            ),
+            Divider(
+              height: 0.0,
+            ),
+            Row(
+              children: <Widget>[
+                Icon(Icons.palette),
+                Expanded(
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Text(
+                          "主题",
+                          style: TextStyle(fontSize: 20.0),
+                        ),
                       ),
-                    ),
-                    Switch(
-                        value: application.nightModel,
-                        onChanged: (value) {
-                          this.setState(() {
-                            application.nightModel = value;
-                          });
-                        })
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          ),
-          Divider(
-            height: 0.0,
-          ),
-        ],
+              ],
+            ),
+            Divider(
+              height: 0.0,
+            ),
+          ],
+        ),
       ),
     );
   }
