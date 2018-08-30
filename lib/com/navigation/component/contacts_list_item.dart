@@ -66,16 +66,10 @@ class ContactItemState extends State<ContactItem>
       children: <Widget>[
         Column(
           children: <Widget>[
-            Image.asset(
-              "assets/images/group.png",
-              width: 30.0,
-              height: 30.0,
+            Text(
+              title,
+              style: TextStyle(fontSize: 22.0),
             ),
-          ],
-        ),
-        Column(
-          children: <Widget>[
-            Text(title),
           ],
         ),
       ],
@@ -87,16 +81,31 @@ class ContactItemState extends State<ContactItem>
       children: <Widget>[
         Column(
           children: <Widget>[
-            Image.asset(
-              "assets/images/person.png",
-              width: 20.0,
-              height: 20.0,
-            )
+            CircleAvatar(
+              radius: 25.0,
+              backgroundColor: Colors.green,
+              child: Image.asset(
+                "assets/images/icon.png",
+                width: 45.0,
+                height: 45.0,
+              ),
+            ),
           ],
         ),
-        Column(
-          children: <Widget>[Text(name)],
-        )
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  name,
+                  style: TextStyle(fontSize: 20.0),
+                )
+              ],
+            ),
+          ),
+        ),
       ],
     );
   }

@@ -33,11 +33,11 @@ class UserItemState extends State<UserItem> {
                           padding: const EdgeInsets.only(left: 8.0, right: 8.0),
                           child: CircleAvatar(
                             radius: 25.0,
-                            backgroundColor: Colors.blue,
+                            backgroundColor: Colors.green,
                             child: Image.asset(
-                              "assets/images/person.png",
-                              width: 40.0,
-                              height: 40.0,
+                              "assets/images/icon.png",
+                              width: 45.0,
+                              height: 45.0,
                             ),
                           ),
                         ),

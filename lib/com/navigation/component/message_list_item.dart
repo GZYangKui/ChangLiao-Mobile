@@ -26,10 +26,14 @@ class MessageListItemState extends State<MessageListItem> {
         children: <Widget>[
           Row(
             children: <Widget>[
-              Image.asset(
-                "assets/images/message.png",
-                width: 50.0,
-                height: 50.0,
+              CircleAvatar(
+                radius: 25.0,
+                backgroundColor: Colors.green,
+                child: Image.asset(
+                  "assets/images/icon.png",
+                  width: 45.0,
+                  height: 45.0,
+                ),
               ),
               Expanded(
                 child: Padding(
