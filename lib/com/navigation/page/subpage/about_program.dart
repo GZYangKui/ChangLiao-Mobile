@@ -15,7 +15,10 @@ class AboutState extends State<About> {
   @override
   Widget build(BuildContext context) {
     return Theme(
-      data: ThemeData(primaryColor: application.primaryColor),
+      data: ThemeData(
+          primaryColor: application.settings["primaryColor"] == null
+              ? Colors.lightBlue
+              : Color(int.parse(application.settings["primaryColor"]))),
       child: Scaffold(
         key: key,
         appBar: AppBar(
@@ -127,35 +130,5 @@ class AboutState extends State<About> {
                 ),
           ),
         );
-    /* if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      key.currentState.showSnackBar(
-        SnackBar(
-          content: Row(
-            children: <Widget>[
-              Expanded(
-                child: Text(
-                  "调起系统浏览器失败",
-                  style: TextStyle(fontSize: 18.0),
-                ),
-              ),
-              RaisedButton(
-                child: Text(
-                  "复制链接",
-                  style: TextStyle(fontSize: 18.0),
-                ),
-                shape: StadiumBorder(
-                  side: BorderSide(color: Colors.red),
-                ),
-                onPressed: () {
-                  ClipboardData(text: url);
-                },
-              )
-            ],
-          ),
-        ),
-      );
-    }*/
   }
 }

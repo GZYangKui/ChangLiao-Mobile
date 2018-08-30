@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/com/navigation/utils/application.dart'
     as application;
+import 'package:flutter_app/com/navigation/utils/file_handler.dart'
+    as fileHandler;
 
 ///
 /// Application设置界面
@@ -32,6 +34,8 @@ class ApplicationSettingState extends State<ApplicationSetting>
   AnimationController _controller;
   Animation<double> _drawerContentsOpacity;
   bool isExpand = false;
+  bool voiceSwitch = true;
+  Color primaryColor = Colors.lightBlue;
   @override
   void initState() {
     super.initState();
@@ -43,12 +47,17 @@ class ApplicationSettingState extends State<ApplicationSetting>
       parent: new ReverseAnimation(_controller),
       curve: Curves.fastOutSlowIn,
     );
+    if (application.settings["voiceSwitch"] != null &&
+        application.settings["voiceSwitch"] == "false") voiceSwitch = false;
+    if (application.settings["primaryColor"] != null &&
+        Color(int.parse(application.settings["primaryColor"])) != primaryColor)
+      primaryColor = Color(int.parse(application.settings["primaryColor"]));
   }
 
   @override
   Widget build(BuildContext context) {
     return Theme(
-      data: ThemeData(primaryColor: application.primaryColor),
+      data: ThemeData(primaryColor: primaryColor),
       child: Scaffold(
         appBar: AppBar(
           title: Text("设置"),
@@ -65,10 +74,11 @@ class ApplicationSettingState extends State<ApplicationSetting>
                   style: TextStyle(fontSize: 20.0),
                 ),
                 trailing: Switch(
-                    value: application.voiceSwitch,
+                    value: voiceSwitch,
                     onChanged: (value) {
                       this.setState(() {
-                        application.voiceSwitch = value;
+                        voiceSwitch = value;
+                        application.settings["voiceSwitch"] = value.toString();
                       });
                     }),
               ),
@@ -103,7 +113,7 @@ class ApplicationSettingState extends State<ApplicationSetting>
                   return Row(
                     children: <Widget>[
                       Container(
-                        margin: EdgeInsets.only(left: 10.0, right: 35.0),
+                        margin: EdgeInsets.only(left: 10.0, right: 30.0),
                         child: Icon(Icons.palette),
                       ),
                       Expanded(
@@ -117,7 +127,7 @@ class ApplicationSettingState extends State<ApplicationSetting>
                               margin: EdgeInsets.only(left: 10.0),
                               width: 20.0,
                               height: 20.0,
-                              color: application.primaryColor,
+                              color: primaryColor,
                             ),
                           ],
                         ),
@@ -135,8 +145,10 @@ class ApplicationSettingState extends State<ApplicationSetting>
                         color: color,
                       ),
                       onTapDown: (event) {
+                        application.settings["primaryColor"] =
+                            color.value.toString();
                         this.setState(() {
-                          application.primaryColor = color;
+                          primaryColor = color;
                         });
                       },
                     );
@@ -149,5 +161,11 @@ class ApplicationSettingState extends State<ApplicationSetting>
         ),
       ],
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    fileHandler.updateConfig();
   }
 }
