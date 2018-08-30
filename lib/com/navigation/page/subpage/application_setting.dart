@@ -102,7 +102,10 @@ class ApplicationSettingState extends State<ApplicationSetting>
                 headerBuilder: (BuildContext context, bool isExpanded) {
                   return Row(
                     children: <Widget>[
-                      Icon(Icons.palette),
+                      Container(
+                        margin: EdgeInsets.only(left: 10.0, right: 35.0),
+                        child: Icon(Icons.palette),
+                      ),
                       Expanded(
                         child: Row(
                           children: <Widget>[
