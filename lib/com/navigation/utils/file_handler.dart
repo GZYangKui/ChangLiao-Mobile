@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
@@ -15,7 +16,7 @@ import 'package:flutter_app/com/navigation/utils/constant.dart' as constants;
 ///
 ///初始化文件状态
 ///
-void initFileState() async {
+Future initFileState() async {
   ///获取app文件路径
   application.dir = (await getApplicationDocumentsDirectory()).path;
   Directory directory = Directory("${application.dir}/db");
@@ -26,14 +27,12 @@ void initFileState() async {
       File("${application.dir}/db/flutter_im.db").createSync();
   }
   application.dbPath = "${application.dir}/db/flutter_im.db";
-  _initDataBases();
-  _readConfig();
 }
 
 ///
 ///读取配置文件application.json
 ///
-void _readConfig() async {
+Future readConfig() async {
   File configDir = File("${application.dir}/application.json");
   if (!await configDir.exists()) return;
   var config = json.decode(configDir.readAsStringSync());
@@ -48,16 +47,15 @@ void _readConfig() async {
 ///@user 用户信息表(id userName password brief)
 ///
 ///
-void _initDataBases() async {
+Future initDataBases() async {
   application.dataBases = await openDatabase(application.dbPath, version: 1);
   await application.dataBases.execute(constants.createUserTable);
-  _obtainUsers();
 }
 
 ///
 ///查取用户列表
 ///
-void _obtainUsers() async {
+Future obtainUsers() async {
   application.dataBases.rawQuery(constants.obtainUser).then((value) {
     application.counts = value;
   });
@@ -76,8 +74,11 @@ void addUser(String userName, String password) async {
       }
     });
   });
-  if (!isExist)
-    application.dataBases.rawQuery(constants.addUser, [userName, password]);
+  if (!isExist) {
+    await application.dataBases
+        .rawQuery(constants.addUser, [userName, password]);
+    obtainUsers();
+  }
 }
 
 ///

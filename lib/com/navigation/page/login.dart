@@ -16,130 +16,21 @@ class Login extends StatefulWidget {
   LoginState createState() => LoginState();
 }
 
-class LoginState extends State<Login> {
+class LoginState extends State<Login> with TickerProviderStateMixin {
+  final GlobalKey<ScaffoldState> key = GlobalKey();
+  final List<String> _counts = [];
   String _userName = "";
   String _password = "";
-  GlobalKey<ScaffoldState> key = GlobalKey();
+  bool isSelect = true;
+  bool isExpanded = true;
+  AnimationController _controller;
+  Animation<double> _drawerContentsOpacity;
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      child: Scaffold(
-        key: key,
-        body: Container(
-          margin: EdgeInsets.only(top: 100.0, left: 20.0, right: 20.0),
-          child: ListView(
-            children: <Widget>[
-              Row(
-                children: <Widget>[
-                  Expanded(
-                    child: Container(
-                      alignment: Alignment.centerLeft,
-                      child: Row(
-                        children: <Widget>[
-                          Image.asset(
-                            "assets/images/icon.png",
-                            width: 70.0,
-                            height: 70.0,
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 8.0),
-                              child: Text(
-                                "畅聊",
-                                style: TextStyle(fontSize: 25.0),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                children: <Widget>[
-                  Expanded(
-                    child: TextField(
-                      decoration: InputDecoration(
-                        labelText: "用户名",
-                      ),
-                      onChanged: (value) => _userName = value,
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                children: <Widget>[
-                  Expanded(
-                    child: TextField(
-                      decoration: InputDecoration(labelText: "密码"),
-                      onChanged: (value) => _password = value,
-                      obscureText: true,
-                    ),
-                  )
-                ],
-              ),
-              Row(
-                children: <Widget>[
-                  Expanded(
-                    child: GestureDetector(
-                      child: Container(
-                        height: 50.0,
-                        margin: EdgeInsets.all(10.0),
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: Color.fromRGBO(0, 245, 255, 0.8),
-                        ),
-                        child: const Text(
-                          "登录",
-                          style: TextStyle(
-                              fontSize: 20.0,
-                              color: Color.fromRGBO(248, 248, 255, 1.0)),
-                        ),
-                      ),
-                      onTapDown: (e) {
-                        _vailUser();
-                      },
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                children: <Widget>[
-                  Expanded(
-                    child: GestureDetector(
-                      child: const Text(
-                        "忘记密码？",
-                        style: TextStyle(fontSize: 18.0, color: Colors.green),
-                      ),
-                      onTapDown: (e) {
-                        //找回密码
-                      },
-                    ),
-                  ),
-                  Expanded(
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: GestureDetector(
-                        child: const Text("新用户注册",
-                            style:
-                                TextStyle(fontSize: 18.0, color: Colors.green)),
-                        onTapDown: (e) {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (BuildContext context) =>
-                                      Register()));
-                        },
-                      ),
-                    ),
-                  )
-                ],
-              )
-            ],
-          ),
-        ),
-      ),
+      child:
+          isSelect && _counts.length > 0 ? _selectCounts() : _inputCountLogin(),
       onWillPop: () {
         SystemNavigator.pop();
       },
@@ -150,6 +41,21 @@ class LoginState extends State<Login> {
   void initState() {
     super.initState();
     handler.loginState = this;
+    application.counts.forEach((count) {
+      count.forEach((key, value) {
+        if (key == "userName") _counts.add(value);
+      });
+    });
+    _controller = new AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 200),
+    );
+    _drawerContentsOpacity = new CurvedAnimation(
+      parent: new ReverseAnimation(_controller),
+      curve: Curves.fastOutSlowIn,
+    );
+    _userName = _counts[0];
+    _password = application.findUser(_userName);
   }
 
   void _vailUser() async {
@@ -180,5 +86,231 @@ class LoginState extends State<Login> {
 
   void showAlertMessage(String message) {
     key.currentState.showSnackBar(SnackBar(content: Text(message)));
+  }
+
+  Widget _inputCountLogin() {
+    return Scaffold(
+      key: key,
+      body: Container(
+        margin: EdgeInsets.only(top: 100.0, left: 20.0, right: 20.0),
+        child: ListView(
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                Expanded(
+                  child: Container(
+                    alignment: Alignment.centerLeft,
+                    child: Row(
+                      children: <Widget>[
+                        Image.asset(
+                          "assets/images/icon.png",
+                          width: 70.0,
+                          height: 70.0,
+                        ),
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 8.0),
+                            child: Text(
+                              "畅聊",
+                              style: TextStyle(fontSize: 25.0),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              children: <Widget>[
+                Expanded(
+                  child: TextField(
+                    decoration: InputDecoration(
+                      labelText: "用户名",
+                    ),
+                    onChanged: (value) => _userName = value,
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              children: <Widget>[
+                Expanded(
+                  child: TextField(
+                    decoration: InputDecoration(labelText: "密码"),
+                    onChanged: (value) => _password = value,
+                    obscureText: true,
+                  ),
+                )
+              ],
+            ),
+            Row(
+              children: <Widget>[
+                Expanded(
+                  child: GestureDetector(
+                    child: Container(
+                      height: 50.0,
+                      margin: EdgeInsets.all(10.0),
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: Color.fromRGBO(0, 245, 255, 0.8),
+                      ),
+                      child: const Text(
+                        "登录",
+                        style: TextStyle(
+                            fontSize: 20.0,
+                            color: Color.fromRGBO(248, 248, 255, 1.0)),
+                      ),
+                    ),
+                    onTapDown: (e) {
+                      _vailUser();
+                    },
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              children: <Widget>[
+                Expanded(
+                  child: GestureDetector(
+                    child: const Text(
+                      "选择账号",
+                      style: TextStyle(fontSize: 18.0, color: Colors.green),
+                    ),
+                    onTapDown: (e) {
+                      _userName = _counts[0];
+                      application.findUser(_userName);
+                      this.setState(() {
+                        isSelect = !isSelect;
+                      });
+                    },
+                  ),
+                ),
+                Expanded(
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: GestureDetector(
+                      child: const Text("新用户注册",
+                          style:
+                              TextStyle(fontSize: 18.0, color: Colors.green)),
+                      onTapDown: (e) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (BuildContext context) => Register()));
+                      },
+                    ),
+                  ),
+                )
+              ],
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _selectCounts() {
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            ExpansionPanelList(
+              expansionCallback: (int index, bool isExpanded) {
+                this.setState(() {
+                  this.isExpanded = !isExpanded;
+                });
+              },
+              children: [
+                ExpansionPanel(
+                  isExpanded: isExpanded,
+                  headerBuilder: (BuildContext context, bool isExpand) {
+                    return Row(
+                      children: <Widget>[
+                        CircleAvatar(
+                          backgroundImage: AssetImage("assets/images/head.png"),
+                          radius: 30.0,
+                        ),
+                        Expanded(
+                          child: Padding(
+                            padding: EdgeInsets.only(left: 10.0),
+                            child: Text(
+                              _userName,
+                              style: TextStyle(fontSize: 20.0),
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                  body: Column(
+                    children: [
+                      Column(
+                        children: _counts.map((countName) {
+                          return FadeTransition(
+                            opacity: _drawerContentsOpacity,
+                            child: ListTile(
+                              leading: CircleAvatar(
+                                backgroundImage:
+                                    AssetImage("assets/images/head.png"),
+                              ),
+                              title: Text(countName),
+                              onTap: () {
+                                print(countName);
+                                this.setState(() {
+                                  _userName = countName;
+                                  _password = application.findUser(_userName);
+                                });
+                              },
+                            ),
+                          );
+                        }).toList(),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: <Widget>[
+                          new Container(
+                            margin: const EdgeInsets.only(right: 8.0),
+                            child: new FlatButton(
+                              onPressed: () {
+                                this.setState(() {
+                                  isSelect = !isSelect;
+                                  _userName = "";
+                                  _password = "";
+                                });
+                              },
+                              textTheme: ButtonTextTheme.accent,
+                              child: const Text(
+                                "输入账号",
+                                style: TextStyle(fontSize: 20.0),
+                              ),
+                            ),
+                          ),
+                          new Container(
+                            margin: const EdgeInsets.only(right: 8.0),
+                            child: new FlatButton(
+                              onPressed: () {
+                                _vailUser();
+                              },
+                              textTheme: ButtonTextTheme.accent,
+                              child: const Text(
+                                "登录",
+                                style: TextStyle(fontSize: 20.0),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            )
+          ],
+        ),
+      ),
+    );
   }
 }

@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/com/navigation/page/login.dart';
 import 'package:flutter_app/com/navigation/utils/file_handler.dart'
     as fileHandler;
+import 'package:flutter_app/com/navigation/utils/utils.dart';
+import 'package:flutter/services.dart';
 
 class SplashScreen extends StatefulWidget {
   final int seconds;
@@ -87,12 +89,17 @@ class _SplashScreenState extends State<SplashScreen> {
   ///todo 做一些数据加载和程序检查工作
   ///
   ///
-  void _loadData() {
-    fileHandler.initFileState();
-    Timer(Duration(seconds: widget.seconds), () {
-      Navigator
-          .of(context)
-          .push(MaterialPageRoute(builder: (BuildContext context) => Login()));
-    });
+  void _loadData() async {
+    try {
+      await fileHandler.initFileState();
+      await fileHandler.initDataBases();
+      await fileHandler.obtainUsers();
+      await fileHandler.readConfig();
+    } catch (e) {
+      showToast("程序出错了,正在退出.....");
+    }
+    Navigator
+        .of(context)
+        .push(MaterialPageRoute(builder: (BuildContext context) => Login()));
   }
 }
