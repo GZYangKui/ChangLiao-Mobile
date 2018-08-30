@@ -29,7 +29,7 @@ class SystemInformState extends State<SystemInform> {
   @override
   Widget build(BuildContext context) {
     return Theme(
-      data: application.theme,
+      data: ThemeData(primaryColor: application.primaryColor),
       child: Scaffold(
         appBar: AppBar(
           title: Text("系统消息"),

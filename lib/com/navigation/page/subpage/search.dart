@@ -28,7 +28,7 @@ class SearchState extends State<Search> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Theme(
-      data: application.theme,
+      data: ThemeData(primaryColor: application.primaryColor),
       child: Scaffold(
         key: key,
         appBar: AppBar(
@@ -161,7 +161,7 @@ class SearchDialogState extends State<SearchDialog> {
   @override
   Widget build(BuildContext context) {
     return Theme(
-      data: application.theme,
+      data: ThemeData(primaryColor: application.primaryColor),
       child: Scaffold(
         key: key,
         appBar: AppBar(

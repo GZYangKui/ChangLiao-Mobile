@@ -29,7 +29,7 @@ class ContactsSearchState extends State<ContactsSearch> {
   @override
   Widget build(BuildContext context) {
     return Theme(
-      data: application.theme,
+      data: ThemeData(primaryColor: application.primaryColor),
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,

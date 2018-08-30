@@ -35,7 +35,7 @@ class UserCenterState extends State<UserCenter>
   @override
   Widget build(BuildContext context) {
     return Theme(
-      data: application.theme,
+      data: ThemeData(primaryColor: application.primaryColor),
       child: WillPopScope(
         child: Scaffold(
           appBar: AppBar(

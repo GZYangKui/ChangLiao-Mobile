@@ -37,7 +37,7 @@ class NewTrendState extends State<NewTrend>
   @override
   Widget build(BuildContext context) {
     return Theme(
-      data: application.theme,
+      data: ThemeData(primaryColor: application.primaryColor),
       child: Scaffold(
         appBar: AppBar(
           title: Text("新趋势"),

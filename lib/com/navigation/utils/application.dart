@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 
 ///
@@ -27,3 +28,6 @@ String blockDate = "2018-07-29";
 
 ///账号集合
 List<Map<String, dynamic>> counts = [];
+
+/// app当前主题
+Color primaryColor = Colors.lightBlue;

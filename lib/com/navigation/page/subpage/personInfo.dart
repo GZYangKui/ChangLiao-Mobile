@@ -28,7 +28,7 @@ class PersonInfoState extends State<PersonInfo> {
   @override
   Widget build(BuildContext context) {
     return Theme(
-      data: application.theme,
+      data: ThemeData(primaryColor: application.primaryColor),
       child: Scaffold(
         key: key,
         appBar: AppBar(
