@@ -5,12 +5,6 @@ import 'package:sqflite/sqflite.dart';
 /// 存放整个app的全局变量
 ///
 
-///声音提醒开关
-bool voiceSwitch = true;
-
-///夜间模式
-bool nightModel = false;
-
 /// 整个应用数据存储路径
 String dir = "";
 
@@ -29,5 +23,5 @@ String blockDate = "2018-07-29";
 ///账号集合
 List<Map<String, dynamic>> counts = [];
 
-/// app当前主题
-Color primaryColor = Colors.lightBlue;
+/// 当前app设置信息
+Map<String, String> settings = {};

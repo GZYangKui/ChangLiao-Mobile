@@ -142,7 +142,10 @@ void handlerUser(dynamic data) async {
 ///处理type为friend的所有socket事件
 ///
 void handlerFriend(dynamic data) {
-  if (application.voiceSwitch) system.playFriendMention();
+  bool isPlay = true;
+  if (application.settings["voiceSwitch"] != null &&
+      application.settings["voiceSwitch"] == "false") isPlay = false;
+  if (isPlay) system.playFriendMention();
   var subtype = data[constants.subtype];
   if (subtype == constants.request) {
     systemPropel.add(SystemPropelModel(data[constants.message],
@@ -167,11 +170,14 @@ void handlerFriend(dynamic data) {
 ///
 ///
 void handlerMessage(dynamic data) {
+  bool isPlay = true;
   var subtype = data["subtype"];
   var id = data[constants.from];
   var body = data[constants.body];
+  if (application.settings["voiceSwitch"] != null &&
+      application.settings["voiceSwitch"] == "false") isPlay = false;
   if (subtype == constants.text) {
-    if (application.voiceSwitch) system.playMessageMention();
+    if (isPlay) system.playMessageMention();
     handlerMessageList(id, body);
   }
 }

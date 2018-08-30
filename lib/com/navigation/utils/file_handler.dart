@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:path_provider/path_provider.dart';
@@ -26,6 +27,20 @@ void initFileState() async {
   }
   application.dbPath = "${application.dir}/db/flutter_im.db";
   _initDataBases();
+  _readConfig();
+}
+
+///
+///读取配置文件application.json
+///
+void _readConfig() async {
+  File configDir = File("${application.dir}/application.json");
+  if (!await configDir.exists()) return;
+  var config = json.decode(configDir.readAsStringSync());
+  if (config["primaryColor"] != null)
+    application.settings["primaryColor"] = config["primaryColor"];
+  if (config["voiceSwitch"] != null)
+    application.settings["voiceSwitch"] = config["voiceSwitch"];
 }
 
 ///
@@ -63,4 +78,13 @@ void addUser(String userName, String password) async {
   });
   if (!isExist)
     application.dataBases.rawQuery(constants.addUser, [userName, password]);
+}
+
+///
+/// 更新/写入app设置选项
+///
+void updateConfig() async {
+  File config = File("${application.dir}/application.json");
+  if (!await config.exists()) config.createSync();
+  config.writeAsStringSync(json.encode(application.settings));
 }
