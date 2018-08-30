@@ -88,8 +88,10 @@ class ArtificialIntelligenceState extends State<ArtificialIntelligence>
         firstDate: DateTime.parse("2018-07-20"),
         initialDate: DateTime.tryParse(application.aiDate),
         lastDate: DateTime.tryParse("2018-07-29"));
-    application.aiDate = date.toString().split(" ")[0];
-    _loadData(date.toString().split(" ")[0]);
+    if (date != null) {
+      application.aiDate = date.toString().split(" ")[0];
+      _loadData(date.toString().split(" ")[0]);
+    }
   }
 
   Future<Null> _loadData(String date) async {

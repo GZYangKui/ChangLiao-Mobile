@@ -89,8 +89,10 @@ class BlockChainState extends State<BlockChain> with TickerProviderStateMixin {
         firstDate: DateTime.parse("2018-07-20"),
         initialDate: DateTime.tryParse(application.blockDate),
         lastDate: DateTime.tryParse("2018-07-29"));
-    application.blockDate = date.toString().split(" ")[0];
-    _loadData(date.toString().split(" ")[0]);
+    if (date != null) {
+      application.aiDate = date.toString().split(" ")[0];
+      _loadData(date.toString().split(" ")[0]);
+    }
   }
 
   Future<Null> _loadData(String date) async {
