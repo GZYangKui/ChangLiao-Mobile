@@ -12,6 +12,7 @@ import 'package:flutter_app/com/navigation/page/login.dart';
 import 'package:flutter_app/com/navigation/netwok/socket_handler.dart'
     as handler;
 import 'package:flutter_app/com/navigation/page/subpage/system_inform.dart';
+import 'package:flutter_app/com/navigation/utils/utils.dart';
 
 class UserCenter extends StatefulWidget {
   @override
@@ -211,11 +212,7 @@ class DrawerItemsState extends State<DrawerItems>
                   "分享",
                   style: TextStyle(fontSize: 20.0),
                 ),
-                onTap: () => Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (BuildContext context) => ApplicationSetting(),
-                      ),
-                    ),
+                onTap: () => showToast("该功能正在开发中,敬请期待!"),
               ),
               ListTile(
                 leading: Icon(Icons.exit_to_app),
