@@ -50,10 +50,6 @@ class WebViewState extends State<WebViewStateful> {
           centerTitle: true,
           actions: <Widget>[
             Tooltip(
-              message: "分享",
-              child: IconButton(icon: Icon(Icons.share), onPressed: () {}),
-            ),
-            Tooltip(
               message: "外部浏览器打开",
               child: IconButton(
                 icon: Icon(Icons.zoom_out_map),
