@@ -260,7 +260,6 @@ class LoginState extends State<Login> with TickerProviderStateMixin {
                               ),
                               title: Text(countName),
                               onTap: () {
-                                print(countName);
                                 this.setState(() {
                                   _userName = countName;
                                   _password = application.findUser(_userName);

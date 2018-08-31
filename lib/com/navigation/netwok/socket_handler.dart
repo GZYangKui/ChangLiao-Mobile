@@ -333,5 +333,4 @@ void dispose() {
   messageList?.clear();
   lastNum?.clear();
   if (_timer != null && _timer.isActive) _timer.cancel();
-  showToast("退出登录");
 }
