@@ -22,7 +22,6 @@ class NewTrendState extends State<NewTrend>
     ArtificialIntelligence(),
     BlockChain(),
   ];
-  Color primaryColor = Colors.lightBlue;
   @override
   void initState() {
     super.initState();
@@ -33,15 +32,18 @@ class NewTrendState extends State<NewTrend>
         this._currentIndex = _tabController.index;
       });
     });
-    if (application.settings["primaryColor"] != null &&
-        Color(int.parse(application.settings["primaryColor"])) != primaryColor)
-      primaryColor = Color(int.parse(application.settings["primaryColor"]));
   }
 
   @override
   Widget build(BuildContext context) {
     return Theme(
-      data: ThemeData(primaryColor: primaryColor),
+      data: ThemeData(
+        primaryColor: application.settings["primaryColor"] == null
+            ? Colors.lightBlue
+            : Color(
+                int.parse(application.settings["primaryColor"]),
+              ),
+      ),
       child: Scaffold(
         appBar: AppBar(
           title: Text("新趋势"),

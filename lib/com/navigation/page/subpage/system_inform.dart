@@ -20,14 +20,10 @@ class SystemInform extends StatefulWidget {
 }
 
 class SystemInformState extends State<SystemInform> {
-  Color primaryColor = Colors.lightBlue;
   @override
   void initState() {
     super.initState();
     handler.currentState = this;
-    if (application.settings["primaryColor"] != null &&
-        Color(int.parse(application.settings["primaryColor"])) != primaryColor)
-      primaryColor = Color(int.parse(application.settings["primaryColor"]));
   }
 
   @override

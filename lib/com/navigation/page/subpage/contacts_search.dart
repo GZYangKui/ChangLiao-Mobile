@@ -20,20 +20,22 @@ class ContactsSearch extends StatefulWidget {
 class ContactsSearchState extends State<ContactsSearch> {
   List<String> _list = [];
   List<InputChip> _chipItem = [];
-  Color primaryColor = Colors.lightBlue;
 
   @override
   void initState() {
     super.initState();
-    if (application.settings["primaryColor"] != null &&
-        Color(int.parse(application.settings["primaryColor"])) != primaryColor)
-      primaryColor = Color(int.parse(application.settings["primaryColor"]));
   }
 
   @override
   Widget build(BuildContext context) {
     return Theme(
-      data: ThemeData(primaryColor: primaryColor),
+      data: ThemeData(
+        primaryColor: application.settings["primaryColor"] == null
+            ? Colors.lightBlue
+            : Color(
+                int.parse(application.settings["primaryColor"]),
+              ),
+      ),
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,

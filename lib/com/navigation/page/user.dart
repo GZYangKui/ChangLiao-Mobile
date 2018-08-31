@@ -31,12 +31,14 @@ class UserCenterState extends State<UserCenter>
   TabController _tabController;
   int _currentIndex = 0;
   final List<String> _titles = ["消息", "联系人", "小应用"];
-  Color primaryColor = Colors.lightBlue;
 
   @override
   Widget build(BuildContext context) {
     return Theme(
-      data: ThemeData(primaryColor: primaryColor),
+      data: ThemeData(
+          primaryColor: application.settings["primaryColor"] == null
+              ? Colors.lightBlue
+              : Color(int.parse(application.settings["primaryColor"]))),
       child: WillPopScope(
         child: Scaffold(
           appBar: AppBar(
@@ -103,9 +105,6 @@ class UserCenterState extends State<UserCenter>
         this._currentIndex = _tabController.index;
       });
     });
-    if (application.settings["primaryColor"] != null &&
-        Color(int.parse(application.settings["primaryColor"])) != primaryColor)
-      primaryColor = Color(int.parse(application.settings["primaryColor"]));
   }
 
   @override

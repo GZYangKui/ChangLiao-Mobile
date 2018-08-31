@@ -18,21 +18,23 @@ class Search extends StatefulWidget {
 
 class SearchState extends State<Search> with SingleTickerProviderStateMixin {
   GlobalKey<ScaffoldState> key = GlobalKey();
-  Color primaryColor = Colors.lightBlue;
 
   @override
   void initState() {
     super.initState();
     handler.currentState = this;
-    if (application.settings["primaryColor"] != null &&
-        Color(int.parse(application.settings["primaryColor"])) != primaryColor)
-      primaryColor = Color(int.parse(application.settings["primaryColor"]));
   }
 
   @override
   Widget build(BuildContext context) {
     return Theme(
-      data: ThemeData(primaryColor: primaryColor),
+      data: ThemeData(
+        primaryColor: application.settings["primaryColor"] == null
+            ? Colors.lightBlue
+            : Color(
+                int.parse(application.settings["primaryColor"]),
+              ),
+      ),
       child: Scaffold(
         key: key,
         appBar: AppBar(
