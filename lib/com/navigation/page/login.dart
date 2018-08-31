@@ -219,6 +219,14 @@ class LoginState extends State<Login> with TickerProviderStateMixin {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Container(
+              margin: EdgeInsets.only(left: 10.0, bottom: 10.0, right: 10.0),
+              alignment: Alignment.centerLeft,
+              child: Text(
+                "畅聊",
+                style: TextStyle(fontSize: 30.0),
+              ),
+            ),
             ExpansionPanelList(
               expansionCallback: (int index, bool isExpanded) {
                 this.setState(() {
