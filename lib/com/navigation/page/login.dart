@@ -62,11 +62,11 @@ class LoginState extends State<Login> with TickerProviderStateMixin {
 
   void _vailUser() async {
     if (_userName.trim() == "") {
-      showAlertMessage("用户名不能为空!");
+      showToast("用户名不能为空!");
       return;
     }
     if (_password.trim() == "") {
-      showAlertMessage("密码不能为空!");
+      showToast("密码不能为空!");
       return;
     }
     Map requestMes = {
@@ -84,10 +84,6 @@ class LoginState extends State<Login> with TickerProviderStateMixin {
   void toUserCenter() {
     Navigator.push(context,
         MaterialPageRoute(builder: (BuildContext context) => UserCenter()));
-  }
-
-  void showAlertMessage(String message) {
-    key.currentState.showSnackBar(SnackBar(content: Text(message)));
   }
 
   Widget _inputCountLogin() {
@@ -183,7 +179,7 @@ class LoginState extends State<Login> with TickerProviderStateMixin {
                     onTapDown: (e) {
                       if (_counts.length > 0) {
                         _userName = _counts[0];
-                        application.findUser(_userName);
+                        _password = application.findUser(_userName);
                         this.setState(() {
                           isSelect = !isSelect;
                         });
