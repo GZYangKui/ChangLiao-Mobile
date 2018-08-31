@@ -10,7 +10,7 @@ flutter dart java
 
 ### 视屏图片
 #### 图片一
-![loadFailed] ("https://github.com/GZYangKui/flutter-IM/blob/master/demonstration_picture/demo1.gif")
+![loadFailed] (https://github.com/GZYangKui/flutter-IM/blob/master/demonstration_picture/demo1.gif)
 #### 图片二
 ![loadFailed] ("https://github.com/GZYangKui/flutter-IM/blob/master/demonstration_picture/demo2.gif")
 #### 图片三
