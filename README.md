@@ -31,6 +31,8 @@ flutter dart java
 ### 系统消息
 ![加载失败](https://github.com/GZYangKui/flutter-IM/blob/master/snap-shot/systemInform1.png "系统消息")
 ![加载失败](https://github.com/GZYangKui/flutter-IM/blob/master/snap-shot/systeminform.png "系统消息")
+### 视屏演示
+<iframe height=498 width=510 src="http://player.youku.com/embed/XNjcyMDU4Njg0">
 
 
 ### 由于本人也是初次接触flutter,代码存在不足之处,还烦请不吝指出!
