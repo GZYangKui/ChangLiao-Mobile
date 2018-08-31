@@ -44,8 +44,7 @@ class ChartDialogState extends State<ChartDialog> {
   @override
   Widget build(BuildContext context) {
     return Theme(
-      data: ThemeData(
-          primaryColor: primaryColor),
+      data: ThemeData(primaryColor: primaryColor),
       child: Scaffold(
         appBar: AppBar(
           title: Text(widget._name),

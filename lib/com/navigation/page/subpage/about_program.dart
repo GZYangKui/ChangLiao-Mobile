@@ -16,8 +16,7 @@ class AboutState extends State<About> {
   @override
   Widget build(BuildContext context) {
     return Theme(
-      data: ThemeData(
-          primaryColor:primaryColor),
+      data: ThemeData(primaryColor: primaryColor),
       child: Scaffold(
         key: key,
         appBar: AppBar(
