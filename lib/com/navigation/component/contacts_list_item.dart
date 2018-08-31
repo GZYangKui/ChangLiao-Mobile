@@ -83,12 +83,7 @@ class ContactItemState extends State<ContactItem>
           children: <Widget>[
             CircleAvatar(
               radius: 25.0,
-              backgroundColor: Colors.green,
-              child: Image.asset(
-                "assets/images/icon.png",
-                width: 45.0,
-                height: 45.0,
-              ),
+              backgroundImage: AssetImage("assets/images/icon.png"),
             ),
           ],
         ),

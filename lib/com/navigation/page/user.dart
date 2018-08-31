@@ -6,12 +6,12 @@ import 'package:flutter_app/com/navigation/page/subpage/application_min.dart';
 import 'package:flutter_app/com/navigation/page/subpage/application_setting.dart';
 import 'package:flutter_app/com/navigation/page/subpage/contacts.dart';
 import 'package:flutter_app/com/navigation/page/subpage/message.dart';
-import 'package:flutter_app/com/navigation/page/subpage/personInfo.dart';
 import 'package:flutter_app/com/navigation/page/subpage/search.dart';
 import 'package:flutter_app/com/navigation/page/login.dart';
 import 'package:flutter_app/com/navigation/netwok/socket_handler.dart'
     as handler;
 import 'package:flutter_app/com/navigation/page/subpage/system_inform.dart';
+import 'package:flutter_app/com/navigation/page/subpage/user_info.dart';
 import 'package:flutter_app/com/navigation/utils/utils.dart';
 import 'package:flutter_app/com/navigation/utils/application.dart'
     as application;
@@ -166,7 +166,7 @@ class DrawerItemsState extends State<DrawerItems>
                                   Navigator.of(context).push(
                                         MaterialPageRoute(
                                           builder: (BuildContext context) =>
-                                              PersonInfo(handler.userName),
+                                              UserInfo(handler.userName),
                                         ),
                                       );
                                 },

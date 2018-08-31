@@ -341,7 +341,7 @@
         <entry key="sqflite">
           <value>
             <list>
-              <option value="$USER_HOME$/application/flutter/.pub-cache/hosted/pub.flutter-io.cn/sqflite-0.11.1/lib" />
+              <option value="$USER_HOME$/application/flutter/.pub-cache/hosted/pub.flutter-io.cn/sqflite-0.11.2+2/lib" />
             </list>
           </value>
         </entry>
@@ -498,7 +498,7 @@
       <root url="file://$USER_HOME$/application/flutter/.pub-cache/hosted/pub.flutter-io.cn/source_map_stack_trace-1.1.4/lib" />
       <root url="file://$USER_HOME$/application/flutter/.pub-cache/hosted/pub.flutter-io.cn/source_maps-0.10.5/lib" />
       <root url="file://$USER_HOME$/application/flutter/.pub-cache/hosted/pub.flutter-io.cn/source_span-1.4.0/lib" />
-      <root url="file://$USER_HOME$/application/flutter/.pub-cache/hosted/pub.flutter-io.cn/sqflite-0.11.1/lib" />
+      <root url="file://$USER_HOME$/application/flutter/.pub-cache/hosted/pub.flutter-io.cn/sqflite-0.11.2+2/lib" />
       <root url="file://$USER_HOME$/application/flutter/.pub-cache/hosted/pub.flutter-io.cn/stack_trace-1.9.2/lib" />
       <root url="file://$USER_HOME$/application/flutter/.pub-cache/hosted/pub.flutter-io.cn/stream_channel-1.6.7+1/lib" />
       <root url="file://$USER_HOME$/application/flutter/.pub-cache/hosted/pub.flutter-io.cn/string_scanner-1.0.2/lib" />
