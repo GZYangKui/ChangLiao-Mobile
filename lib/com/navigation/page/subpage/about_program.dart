@@ -10,15 +10,14 @@ class About extends StatefulWidget {
 }
 
 class AboutState extends State<About> {
-  GlobalKey<ScaffoldState> key = GlobalKey();
+  final GlobalKey<ScaffoldState> key = GlobalKey();
+  Color primaryColor = Colors.lightBlue;
 
   @override
   Widget build(BuildContext context) {
     return Theme(
       data: ThemeData(
-          primaryColor: application.settings["primaryColor"] == null
-              ? Colors.lightBlue
-              : Color(int.parse(application.settings["primaryColor"]))),
+          primaryColor:primaryColor),
       child: Scaffold(
         key: key,
         appBar: AppBar(

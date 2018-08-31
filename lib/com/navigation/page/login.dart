@@ -54,8 +54,10 @@ class LoginState extends State<Login> with TickerProviderStateMixin {
       parent: new ReverseAnimation(_controller),
       curve: Curves.fastOutSlowIn,
     );
-    _userName = _counts[0];
-    _password = application.findUser(_userName);
+    if (_counts.length > 0) {
+      _userName = _counts[0];
+      _password = application.findUser(_userName);
+    }
   }
 
   void _vailUser() async {
@@ -179,11 +181,15 @@ class LoginState extends State<Login> with TickerProviderStateMixin {
                       style: TextStyle(fontSize: 18.0, color: Colors.green),
                     ),
                     onTapDown: (e) {
-                      _userName = _counts[0];
-                      application.findUser(_userName);
-                      this.setState(() {
-                        isSelect = !isSelect;
-                      });
+                      if (_counts.length > 0) {
+                        _userName = _counts[0];
+                        application.findUser(_userName);
+                        this.setState(() {
+                          isSelect = !isSelect;
+                        });
+                      } else {
+                        showToast("暂无账号!");
+                      }
                     },
                   ),
                 ),

@@ -27,6 +27,7 @@ class ChartDialogState extends State<ChartDialog> {
   String _message = "";
   Timer _timer;
   bool enable = false;
+  Color primaryColor = Colors.lightBlue;
 
   @override
   void initState() {
@@ -35,15 +36,16 @@ class ChartDialogState extends State<ChartDialog> {
     _timer = Timer.periodic(Duration(milliseconds: 30), (event) {
       this.setState(() {});
     });
+    if (application.settings["primaryColor"] != null &&
+        Color(int.parse(application.settings["primaryColor"])) != primaryColor)
+      primaryColor = Color(int.parse(application.settings["primaryColor"]));
   }
 
   @override
   Widget build(BuildContext context) {
     return Theme(
       data: ThemeData(
-          primaryColor: application.settings["primaryColor"] == null
-              ? Colors.lightBlue
-              : Color(int.parse(application.settings["primaryColor"]))),
+          primaryColor: primaryColor),
       child: Scaffold(
         appBar: AppBar(
           title: Text(widget._name),

@@ -18,6 +18,7 @@ class ApplicationSetting extends StatefulWidget {
 class ApplicationSettingState extends State<ApplicationSetting>
     with TickerProviderStateMixin {
   final List<Color> colors = [
+    Colors.lightBlue,
     Colors.black,
     Colors.black12,
     Colors.deepPurpleAccent,

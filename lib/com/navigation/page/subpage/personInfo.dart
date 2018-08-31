@@ -18,20 +18,21 @@ class PersonInfo extends StatefulWidget {
 
 class PersonInfoState extends State<PersonInfo> {
   GlobalKey<ScaffoldState> key = GlobalKey();
+  Color primaryColor = Colors.lightBlue;
   dynamic info;
   @override
   void initState() {
     super.initState();
     handler.currentState = this;
+    if (application.settings["primaryColor"] != null &&
+        Color(int.parse(application.settings["primaryColor"])) != primaryColor)
+      primaryColor = Color(int.parse(application.settings["primaryColor"]));
   }
 
   @override
   Widget build(BuildContext context) {
     return Theme(
-      data: ThemeData(
-          primaryColor:
-              Color(int.parse(application.settings["primaryColor"])) ??
-                  Colors.lightBlue),
+      data: ThemeData(primaryColor: primaryColor),
       child: Scaffold(
         key: key,
         appBar: AppBar(
