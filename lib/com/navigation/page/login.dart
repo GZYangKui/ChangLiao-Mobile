@@ -267,7 +267,6 @@ class LoginState extends State<Login> with TickerProviderStateMixin {
                                 print(countName);
                                 this.setState(() {
                                   _userName = countName;
-                                  _password = application.findUser(_userName);
                                 });
                               },
                             ),
