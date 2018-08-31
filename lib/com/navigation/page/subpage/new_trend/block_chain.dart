@@ -53,7 +53,10 @@ class BlockChainState extends State<BlockChain> with TickerProviderStateMixin {
                       child: Column(
                         children: <Widget>[
                           ListTile(
-                            leading: CircleAvatar(child: Text("BC")),
+                            leading: CircleAvatar(
+                              backgroundImage: AssetImage(
+                                  "assets/images/new_trend/block_chain.jpeg"),
+                            ),
                             title: Text(title),
                             onTap: () {
                               _openLink(title);
@@ -86,11 +89,11 @@ class BlockChainState extends State<BlockChain> with TickerProviderStateMixin {
   void _showSelectDate() async {
     DateTime date = await showDatePicker(
         context: context,
-        firstDate: DateTime.parse("2018-07-20"),
+        firstDate: DateTime.parse("2018-07-01"),
         initialDate: DateTime.tryParse(application.blockDate),
-        lastDate: DateTime.tryParse("2018-07-29"));
+        lastDate: DateTime.now());
     if (date != null) {
-      application.aiDate = date.toString().split(" ")[0];
+      application.blockDate = date.toString().split(" ")[0];
       _loadData(date.toString().split(" ")[0]);
     }
   }

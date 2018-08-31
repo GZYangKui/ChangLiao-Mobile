@@ -61,7 +61,7 @@ class NewTrendState extends State<NewTrend>
               title: Text("人工智能"),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.block),
+              icon: Icon(Icons.attach_money),
               title: Text("区块链"),
             ),
           ],

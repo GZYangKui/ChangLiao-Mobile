@@ -54,7 +54,8 @@ class ArtificialIntelligenceState extends State<ArtificialIntelligence>
                     children: <Widget>[
                       ListTile(
                         leading: CircleAvatar(
-                          child: Text("AI"),
+                          backgroundImage:
+                              AssetImage("assets/images/new_trend/ai.jpeg"),
                         ),
                         title: Text(title),
                         onTap: () {
@@ -85,9 +86,9 @@ class ArtificialIntelligenceState extends State<ArtificialIntelligence>
   void _showSelectDate() async {
     DateTime date = await showDatePicker(
         context: context,
-        firstDate: DateTime.parse("2018-07-20"),
+        firstDate: DateTime.parse("2018-07-01"),
         initialDate: DateTime.tryParse(application.aiDate),
-        lastDate: DateTime.tryParse("2018-07-29"));
+        lastDate: DateTime.now());
     if (date != null) {
       application.aiDate = date.toString().split(" ")[0];
       _loadData(date.toString().split(" ")[0]);

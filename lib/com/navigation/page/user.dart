@@ -111,10 +111,6 @@ class UserCenterState extends State<UserCenter>
   void dispose() {
     super.dispose();
     _tabController.dispose();
-    if (handler.socket != null) {
-      handler.socket.destroy();
-      handler.socket.close();
-    }
   }
 }
 
@@ -271,10 +267,8 @@ class DrawerItemsState extends State<DrawerItems>
                     ),
                     onPressed: () {
                       handler.dispose();
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (BuildContext context) => Login()));
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (BuildContext context) => Login()));
                     },
                   ),
                 ],
