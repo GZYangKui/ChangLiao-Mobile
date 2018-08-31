@@ -13,5 +13,3 @@ flutter dart java
       <source id="mp4" src="http://om2bks7xs.bkt.clouddn.com/2017-08-26-Markdown-Advance-Video.mp4" type="video/mp4">
 </video>
 
-
-### 由于本人也是初次接触flutter,代码存在不足之处,还烦请不吝指出!
