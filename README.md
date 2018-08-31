@@ -8,5 +8,14 @@ flutter dart java
 ## 项目整体架构
 ![加载失败](https://github.com/GZYangKui/flutter-IM/blob/master/snap-shot/framewrk.png "framework")
 
-### 视屏演示
-
+### 视屏图片
+#### 图片一
+[! loadFailed]("https://github.com/GZYangKui/flutter-IM/blob/master/demonstration_picture/demo1.gif")
+#### 图片二
+[! loadFailed]("https://github.com/GZYangKui/flutter-IM/blob/master/demonstration_picture/demo2.gif")
+#### 图片三
+[! loadFailed]("https://github.com/GZYangKui/flutter-IM/blob/master/demonstration_picture/demo3.gif")
+#### 图片四
+[! loadFailed]("https://github.com/GZYangKui/flutter-IM/blob/master/demonstration_picture/demo4.gif")
+#### 图片五
+[! loadFailed]("https://github.com/GZYangKui/flutter-IM/blob/master/demonstration_picture/demo5.gif")
