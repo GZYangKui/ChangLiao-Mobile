@@ -394,6 +394,13 @@
             </list>
           </value>
         </entry>
+        <entry key="url_launcher">
+          <value>
+            <list>
+              <option value="$USER_HOME$/application/flutter/.pub-cache/hosted/pub.flutter-io.cn/url_launcher-3.0.3/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="utf">
           <value>
             <list>
@@ -499,6 +506,7 @@
       <root url="file://$USER_HOME$/application/flutter/.pub-cache/hosted/pub.flutter-io.cn/term_glyph-1.0.0/lib" />
       <root url="file://$USER_HOME$/application/flutter/.pub-cache/hosted/pub.flutter-io.cn/test-0.12.41/lib" />
       <root url="file://$USER_HOME$/application/flutter/.pub-cache/hosted/pub.flutter-io.cn/typed_data-1.1.5/lib" />
+      <root url="file://$USER_HOME$/application/flutter/.pub-cache/hosted/pub.flutter-io.cn/url_launcher-3.0.3/lib" />
       <root url="file://$USER_HOME$/application/flutter/.pub-cache/hosted/pub.flutter-io.cn/utf-0.9.0+4/lib" />
       <root url="file://$USER_HOME$/application/flutter/.pub-cache/hosted/pub.flutter-io.cn/uuid-1.0.3/lib" />
       <root url="file://$USER_HOME$/application/flutter/.pub-cache/hosted/pub.flutter-io.cn/vector_math-2.0.6/lib" />
