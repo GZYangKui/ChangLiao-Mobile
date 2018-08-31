@@ -14,7 +14,6 @@ dependencies:
     sdk: flutter
   audioplayers: ^0.7.5
   path_provider: ^0.4.1
-  url_launcher: ^3.0.3
   fluttertoast: ^2.0.7
   flutter_webview_plugin: 0.2.1+2
   camera: 0.2.3
