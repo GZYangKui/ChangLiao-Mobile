@@ -159,19 +159,15 @@ class DrawerItemsState extends State<DrawerItems>
                               backgroundImage:
                                   AssetImage("assets/images/head.png"),
                             ),
-                            otherAccountsPictures: <Widget>[
-                              IconButton(
-                                icon: Icon(Icons.edit),
-                                onPressed: () {
-                                  Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                          builder: (BuildContext context) =>
-                                              UserInfo(handler.userName),
-                                        ),
-                                      );
-                                },
-                              ),
-                            ],
+                            onDetailsPressed: () {
+                              Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                          UserInfo(handler.userName),
+                                    ),
+                                  );
+                            },
+                            otherAccountsPictures: <Widget>[],
                           ),
                         ),
                       ],
