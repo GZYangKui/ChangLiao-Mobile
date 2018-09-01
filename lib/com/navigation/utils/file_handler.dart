@@ -2,6 +2,8 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter_app/com/navigation/models/new_trend_model.dart';
+import 'package:flutter_app/com/navigation/utils/utils.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_app/com/navigation/utils/constant.dart' as constants;
 import 'package:flutter_app/com/navigation/netwok/socket_handler.dart'
@@ -48,8 +50,14 @@ Future readConfig() async {
 ///
 ///
 Future initDataBases() async {
+  ///实例化数据库操作对象
   application.dataBases = await openDatabase(application.dbPath, version: 1);
+
+  ///创建用户表
   await application.dataBases.execute(constants.createUserTable);
+
+  ///创建收藏表
+  await application.dataBases.execute(constants.createCollectionTable);
 }
 
 ///
@@ -78,6 +86,44 @@ void addUser(String userName, String password) async {
     await application.dataBases
         .rawQuery(constants.addUser, [userName, password]);
     obtainUsers();
+  }
+}
+
+///
+/// 插入NewTrend到数据库收藏
+///
+Future insertCollect(NewTrendModel model, String type) async {
+  var result = await application.dataBases
+      .rawQuery(constants.selectCollect, [model.title]);
+  if (result.length == 0) {
+    await application.dataBases.execute(constants.insertCollect,
+        [model.title, model.url, model.enbrief, model.cnbrief, type]);
+    showToast("收藏成功!");
+  } else
+    showToast("数据已经存在了!");
+}
+
+///
+///查询某一条记录是否存在
+///
+Future<bool> selectCollects(String title) async {
+  var result =
+      await application.dataBases.rawQuery(constants.selectCollect, [title]);
+  if (result.length > 0) return true;
+
+  return false;
+}
+
+///
+///删除某一条收藏数据
+///
+void deleteCollects(String title) async {
+  var result =
+      await application.dataBases.rawDelete(constants.deleteCollect, [title]);
+  if (result > 0) {
+    showToast("移除成功！");
+  } else {
+    showToast("移除失败！");
   }
 }
 

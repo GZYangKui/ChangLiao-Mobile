@@ -50,3 +50,15 @@ const String createUserTable = "CREATE TABLE IF NOT EXISTS "
     "brief VARCHAR)";
 const String obtainUser = "SELECT userName,password FROM user";
 const String addUser = " INSERT INTO user(userName,password) VALUES(?,?)";
+const String createCollectionTable = "CREATE TABLE IF NOT EXISTS collects("
+    "id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
+    "title VARCHAR NOT NULL,"
+    "url VARCHAR NOT NULL,"
+    "en_brief VARCHAR NOT NULL,"
+    "cn_brief VARCHAR NOT NULL,"
+    "type VARCHAR NOT NULL)";
+const String insertCollect =
+    "INSERT INTO collects(title,url,en_brief,cn_brief,type) VALUES(?,?,?,?,?)";
+const String selectCollect = ""
+    "SELECT title FROM collects WHERE title=?";
+const String deleteCollect = "DELETE FROM collects WHERE title = ?";

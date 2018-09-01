@@ -17,6 +17,7 @@ class SelectPicture extends StatefulWidget {
 
 class SelectPictureState extends State<SelectPicture> {
   final List<String> tabs = ["美女", "帅哥", "风景"];
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(

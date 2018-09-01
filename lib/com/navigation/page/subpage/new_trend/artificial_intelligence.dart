@@ -3,28 +3,30 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/com/navigation/models/new_trend_model.dart';
 import 'package:flutter_app/com/navigation/page/subpage/webview.dart';
 import 'package:flutter_app/com/navigation/utils/utils.dart';
 import 'package:http/http.dart';
 import 'package:flutter_app/com/navigation/utils/constant.dart' as constants;
 import 'package:flutter_app/com/navigation/utils/application.dart'
     as application;
+import 'package:flutter_app/com/navigation/utils/file_handler.dart'
+    as fileHandler;
 
 ///
 /// 此页是new_trend的一个精简版界面
 /// 之人工智能
 ///
-///
+
+List<NewTrendModel> _model = [];
+
 class ArtificialIntelligence extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => ArtificialIntelligenceState();
+  State<StatefulWidget> createState() => _ArtificialIntelligenceState();
 }
 
-class ArtificialIntelligenceState extends State<ArtificialIntelligence>
+class _ArtificialIntelligenceState extends State<ArtificialIntelligence>
     with TickerProviderStateMixin {
-  List<String> _title = [];
-  List<String> _briefs = [];
-  List<String> _urls = [];
   AnimationController _controller;
   Animation<double> _drawerContentsOpacity;
   @override
@@ -43,42 +45,31 @@ class ArtificialIntelligenceState extends State<ArtificialIntelligence>
 
   @override
   Widget build(BuildContext context) {
-    return Tab(
-      child: Scaffold(
-        body: RefreshIndicator(
-            child: ListView(
-              children: _title.map((title) {
-                return FadeTransition(
-                  opacity: _drawerContentsOpacity,
-                  child: Column(
-                    children: <Widget>[
-                      ListTile(
-                        leading: CircleAvatar(
-                          backgroundImage:
-                              AssetImage("assets/images/new_trend/ai.jpeg"),
-                        ),
-                        title: Text(title),
-                        onTap: () {
-                          _openLink(title);
-                        },
-                      ),
-                      Divider(
-                        height: 3.0,
-                      ),
-                    ],
-                  ),
-                );
-              }).toList(),
-            ),
-            onRefresh: () async {
-              return await _refreshLoadData();
-            }),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            _showSelectDate();
-          },
-          child: Icon(Icons.date_range),
-        ),
+    return Scaffold(
+      body: RefreshIndicator(
+          child: ListView(
+            children: _model.map((ai) {
+              return FadeTransition(
+                opacity: _drawerContentsOpacity,
+                child: Column(
+                  children: <Widget>[
+                    ArtificialIntelligenceItem(ai),
+                    Divider(
+                      height: 3.0,
+                    ),
+                  ],
+                ),
+              );
+            }).toList(),
+          ),
+          onRefresh: () async {
+            return await _refreshLoadData();
+          }),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          _showSelectDate();
+        },
+        child: Icon(Icons.date_range),
       ),
     );
   }
@@ -96,23 +87,21 @@ class ArtificialIntelligenceState extends State<ArtificialIntelligence>
   }
 
   Future<Null> _loadData(String date) async {
+    _model.clear();
     get("http://www.dashixiuxiu.cn/query_aitopics?crawltime=$date")
         .then((response) {
       if (response.statusCode == 200) {
         var result = json.decode(response.body);
         if (result[constants.status] == "success") {
-          if (_title.length > 0) _title.clear();
-          if (_briefs.length > 0) _briefs.clear();
-          if (_urls.length > 0) _urls.clear();
           var data = result[constants.data];
           if (data.length > 0)
             for (var item in data) {
-              _title.add(item["cn_title"]);
-              _urls.add(item["url"]);
-              _briefs.add(item["cn_brief"]);
+              NewTrendModel news = NewTrendModel(item["cn_title"], item["url"],
+                  item["cn_brief"], item["en_brief"]);
+              _model.add(news);
             }
           else {
-            showToast("没有找到该日期对应的ai信息,换个日期试试!");
+            showToast("暂无信息!");
           }
           this.setState(() {});
         } else
@@ -132,23 +121,68 @@ class ArtificialIntelligenceState extends State<ArtificialIntelligence>
     return TickerFuture.complete();
   }
 
-  void _openLink(String title) async {
-    int index = 0;
-    for (var item in _title) {
-      if (title == item) break;
-      index++;
-    }
-    Navigator.of(context).push(MaterialPageRoute(
-        builder: (BuildContext context) => WebViewStateful(
-              url: _urls[index],
-            )));
-  }
-
   @override
   void dispose() {
     super.dispose();
-    _urls?.clear();
-    _briefs?.clear();
-    _title?.clear();
+    _model?.clear();
+  }
+}
+
+class ArtificialIntelligenceItem extends StatefulWidget {
+  final NewTrendModel model;
+
+  ArtificialIntelligenceItem(this.model);
+
+  @override
+  State<StatefulWidget> createState() => ArtificialIntelligenceItemState();
+}
+
+class ArtificialIntelligenceItemState
+    extends State<ArtificialIntelligenceItem> {
+  bool isStar = false;
+  @override
+  void initState() {
+    super.initState();
+    _checkDate();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: CircleAvatar(
+        backgroundImage: AssetImage("assets/images/new_trend/ai.jpeg"),
+      ),
+      title: Text(widget.model.title),
+      trailing: IconButton(
+        icon: Icon(!isStar ? Icons.star_border : Icons.star),
+        onPressed: () {
+          this.setState(() {
+            isStar = !isStar;
+            if (isStar)
+              fileHandler.insertCollect(widget.model, "AI");
+            else
+              fileHandler.deleteCollects(widget.model.title);
+          });
+        },
+      ),
+      onTap: () {
+        Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) => WebViewStateful(
+                      url: widget.model.url,
+                    ),
+              ),
+            );
+      },
+    );
+  }
+
+  void _checkDate() async {
+    bool isExist = await fileHandler.selectCollects(widget.model.title);
+    if (isExist) {
+      this.setState(() {
+        isStar = isExist;
+      });
+    }
   }
 }
