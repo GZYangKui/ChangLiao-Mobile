@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/com/navigation/component/new_trend_star.dart';
 import 'package:flutter_app/com/navigation/component/user_info_item.dart';
+import 'package:flutter_app/com/navigation/page/subpage/picture_select.dart';
 import 'package:flutter_app/com/navigation/utils/application.dart'
     as application;
 
@@ -14,129 +14,97 @@ class UserInfo extends StatefulWidget {
   State<StatefulWidget> createState() => UserInfoState();
 }
 
-class _Page {
-  final String title;
-  final IconData icon;
-  _Page({this.title, this.icon});
-}
+class TabItem {
+  String title;
+  IconData icon;
 
-enum AppBarBehavior { normal, pinned, floating, snapping }
+  TabItem({this.icon, this.title});
+}
 
 class UserInfoState extends State<UserInfo>
     with SingleTickerProviderStateMixin {
-  static final GlobalKey<ScaffoldState> _scaffoldKey =
-      new GlobalKey<ScaffoldState>();
-  final double expandHeight = 200.0;
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  final double _expandHeight = 200.0;
   final List<String> menuItem = ["更换背景"];
-  final List<_Page> pages = [
-    _Page(title: "个人信息", icon: Icons.info),
-    _Page(title: "关注", icon: Icons.star)
+  final List<TabItem> _tabs = [
+    TabItem(title: "个人信息", icon: Icons.info),
+    TabItem(title: "收藏", icon: Icons.collections)
   ];
-  Color primaryColor = Colors.lightBlue;
   TabController _controller;
-  AppBarBehavior _appBarBehavior = AppBarBehavior.pinned;
+
+  Color primaryColor = Colors.lightBlue;
 
   @override
   void initState() {
     super.initState();
-    _controller = new TabController(vsync: this, length: pages.length);
     primaryColor = application.settings["primaryColor"] == null
         ? Colors.lightBlue
         : Color(
             int.parse(application.settings["primaryColor"]),
           );
+    _controller = TabController(length: 2, vsync: this);
   }
 
   @override
   Widget build(BuildContext context) {
     return Theme(
-      data: ThemeData(
-        primaryColor: primaryColor,
-      ),
+      data: ThemeData(primaryColor: primaryColor),
       child: Scaffold(
-        key: _scaffoldKey,
         body: CustomScrollView(
           slivers: <Widget>[
             SliverAppBar(
-              expandedHeight: expandHeight,
-              pinned: _appBarBehavior == AppBarBehavior.pinned,
-              floating: _appBarBehavior == AppBarBehavior.floating ||
-                  _appBarBehavior == AppBarBehavior.snapping,
-              snap: _appBarBehavior == AppBarBehavior.snapping,
+              expandedHeight: _expandHeight,
               actions: <Widget>[
-                IconButton(
-                  icon: Icon(Icons.edit),
-                  onPressed: () {},
-                  tooltip: "编辑",
+                PopupMenuButton<int>(
+                  itemBuilder: (BuildContext context) => [
+                        PopupMenuItem(
+                          value: 1,
+                          child: Text("更换背景"),
+                        ),
+                        PopupMenuItem(
+                          value: 2,
+                          child: Text("更换头像"),
+                        ),
+                      ],
+                  onSelected: (value) {
+                    _select(value);
+                  },
                 ),
-                PopupMenuButton<String>(
-                  onSelected: (value) {},
-                  itemBuilder: (BuildContext context) => menuItem.map((item) {
-                        return PopupMenuItem<String>(
-                          value: item,
-                          child: Text(item),
-                        );
-                      }).toList(),
-                )
               ],
-              flexibleSpace: FlexibleSpaceBar(
-                background: Stack(
-                  fit: StackFit.expand,
-                  children: <Widget>[
-                    Image.asset(
-                      "assets/images/user_background.jpeg",
-                      fit: BoxFit.cover,
-                      height: expandHeight,
-                    ),
-                    Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              CircleAvatar(
-                                backgroundImage:
-                                    AssetImage("assets/images/head.png"),
-                                radius: 35.0,
-                              )
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Text(
-                                widget.userName,
-                                style: TextStyle(
-                                    fontSize: 20.0, color: primaryColor),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+              flexibleSpace: Stack(
+                fit: StackFit.expand,
+                children: <Widget>[
+                  Image.asset(
+                    "assets/images/user_background.jpeg",
+                    fit: BoxFit.cover,
+                  ),
+                ],
               ),
               bottom: TabBar(
-                  tabs: pages.map((page) {
-                    return Tab(
-                      text: page.title,
-                      icon: Icon(page.icon),
-                    );
-                  }).toList(),
-                  controller: _controller),
+                tabs: _tabs.map((tab) {
+                  return Tab(
+                    text: tab.title,
+                    icon: Icon(tab.icon),
+                  );
+                }).toList(),
+                controller: _controller,
+              ),
             ),
             SliverFillViewport(
               delegate: SliverChildBuilderDelegate(
                 (BuildContext context, int index) => TabBarView(
-                      children: [
-                        UserInfoItem(),
-                        NewTrendStar(),
+                      children: <Widget>[
+                        ListView(
+                          children: <Widget>[
+                            UserInfoItem(),
+                          ],
+                        ),
+                        ListView(
+                          children: <Widget>[],
+                        ),
                       ],
                       controller: _controller,
                     ),
-                childCount: 1,
               ),
             ),
           ],
@@ -145,21 +113,9 @@ class UserInfoState extends State<UserInfo>
     );
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-    _controller.dispose();
-  }
-
-  Widget _showPersonInfo() {
-    return ListView(
-      children: <Widget>[Text("hello")],
-    );
-  }
-
-  Widget _showStarItem() {
-    return ListView(
-      children: <Widget>[],
-    );
+  void _select(int index) async {
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (BuildContext context) =>
+            SelectPicture(index == 0 ? "选择背景" : "选择头像")));
   }
 }
