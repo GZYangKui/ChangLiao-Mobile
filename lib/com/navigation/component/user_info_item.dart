@@ -44,7 +44,6 @@ class _UserInfoState extends State<UserInfoItem> {
     this.setState(() {
       userInfo = Map.from(userInfo);
     });
-    print(userInfo);
   }
 
   String _checkData(String title) {

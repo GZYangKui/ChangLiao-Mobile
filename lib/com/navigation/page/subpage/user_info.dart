@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/com/navigation/component/new_trend_star.dart';
 import 'package:flutter_app/com/navigation/component/user_info_item.dart';
 import 'package:flutter_app/com/navigation/page/subpage/picture_select.dart';
 import 'package:flutter_app/com/navigation/utils/application.dart'
@@ -23,8 +24,6 @@ class TabItem {
 
 class UserInfoState extends State<UserInfo>
     with SingleTickerProviderStateMixin {
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  final double _expandHeight = 200.0;
   final List<String> menuItem = ["更换背景"];
   final List<TabItem> _tabs = [
     TabItem(title: "个人信息", icon: Icons.info),
@@ -77,19 +76,11 @@ class UserInfoState extends State<UserInfo>
                 UserInfoItem(),
               ],
             ),
-            ListView(
-              children: <Widget>[],
-            ),
+            NewTrendStar(),
           ],
           controller: _controller,
         ),
       ),
     );
-  }
-
-  void _select(int index) async {
-    Navigator.of(context).push(MaterialPageRoute(
-        builder: (BuildContext context) =>
-            SelectPicture(index == 0 ? "选择背景" : "选择头像")));
   }
 }

@@ -55,6 +55,7 @@ flutter:
   - assets/images/person.png
   - assets/images/clear.png
   - assets/images/user_background.jpeg
+  - assets/images/favorites.png
 
   # 新趋向图片素材
   - assets/images/new_trend/ai.jpeg

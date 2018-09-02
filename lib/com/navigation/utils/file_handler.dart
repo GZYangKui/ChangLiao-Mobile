@@ -136,7 +136,18 @@ void deleteCollects(String title) async {
   }
 }
 
-///
+Future<List<NewTrendModel>> loadCollects({String type}) async {
+  List<NewTrendModel> list = [];
+  var data = await application.dataBases.rawQuery(constants.loadCollect);
+  data.forEach((element) {
+    NewTrendModel model = NewTrendModel(element["title"], element["url"],
+        element["cnbrief"], element["cnbrief"]);
+    list.add(model);
+  });
+  return list;
+}
+
+/*///
 /// 更新用户信息
 /// @item 参数 userName/sign/mail/phone/website
 ///
@@ -144,7 +155,7 @@ Future<String> _loadInfo(String item) async {
   String sql = "SELECT $item FROM user WHERE userId ='${handler.userId}'";
   await application.dataBases.rawQuery(sql);
   return null;
-}
+}*/
 
 ///
 /// 更新/写入app设置选项

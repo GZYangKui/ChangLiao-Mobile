@@ -66,3 +66,4 @@ const String insertCollect =
 const String selectCollect = ""
     "SELECT title FROM collects WHERE title=?";
 const String deleteCollect = "DELETE FROM collects WHERE title = ?";
+const String loadCollect = "SELECT*FROM collects";
