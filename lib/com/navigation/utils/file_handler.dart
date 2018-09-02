@@ -12,6 +12,7 @@ import 'package:flutter_app/com/navigation/utils/application.dart'
     as application;
 import 'package:sqflite/sqflite.dart';
 import 'package:flutter_app/com/navigation/utils/constant.dart' as constants;
+import 'package:flutter/material.dart';
 
 ///
 ///
@@ -42,6 +43,47 @@ Future readConfig() async {
     application.settings["primaryColor"] = config["primaryColor"];
   if (config["voiceSwitch"] != null)
     application.settings["voiceSwitch"] = config["voiceSwitch"];
+}
+
+///
+/// 加载app所需图片素材
+///
+Future loadImageFile() async {
+  application.images["user"] = Image.asset(
+    "assets/images/user.png",
+    width: 30.0,
+    height: 30.0,
+  );
+  application.images["password"] = Image.asset(
+    "assets/images/password.png",
+    width: 30.0,
+    height: 30.0,
+  );
+  application.images["head"] = Image.asset(
+    "assets/images/head.png",
+    width: 30.0,
+    height: 30.0,
+  );
+  application.images["sender"] = Image.asset(
+    "assets/images/sender.png",
+    width: 100.0,
+    height: 100.0,
+  );
+  application.images["receiver"] = Image.asset(
+    "assets/images/receiver.png",
+    width: 100.0,
+    height: 100.0,
+  );
+  application.images["clear"] = Image.asset(
+    "assets/images/clear.png",
+    width: 40.0,
+    height: 40.0,
+  );
+  application.images["user_background"] = Image.asset(
+    "assets/images/user_background.jpeg",
+    fit: BoxFit.cover,
+  );
+  application.images["favorite"] = Image.asset("assets/images/favorites.png");
 }
 
 ///
@@ -103,10 +145,16 @@ void addUser(String userId, String password) async {
 ///
 Future insertCollect(NewTrendModel model, String type) async {
   var result = await application.dataBases
-      .rawQuery(constants.selectCollect, [model.title]);
+      .rawQuery(constants.selectCollect, [model.title, handler.userId]);
   if (result.length == 0) {
-    await application.dataBases.execute(constants.insertCollect,
-        [model.title, model.url, model.enbrief, model.cnbrief, type]);
+    await application.dataBases.execute(constants.insertCollect, [
+      model.title,
+      model.url,
+      model.enbrief,
+      model.cnbrief,
+      type,
+      handler.userId
+    ]);
     showToast("收藏成功!");
   } else
     showToast("数据已经存在了!");
@@ -116,8 +164,8 @@ Future insertCollect(NewTrendModel model, String type) async {
 ///查询某一条记录是否存在
 ///
 Future<bool> selectCollects(String title) async {
-  var result =
-      await application.dataBases.rawQuery(constants.selectCollect, [title]);
+  var result = await application.dataBases
+      .rawQuery(constants.selectCollect, [title, handler.userId]);
   if (result.length > 0) return true;
 
   return false;
@@ -126,19 +174,21 @@ Future<bool> selectCollects(String title) async {
 ///
 ///删除某一条收藏数据
 ///
-void deleteCollects(String title) async {
-  var result =
-      await application.dataBases.rawDelete(constants.deleteCollect, [title]);
+Future<int> deleteCollects(String title) async {
+  var result = await application.dataBases
+      .rawDelete(constants.deleteCollect, [title, handler.userId]);
   if (result > 0) {
     showToast("移除成功！");
   } else {
     showToast("移除失败！");
   }
+  return result;
 }
 
 Future<List<NewTrendModel>> loadCollects({String type}) async {
   List<NewTrendModel> list = [];
-  var data = await application.dataBases.rawQuery(constants.loadCollect);
+  var data = await application.dataBases
+      .rawQuery(constants.loadCollect, [handler.userId]);
   data.forEach((element) {
     NewTrendModel model = NewTrendModel(element["title"], element["url"],
         element["cnbrief"], element["cnbrief"]);

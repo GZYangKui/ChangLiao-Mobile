@@ -26,6 +26,9 @@ List<Map<String, dynamic>> counts = [];
 /// 当前app设置信息
 Map<String, String> settings = {};
 
+/// 缓存app所需的图片资源
+Map<String, Image> images = {};
+
 ///
 /// 根据传过来的用户名查找密码
 ///

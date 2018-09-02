@@ -3,6 +3,8 @@ import 'dart:ui' as ui;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/com/navigation/utils/constant.dart' as constants;
+import 'package:flutter_app/com/navigation/utils/application.dart'
+    as application;
 
 ///
 ///
@@ -33,11 +35,7 @@ class ChartMessageItemState extends State<ChartMessageItem> {
       children: <Widget>[
         CircleAvatar(
           backgroundColor: Colors.grey,
-          child: Image.asset(
-            "assets/images/sender.png",
-            width: 100.0,
-            height: 100.0,
-          ),
+          child: application.images["sender"],
         ),
         Container(
           foregroundDecoration: ShapeDecoration(
@@ -97,11 +95,7 @@ class ChartMessageItemState extends State<ChartMessageItem> {
         ),
         CircleAvatar(
           backgroundColor: Colors.grey,
-          child: Image.asset(
-            "assets/images/receiver.png",
-            width: 100.0,
-            height: 100.0,
-          ),
+          child: application.images["receiver"],
         ),
       ],
     );

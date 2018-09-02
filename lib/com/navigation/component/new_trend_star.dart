@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/com/navigation/models/new_trend_model.dart';
@@ -12,7 +14,7 @@ class NewTrendStar extends StatefulWidget {
 
 class _NewTrendStarState extends State<NewTrendStar>
     with TickerProviderStateMixin {
-  final List<String> menuItems = ["详情", "移除"];
+  final List<String> menuItems = ["移除"];
   List<NewTrendModel> items = [];
   AnimationController _controller;
   Animation<double> _drawerContentsOpacity;
@@ -32,46 +34,80 @@ class _NewTrendStarState extends State<NewTrendStar>
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemBuilder: (BuildContext context, int index) => Column(
-            children: items.map((item) {
-              return FadeTransition(
-                opacity: _drawerContentsOpacity,
-                child: ListTile(
-                  leading: CircleAvatar(
-                    backgroundImage: AssetImage("assets/images/favorites.png"),
+    return RefreshIndicator(
+      child: ListView.builder(
+        itemBuilder: (BuildContext context, int index) => FadeTransition(
+              opacity: _drawerContentsOpacity,
+              child: Column(
+                children: <Widget>[
+                  ListTile(
+                    leading: CircleAvatar(
+                      backgroundImage:
+                          AssetImage("assets/images/favorites.png"),
+                    ),
+                    title: Text(items[index].title),
+                    trailing: PopupMenuButton(
+                        onSelected: (value) {
+                          _removeItem(value);
+                        },
+                        itemBuilder: (BuildContext context) =>
+                            menuItems.map((value) {
+                              return PopupMenuItem<String>(
+                                value: items[index].title,
+                                child: Text(value),
+                              );
+                            }).toList()),
+                    onTap: () {
+                      Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  WebViewStateful(
+                                    url: items[index].url,
+                                  ),
+                            ),
+                          );
+                    },
                   ),
-                  title: Text(item.title),
-                  trailing: PopupMenuButton(
-                      onSelected: (value) {
-                        print(value);
-                      },
-                      itemBuilder: (BuildContext context) =>
-                          menuItems.map((value) {
-                            return PopupMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList()),
-                  onTap: () {
-                    Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (BuildContext context) => WebViewStateful(
-                                  url: item.url,
-                                ),
-                          ),
-                        );
-                  },
-                ),
-              );
-            }).toList(),
-          ),
-      itemCount: items.length,
+                  Divider(
+                    height: 3.0,
+                  ),
+                ],
+              ),
+            ),
+        itemCount: items.length,
+      ),
+      onRefresh: () async {
+        return await _loadData();
+      },
     );
   }
 
-  void _loadData() async {
+  Future<Null> _loadData() async {
+    if (items.length > 0) items.clear();
     items = await fileHandler.loadCollects();
     this.setState(() {});
+    return TickerFuture.complete();
+  }
+
+  void _removeItem(String title) async {
+    var result = await fileHandler.deleteCollects(title);
+    if (result > 0) {
+      int index = 0;
+      items.forEach((model) {
+        if (model.title == title) {
+          return;
+        }
+        index++;
+      });
+      this.setState(() {
+        items.removeAt(index);
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    items.clear();
   }
 }

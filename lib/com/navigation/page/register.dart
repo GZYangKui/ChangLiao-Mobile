@@ -4,6 +4,8 @@ import 'dart:convert';
 import 'package:flutter_app/com/navigation/utils/constant.dart' as constants;
 import 'package:flutter_app/com/navigation/utils/utils.dart';
 import 'package:http/http.dart';
+import 'package:flutter_app/com/navigation/utils/application.dart'
+    as application;
 
 class Register extends StatefulWidget {
   @override
@@ -59,8 +61,7 @@ class RegisterState extends State<Register> {
             padding: const EdgeInsets.all(8.0),
             child: Row(
               children: <Widget>[
-                Image.asset("assets/images/user.png",
-                    width: 30.0, height: 30.0),
+                application.images["user"],
                 Expanded(
                   child: TextField(
                     decoration: InputDecoration(labelText: "用户名"),
@@ -76,11 +77,7 @@ class RegisterState extends State<Register> {
             padding: const EdgeInsets.all(8.0),
             child: Row(
               children: <Widget>[
-                Image.asset(
-                  "assets/images/password.png",
-                  width: 30.0,
-                  height: 30.0,
-                ),
+                application.images["password"],
                 Expanded(
                   child: TextField(
                     obscureText: true,
@@ -97,11 +94,7 @@ class RegisterState extends State<Register> {
             padding: const EdgeInsets.all(8.0),
             child: Row(
               children: <Widget>[
-                Image.asset(
-                  "assets/images/password.png",
-                  width: 30.0,
-                  height: 30.0,
-                ),
+                application.images["password"],
                 Expanded(
                   child: TextField(
                     obscureText: true,

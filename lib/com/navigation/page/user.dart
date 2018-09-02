@@ -155,18 +155,20 @@ class DrawerItemsState extends State<DrawerItems>
                           child: UserAccountsDrawerHeader(
                             accountName: Text(handler.userId),
                             accountEmail: const Text("752544765@qqcom"),
-                            currentAccountPicture: CircleAvatar(
-                              backgroundImage:
-                                  AssetImage("assets/images/head.png"),
+                            currentAccountPicture: GestureDetector(
+                              child: const CircleAvatar(
+                                backgroundImage:
+                                    AssetImage("assets/images/head.png"),
+                              ),
+                              onTapDown: (e) {
+                                Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (BuildContext context) =>
+                                            UserInfo(handler.userId),
+                                      ),
+                                    );
+                              },
                             ),
-                            onDetailsPressed: () {
-                              Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder: (BuildContext context) =>
-                                          UserInfo(handler.userId),
-                                    ),
-                                  );
-                            },
                             otherAccountsPictures: <Widget>[],
                           ),
                         ),

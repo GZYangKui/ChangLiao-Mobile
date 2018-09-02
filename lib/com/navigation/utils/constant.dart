@@ -60,10 +60,12 @@ const String createCollectionTable = "CREATE TABLE IF NOT EXISTS collects("
     "url VARCHAR NOT NULL,"
     "en_brief VARCHAR NOT NULL,"
     "cn_brief VARCHAR NOT NULL,"
-    "type VARCHAR NOT NULL)";
+    "type VARCHAR NOT NULL,"
+    "owner VARCHAR NOT NULL)";
 const String insertCollect =
-    "INSERT INTO collects(title,url,en_brief,cn_brief,type) VALUES(?,?,?,?,?)";
+    "INSERT INTO collects(title,url,en_brief,cn_brief,type,owner) VALUES(?,?,?,?,?,?)";
 const String selectCollect = ""
-    "SELECT title FROM collects WHERE title=?";
-const String deleteCollect = "DELETE FROM collects WHERE title = ?";
-const String loadCollect = "SELECT*FROM collects";
+    "SELECT title FROM collects WHERE title=? AND owner =?";
+const String deleteCollect =
+    "DELETE FROM collects WHERE title = ? AND owner= ?";
+const String loadCollect = "SELECT*FROM collects WHERE owner =?";

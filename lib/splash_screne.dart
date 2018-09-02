@@ -94,6 +94,7 @@ class _SplashScreenState extends State<SplashScreen> {
       await fileHandler.initDataBases();
       await fileHandler.obtainUsers();
       await fileHandler.readConfig();
+      await fileHandler.loadImageFile();
     } catch (e) {
       showToast("程序出错了,正在退出.....");
     }

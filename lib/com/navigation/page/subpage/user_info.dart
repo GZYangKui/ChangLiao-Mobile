@@ -53,10 +53,7 @@ class UserInfoState extends State<UserInfo>
           flexibleSpace: Stack(
             fit: StackFit.expand,
             children: <Widget>[
-              Image.asset(
-                "assets/images/user_background.jpeg",
-                fit: BoxFit.cover,
-              ),
+              application.images["user_background"],
             ],
           ),
           bottom: TabBar(

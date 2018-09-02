@@ -51,11 +51,11 @@ flutter:
   - assets/images/icon.png
   - assets/images/sender.png
   - assets/images/receiver.png
-  - assets/images/group.png
   - assets/images/person.png
   - assets/images/clear.png
   - assets/images/user_background.jpeg
   - assets/images/favorites.png
+  - assets/images/hachker.jpg
 
   # 新趋向图片素材
   - assets/images/new_trend/ai.jpeg

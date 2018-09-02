@@ -54,11 +54,7 @@ class ChartDialogState extends State<ChartDialog> {
           actions: <Widget>[
             Tooltip(
               child: IconButton(
-                icon: Image.asset(
-                  "assets/images/clear.png",
-                  width: 40.0,
-                  height: 40.0,
-                ),
+                icon: application.images["clear"],
                 onPressed: () {
                   _clearMessage();
                 },
