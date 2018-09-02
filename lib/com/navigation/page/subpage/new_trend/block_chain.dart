@@ -46,25 +46,21 @@ class BlockChainState extends State<BlockChain> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       body: RefreshIndicator(
-          child: RefreshIndicator(
-              child: ListView(
-                children: _model.map((block) {
-                  return FadeTransition(
-                    opacity: _drawerContentsOpacity,
-                    child: Column(
-                      children: <Widget>[
-                        BlockChainItem(block),
-                        Divider(
-                          height: 3.0,
-                        ),
-                      ],
+          child: ListView(
+            children: _model.map((block) {
+              return FadeTransition(
+                opacity: _drawerContentsOpacity,
+                child: Column(
+                  children: <Widget>[
+                    BlockChainItem(block),
+                    Divider(
+                      height: 3.0,
                     ),
-                  );
-                }).toList(),
-              ),
-              onRefresh: () async {
-                return await _refreshLoadData();
-              }),
+                  ],
+                ),
+              );
+            }).toList(),
+          ),
           onRefresh: () async {
             return await _refreshLoadData();
           }),
@@ -90,7 +86,10 @@ class BlockChainState extends State<BlockChain> with TickerProviderStateMixin {
   }
 
   Future<Null> _loadData(String date) async {
-    _model.clear();
+    this.setState(() {
+      _model.clear();
+    });
+    print(_model.length);
     get("http://www.dashixiuxiu.cn/query_cointelegraph?crawltime=$date")
         .then((response) {
       if (response.statusCode == 200) {
