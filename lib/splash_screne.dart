@@ -95,6 +95,7 @@ class _SplashScreenState extends State<SplashScreen> {
       await fileHandler.obtainUsers();
       await fileHandler.readConfig();
     } catch (e) {
+      print("错错了：$e");
       showToast("程序出错了,正在退出.....");
     }
     Navigator

@@ -63,28 +63,37 @@ Future initDataBases() async {
 ///
 ///查取用户列表
 ///
-Future obtainUsers() async {
-  application.dataBases.rawQuery(constants.obtainUser).then((value) {
+Future<Map<String, dynamic>> obtainUsers({String userId}) async {
+  await application.dataBases.rawQuery(constants.obtainUser).then((value) {
     application.counts = value;
   });
+  Map<String, dynamic> user = {};
+  if (userId != null) {
+    application.counts.forEach((count) {
+      if (count["userId"] == userId) {
+        user = count;
+        return user;
+      }
+    });
+  }
+  return user;
 }
 
 ///
 /// 添加用户到数据库
 ///
-void addUser(String userName, String password) async {
+void addUser(String userId, String password) async {
   bool isExist = false;
   application.counts.forEach((element) {
     element.forEach((key, value) {
-      if (value == userName && key == "userName") {
+      if (value == userId && key == "userId") {
         isExist = true;
         return;
       }
     });
   });
   if (!isExist) {
-    await application.dataBases
-        .rawQuery(constants.addUser, [userName, password]);
+    await application.dataBases.rawQuery(constants.addUser, [userId, password]);
     obtainUsers();
   }
 }
@@ -125,6 +134,16 @@ void deleteCollects(String title) async {
   } else {
     showToast("移除失败！");
   }
+}
+
+///
+/// 更新用户信息
+/// @item 参数 userName/sign/mail/phone/website
+///
+Future<String> _loadInfo(String item) async {
+  String sql = "SELECT $item FROM user WHERE userId ='${handler.userId}'";
+  await application.dataBases.rawQuery(sql);
+  return null;
 }
 
 ///

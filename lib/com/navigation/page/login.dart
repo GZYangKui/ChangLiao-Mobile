@@ -19,7 +19,7 @@ class Login extends StatefulWidget {
 class LoginState extends State<Login> with TickerProviderStateMixin {
   final GlobalKey<ScaffoldState> key = GlobalKey();
   final List<String> _counts = [];
-  String _userName = "";
+  String _userId = "";
   String _password = "";
   bool isSelect = true;
   bool isExpanded = true;
@@ -43,7 +43,8 @@ class LoginState extends State<Login> with TickerProviderStateMixin {
     handler.loginState = this;
     application.counts.forEach((count) {
       count.forEach((key, value) {
-        if (key == "userName") _counts.add(value);
+        print(key);
+        if (key == "userId") _counts.add(value);
       });
     });
     _controller = new AnimationController(
@@ -55,13 +56,13 @@ class LoginState extends State<Login> with TickerProviderStateMixin {
       curve: Curves.fastOutSlowIn,
     );
     if (_counts.length > 0) {
-      _userName = _counts[0];
-      _password = application.findUser(_userName);
+      _userId = _counts[0];
+      _password = application.findUser(_userId);
     }
   }
 
   void _vailUser() async {
-    if (_userName.trim() == "") {
+    if (_userId.trim() == "") {
       showToast("用户名不能为空!");
       return;
     }
@@ -72,11 +73,11 @@ class LoginState extends State<Login> with TickerProviderStateMixin {
     Map requestMes = {
       constants.type: constants.user,
       constants.subtype: constants.login,
-      constants.id: _userName,
+      constants.id: _userId,
       constants.password: md5(_password),
       constants.version: constants.currentVersion,
     };
-    handler.userName = _userName;
+    handler.userId = _userId;
     handler.password = _password;
     handler.initSocket(requestMes);
   }
@@ -127,7 +128,7 @@ class LoginState extends State<Login> with TickerProviderStateMixin {
                     decoration: InputDecoration(
                       labelText: "用户名",
                     ),
-                    onChanged: (value) => _userName = value,
+                    onChanged: (value) => _userId = value,
                   ),
                 ),
               ],
@@ -178,8 +179,8 @@ class LoginState extends State<Login> with TickerProviderStateMixin {
                     ),
                     onTapDown: (e) {
                       if (_counts.length > 0) {
-                        _userName = _counts[0];
-                        _password = application.findUser(_userName);
+                        _userId = _counts[0];
+                        _password = application.findUser(_userId);
                         this.setState(() {
                           isSelect = !isSelect;
                         });
@@ -247,7 +248,7 @@ class LoginState extends State<Login> with TickerProviderStateMixin {
                           child: Padding(
                             padding: EdgeInsets.only(left: 10.0),
                             child: Text(
-                              _userName,
+                              _userId,
                               style: TextStyle(fontSize: 20.0),
                             ),
                           ),
@@ -269,8 +270,8 @@ class LoginState extends State<Login> with TickerProviderStateMixin {
                               title: Text(countName),
                               onTap: () {
                                 this.setState(() {
-                                  _userName = countName;
-                                  _password = application.findUser(_userName);
+                                  _userId = countName;
+                                  _password = application.findUser(_userId);
                                 });
                               },
                             ),
@@ -286,7 +287,7 @@ class LoginState extends State<Login> with TickerProviderStateMixin {
                               onPressed: () {
                                 this.setState(() {
                                   isSelect = !isSelect;
-                                  _userName = "";
+                                  _userId = "";
                                   _password = "";
                                 });
                               },

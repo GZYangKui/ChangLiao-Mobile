@@ -45,11 +45,15 @@ const String status = "status";
 const String data = "data";
 const String createUserTable = "CREATE TABLE IF NOT EXISTS "
     "user(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
-    "userName VARCHAR NOT NULL,"
+    "userId VARCHAR NOT NULL,"
+    "userName VARCHAR,"
     "password VARCHAR NOT NULL,"
-    "brief VARCHAR)";
-const String obtainUser = "SELECT userName,password FROM user";
-const String addUser = " INSERT INTO user(userName,password) VALUES(?,?)";
+    "sign VARCHAR,"
+    "mail VARCHAR,"
+    "phone VARCHAR,"
+    "website VARCHAR)";
+const String obtainUser = "SELECT*FROM user";
+const String addUser = " INSERT INTO user(userId,password) VALUES(?,?)";
 const String createCollectionTable = "CREATE TABLE IF NOT EXISTS collects("
     "id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
     "title VARCHAR NOT NULL,"

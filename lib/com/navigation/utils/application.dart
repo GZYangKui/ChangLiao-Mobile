@@ -29,11 +29,11 @@ Map<String, String> settings = {};
 ///
 /// 根据传过来的用户名查找密码
 ///
-String findUser(String userName) {
+String findUser(String userId) {
   if (counts.length == 0) return null;
   String password;
   counts.forEach((count) {
-    if (count.containsValue(userName)) {
+    if (count.containsValue(userId)) {
       password = count["password"];
       return;
     }

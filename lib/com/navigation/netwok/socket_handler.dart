@@ -35,7 +35,7 @@ Map<String, List<String>> messageList = {};
 Map<String, int> lastNum = {};
 
 LoginState loginState;
-String userName;
+String userId;
 String password;
 State currentState;
 
@@ -120,7 +120,7 @@ void handlerUser(dynamic data) async {
     var status = data["login"];
     if (status) {
       showToast("登录成功");
-      fileHandler.addUser(userName, password);
+      fileHandler.addUser(userId, password);
       password = md5(password);
       var friends = data["friends"];
       if (friends.length > 0) {
@@ -252,6 +252,7 @@ void clearMessage(String id) async {
   if (messageList.containsKey(id)) {
     messageList.forEach((key, value) {
       if (key == id) {
+        value.clear();
         isRemove = true;
         return;
       }
@@ -269,7 +270,7 @@ void _offlineMessage() {
   Map requestMes = {
     constants.type: constants.user,
     constants.subtype: constants.offline,
-    constants.id: userName,
+    constants.id: userId,
     constants.password: password,
     constants.version: constants.currentVersion
   };

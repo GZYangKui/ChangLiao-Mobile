@@ -50,64 +50,38 @@ class UserInfoState extends State<UserInfo>
     return Theme(
       data: ThemeData(primaryColor: primaryColor),
       child: Scaffold(
-        body: CustomScrollView(
-          slivers: <Widget>[
-            SliverAppBar(
-              expandedHeight: _expandHeight,
-              actions: <Widget>[
-                PopupMenuButton<int>(
-                  itemBuilder: (BuildContext context) => [
-                        PopupMenuItem(
-                          value: 1,
-                          child: Text("更换背景"),
-                        ),
-                        PopupMenuItem(
-                          value: 2,
-                          child: Text("更换头像"),
-                        ),
-                      ],
-                  onSelected: (value) {
-                    _select(value);
-                  },
-                ),
+        appBar: AppBar(
+          flexibleSpace: Stack(
+            fit: StackFit.expand,
+            children: <Widget>[
+              Image.asset(
+                "assets/images/user_background.jpeg",
+                fit: BoxFit.cover,
+              ),
+            ],
+          ),
+          bottom: TabBar(
+            tabs: _tabs.map((tab) {
+              return Tab(
+                text: tab.title,
+                icon: Icon(tab.icon),
+              );
+            }).toList(),
+            controller: _controller,
+          ),
+        ),
+        body: TabBarView(
+          children: <Widget>[
+            ListView(
+              children: <Widget>[
+                UserInfoItem(),
               ],
-              flexibleSpace: Stack(
-                fit: StackFit.expand,
-                children: <Widget>[
-                  Image.asset(
-                    "assets/images/user_background.jpeg",
-                    fit: BoxFit.cover,
-                  ),
-                ],
-              ),
-              bottom: TabBar(
-                tabs: _tabs.map((tab) {
-                  return Tab(
-                    text: tab.title,
-                    icon: Icon(tab.icon),
-                  );
-                }).toList(),
-                controller: _controller,
-              ),
             ),
-            SliverFillViewport(
-              delegate: SliverChildBuilderDelegate(
-                (BuildContext context, int index) => TabBarView(
-                      children: <Widget>[
-                        ListView(
-                          children: <Widget>[
-                            UserInfoItem(),
-                          ],
-                        ),
-                        ListView(
-                          children: <Widget>[],
-                        ),
-                      ],
-                      controller: _controller,
-                    ),
-              ),
+            ListView(
+              children: <Widget>[],
             ),
           ],
+          controller: _controller,
         ),
       ),
     );

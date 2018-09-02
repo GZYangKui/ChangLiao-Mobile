@@ -1,5 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/com/navigation/netwok/socket_handler.dart'
+    as handler;
+import 'package:flutter_app/com/navigation/utils/file_handler.dart'
+    as fileHandler;
+
+Map<String, dynamic> userInfo = {};
 
 class UserInfoItem extends StatefulWidget {
   @override
@@ -7,12 +15,14 @@ class UserInfoItem extends StatefulWidget {
 }
 
 class _UserInfoState extends State<UserInfoItem> {
-  final List<String> _items = ["用户名", "个性签名", "个人邮箱", "手机号", "个人网址"];
+  final List<String> _items = ["账号", "用户名", "个性签名", "个人邮箱", "手机号", "个人网址"];
   final List<InfoItem> panels = [];
   @override
   void initState() {
     super.initState();
-    for (var item in _items) panels.add(InfoItem(title: item));
+    for (var item in _items)
+      panels.add(InfoItem(title: item, itemValue: _checkData(item)));
+    _loadInfo();
   }
 
   @override
@@ -28,17 +38,43 @@ class _UserInfoState extends State<UserInfoItem> {
       }).toList(),
     );
   }
+
+  void _loadInfo() async {
+    userInfo = await fileHandler.obtainUsers(userId: handler.userId);
+    this.setState(() {
+      userInfo = Map.from(userInfo);
+    });
+    print(userInfo);
+  }
+
+  String _checkData(String title) {
+    switch (title) {
+      case "用户名":
+        return userInfo["userName"] ?? handler.userId;
+      case "个性签名":
+        return userInfo["userName"] ?? "";
+      case "个人邮箱":
+        return userInfo["mail"] ?? "";
+      case "手机号":
+        return userInfo["phone"] ?? "";
+      case "个人网址":
+        return userInfo["website"] ?? "";
+      default:
+        return handler.userId;
+    }
+  }
 }
 
 class InfoItem {
   String title;
   bool isExpanded = false;
+  String itemValue;
 
-  InfoItem({@required this.title});
+  InfoItem({@required this.title, @required this.itemValue});
   ExpansionPanel get buildExpansionPanel => ExpansionPanel(
         headerBuilder: (BuildContext context, bool expanded) => ListTile(
               leading: Text(title),
-              title: Text("hello"),
+              title: Text(itemValue),
             ),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -49,7 +85,10 @@ class InfoItem {
                 children: <Widget>[
                   Text(
                     "修改：",
-                    style: TextStyle(fontSize: 18.0, color: Colors.red),
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      color: Colors.red,
+                    ),
                   ),
                   Expanded(
                     child: TextField(),
@@ -73,7 +112,7 @@ class InfoItem {
             ),
           ],
         ),
-        isExpanded: isExpanded,
+        isExpanded: title != "账号" ? isExpanded : false,
       );
   void onSave() async {}
 }

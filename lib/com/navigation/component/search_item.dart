@@ -71,7 +71,7 @@ class UserItemState extends State<UserItem> {
                       constants.type: constants.friend,
                       constants.subtype: constants.request,
                       constants.to: widget.userId,
-                      constants.message: "${handler.userName}请求添加你为好友!",
+                      constants.message: "${handler.userId}请求添加你为好友!",
                       constants.version: constants.currentVersion
                     };
                     handler.sendRequest(message);

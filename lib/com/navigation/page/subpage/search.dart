@@ -204,7 +204,7 @@ class SearchDialogState extends State<SearchDialog> {
       var message = {
         constants.type: constants.search,
         constants.subtype: constants.info,
-        constants.id: handler.userName,
+        constants.id: handler.userId,
         constants.password: handler.password,
         constants.keyword: _keyword,
         constants.version: constants.currentVersion

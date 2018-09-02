@@ -153,7 +153,7 @@ class DrawerItemsState extends State<DrawerItems>
                       children: <Widget>[
                         Expanded(
                           child: UserAccountsDrawerHeader(
-                            accountName: Text(handler.userName),
+                            accountName: Text(handler.userId),
                             accountEmail: const Text("752544765@qqcom"),
                             currentAccountPicture: CircleAvatar(
                               backgroundImage:
@@ -163,7 +163,7 @@ class DrawerItemsState extends State<DrawerItems>
                               Navigator.of(context).push(
                                     MaterialPageRoute(
                                       builder: (BuildContext context) =>
-                                          UserInfo(handler.userName),
+                                          UserInfo(handler.userId),
                                     ),
                                   );
                             },
