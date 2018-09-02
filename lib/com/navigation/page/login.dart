@@ -43,7 +43,6 @@ class LoginState extends State<Login> with TickerProviderStateMixin {
     handler.loginState = this;
     application.counts.forEach((count) {
       count.forEach((key, value) {
-        print(key);
         if (key == "userId") _counts.add(value);
       });
     });

@@ -95,11 +95,14 @@ class _SplashScreenState extends State<SplashScreen> {
       await fileHandler.obtainUsers();
       await fileHandler.readConfig();
       await fileHandler.loadImageFile();
+      Navigator
+          .of(context)
+          .push(MaterialPageRoute(builder: (BuildContext context) => Login()));
     } catch (e) {
       showToast("程序出错了,正在退出.....");
+      Timer(Duration(seconds: 2), () {
+        SystemNavigator.pop();
+      });
     }
-    Navigator
-        .of(context)
-        .push(MaterialPageRoute(builder: (BuildContext context) => Login()));
   }
 }
